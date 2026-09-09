@@ -7,11 +7,14 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "oxlint",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "predev": "node scripts/copy-dict.mjs",
+    "prebuild": "node scripts/copy-dict.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.124.0",
     "@base-ui/react": "^1.8.0",
+    "@sglkc/kuromoji": "^1.1.0",
     "class-variance-authority": "^0.7.1",
     "cn": "^0.2.6",
     "dexie": "^4.4.5",

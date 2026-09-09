@@ -9,7 +9,7 @@ import { buildConstraintPayload } from '@/lib/constraintPayload'
 import { db } from '@/lib/db'
 import { generateId } from '@/lib/id'
 import { comprehensionToFsrsRating, scheduleNext } from '@/lib/scheduler'
-import { generateSentence } from '@/lib/sentenceGenerator'
+import { generateValidatedSentence } from '@/lib/sentenceGenerator'
 import { getAllSentences, saveGeneratedSentence } from '@/lib/sentenceStore'
 import { generateSession } from '@/lib/sessionGenerator'
 import type { Comprehension, ConstraintPayload, RevealStage, Sentence } from '@/lib/types'
@@ -83,8 +83,16 @@ function App() {
     setGenError(null)
     try {
       const payload = await buildConstraintPayload()
-      const generated = await generateSentence(payload)
+      const result = await generateValidatedSentence(payload)
 
+      if (result.status === 'rejected') {
+        setGenError(
+          `Couldn't produce a sentence inside the novelty budget after ${result.attempts} attempts (kept introducing: ${result.newTokens.join('、')}). Sticking with the authored sentences.`,
+        )
+        return
+      }
+
+      const generated = result.sentence
       const sentence: Sentence = {
         id: generateId(),
         japanese: generated.japanese,

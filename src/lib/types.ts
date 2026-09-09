@@ -86,3 +86,8 @@ export type GeneratedSentence = {
   translation: string
   concepts: string[]
 }
+
+/** Outcome of the validate-and-regenerate loop (§4). */
+export type ValidatedGeneration =
+  | { status: 'valid'; sentence: GeneratedSentence; attempts: number; usedStrictPrompt: boolean }
+  | { status: 'rejected'; attempts: number; newTokens: string[] }

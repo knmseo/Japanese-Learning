@@ -27,3 +27,6 @@ dist-ssr
 .env
 .env.*
 !.env.example
+
+# kuromoji dictionary, copied from node_modules by scripts/copy-dict.mjs
+public/kuromoji-dict/
