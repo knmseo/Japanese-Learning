@@ -19,7 +19,7 @@ export function SentenceCard({ sentence, onAnswer }: Props) {
   const [autoplay, setAutoplay] = useState(true)
   const [speedIndex, setSpeedIndex] = useState(1)
   const [revealedAt] = useState(() => Date.now())
-  const { speak, isSpeaking } = useSpeech()
+  const { speak, autoplay: autoplaySpeak, isSpeaking } = useSpeech()
   const swipeStart = useRef<{ x: number; y: number } | null>(null)
 
   const speed = PLAYBACK_SPEEDS[speedIndex]
@@ -27,7 +27,7 @@ export function SentenceCard({ sentence, onAnswer }: Props) {
 
   useEffect(() => {
     setStageIndex(0)
-    if (autoplay) speak(sentence.japanese, speed)
+    if (autoplay) autoplaySpeak(sentence.japanese, speed)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sentence.id])
 

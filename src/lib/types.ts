@@ -40,3 +40,49 @@ export type SessionState = {
   currentIndex: number
   completedAt?: string
 }
+
+export type Setting = {
+  key: string
+  value: string
+}
+
+export type MasteryStatus = 'new' | 'developing' | 'known'
+
+/** Persisted shape (§3): status is a threshold read on masteryScore, computed on
+ * read via `deriveMasteryStatus`, never stored as independent state. */
+export type ConceptMasteryRecord = {
+  concept: string
+  masteryScore: number
+  encounters: number
+  lastSeenAt: string
+}
+
+/** Full read-side shape from §2, with `status` attached by the rollup layer. */
+export type ConceptMastery = ConceptMasteryRecord & {
+  status: MasteryStatus
+}
+
+/**
+ * Structured constraint payload handed to the LLM (§4). Built entirely by
+ * deterministic code from the learner model — the LLM never decides any of
+ * this, it only expresses what the scheduler already decided (§11).
+ */
+export type ConstraintPayload = {
+  conceptsDueForReview: string[]
+  developingConcepts: string[]
+  knownConcepts: string[]
+  noveltyBudget: {
+    maxNewConcepts: number
+    targetFamiliarRatio: number
+  }
+  desiredDifficulty: 'easy' | 'moderate' | 'challenging'
+  register: 'polite' | 'casual'
+  avoidRepeatingSentences: string[]
+}
+
+/** Structured JSON the LLM must return (§4). */
+export type GeneratedSentence = {
+  japanese: string
+  translation: string
+  concepts: string[]
+}
