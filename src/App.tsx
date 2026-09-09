@@ -3,6 +3,7 @@ import { SentenceCard } from '@/components/SentenceCard'
 import { Button } from '@/components/ui/button'
 import { sentenceBank } from '@/data/sentences'
 import { db } from '@/lib/db'
+import { generateId } from '@/lib/id'
 import { generateSession } from '@/lib/sessionGenerator'
 import { comprehensionToFsrsRating, scheduleNext } from '@/lib/scheduler'
 import type { Comprehension, RevealStage } from '@/lib/types'
@@ -35,7 +36,7 @@ function App() {
     const nextState = scheduleNext(sentenceId, currentState, fsrsRating, now)
 
     await db.reviewLogs.add({
-      id: crypto.randomUUID(),
+      id: generateId(),
       sentenceId,
       timestamp: now.toISOString(),
       revealStage,

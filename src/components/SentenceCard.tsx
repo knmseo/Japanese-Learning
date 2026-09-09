@@ -1,5 +1,5 @@
 import { Ear, FastForward, Play } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import type { Comprehension, RevealStage, Sentence } from '@/lib/types'
@@ -11,33 +11,57 @@ type Props = {
 }
 
 const PLAYBACK_SPEEDS = [0.75, 1, 1.25] as const
+const REVEAL_STAGES: RevealStage[] = ['audio_only', 'jp_text', 'translation']
+const SWIPE_THRESHOLD_PX = 50
 
 export function SentenceCard({ sentence, onAnswer }: Props) {
-  const [showJapanese, setShowJapanese] = useState(false)
-  const [showTranslation, setShowTranslation] = useState(false)
+  const [stageIndex, setStageIndex] = useState(0)
   const [autoplay, setAutoplay] = useState(true)
   const [speedIndex, setSpeedIndex] = useState(1)
   const [revealedAt] = useState(() => Date.now())
   const { speak, isSpeaking } = useSpeech()
+  const swipeStart = useRef<{ x: number; y: number } | null>(null)
 
   const speed = PLAYBACK_SPEEDS[speedIndex]
+  const revealStage = REVEAL_STAGES[stageIndex]
 
   useEffect(() => {
-    setShowJapanese(false)
-    setShowTranslation(false)
+    setStageIndex(0)
     if (autoplay) speak(sentence.japanese, speed)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sentence.id])
-
-  const revealStage: RevealStage = showTranslation ? 'translation' : showJapanese ? 'jp_text' : 'audio_only'
 
   const handleAnswer = (comprehension: Comprehension) => {
     onAnswer(comprehension, revealStage, Date.now() - revealedAt)
   }
 
+  const advanceStage = () => setStageIndex((i) => Math.min(i + 1, REVEAL_STAGES.length - 1))
+  const retreatStage = () => setStageIndex((i) => Math.max(i - 1, 0))
+
+  const handlePointerDown = (e: React.PointerEvent) => {
+    swipeStart.current = { x: e.clientX, y: e.clientY }
+  }
+
+  const handlePointerUp = (e: React.PointerEvent) => {
+    if (!swipeStart.current) return
+    const dx = e.clientX - swipeStart.current.x
+    const dy = e.clientY - swipeStart.current.y
+    swipeStart.current = null
+    if (Math.abs(dx) < SWIPE_THRESHOLD_PX || Math.abs(dx) < Math.abs(dy)) return
+    if (dx < 0) advanceStage()
+    else retreatStage()
+  }
+
   return (
     <div className="flex w-full max-w-md flex-col gap-6">
-      <Card>
+      <Card
+        onPointerDown={handlePointerDown}
+        onPointerUp={handlePointerUp}
+        onPointerCancel={() => {
+          swipeStart.current = null
+        }}
+        className="touch-pan-y select-none"
+      >
         <CardContent className="flex flex-col items-center gap-4 py-8">
           <Button
             size="lg"
@@ -70,25 +94,27 @@ export function SentenceCard({ sentence, onAnswer }: Props) {
           </div>
 
           <div className="mt-2 min-h-16 text-center">
-            {showJapanese ? (
+            {stageIndex >= 1 ? (
               <p className="font-medium text-2xl">{sentence.japanese}</p>
             ) : (
-              <Button variant="outline" onClick={() => setShowJapanese(true)}>
+              <Button variant="outline" onClick={advanceStage}>
                 Show Japanese text
               </Button>
             )}
           </div>
 
           <div className="min-h-12 text-center">
-            {showJapanese &&
-              (showTranslation ? (
+            {stageIndex >= 1 &&
+              (stageIndex >= 2 ? (
                 <p className="text-muted-foreground">{sentence.translation}</p>
               ) : (
-                <Button variant="ghost" size="sm" onClick={() => setShowTranslation(true)}>
+                <Button variant="ghost" size="sm" onClick={advanceStage}>
                   Show translation
                 </Button>
               ))}
           </div>
+
+          <p className="text-muted-foreground text-xs">Swipe left to reveal, right to hide</p>
         </CardContent>
       </Card>
 
