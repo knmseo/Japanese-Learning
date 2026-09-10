@@ -1,0 +1,85 @@
+{
+  "id": "travel",
+  "name": "Travel Basics",
+  "sentences": [
+    {
+      "id": "tv-1",
+      "japanese": "切符はどこで買えますか。",
+      "translation": "표는 어디에서 살 수 있어요?",
+      "concepts": ["切符", "は", "どこ", "買う", "〜えますか"],
+      "topic": "trains",
+      "segments": [
+        { "japanese": "切符", "korean": "표", "type": "vocabulary", "baseForm": "切符", "concepts": ["切符"] },
+        { "japanese": "は", "korean": "는", "type": "particle", "baseForm": "は", "concepts": ["は"] },
+        { "japanese": "どこで", "korean": "어디에서", "type": "construction", "baseForm": "どこ", "concepts": ["どこ", "で"] },
+        { "japanese": "買えますか。", "korean": "살 수 있어요?", "type": "construction", "baseForm": "買う", "concepts": ["買う", "〜えます"] }
+      ]
+    },
+    {
+      "id": "tv-2",
+      "japanese": "空港までお願いします。",
+      "translation": "공항까지 부탁합니다.",
+      "concepts": ["空港", "まで", "お願いする"],
+      "topic": "directions",
+      "segments": [
+        { "japanese": "空港", "korean": "공항", "type": "vocabulary", "baseForm": "空港", "concepts": ["空港"] },
+        { "japanese": "まで", "korean": "까지", "type": "particle", "baseForm": "まで", "concepts": ["まで"] },
+        { "japanese": "お願いします。", "korean": "부탁합니다", "type": "construction", "baseForm": "お願いする", "concepts": ["お願いする"] }
+      ]
+    },
+    {
+      "id": "tv-3",
+      "japanese": "英語のメニューはありますか。",
+      "translation": "영어 메뉴는 있어요?",
+      "concepts": ["英語", "メニュー", "ある", "〜ますか"],
+      "topic": "restaurants",
+      "segments": [
+        { "japanese": "英語", "korean": "영어", "type": "vocabulary", "baseForm": "英語", "concepts": ["英語"] },
+        { "japanese": "の", "korean": "의", "type": "particle", "baseForm": "の", "concepts": ["の"] },
+        { "japanese": "メニュー", "korean": "메뉴", "type": "vocabulary", "baseForm": "メニュー", "concepts": ["メニュー"] },
+        { "japanese": "は", "korean": "는", "type": "particle", "baseForm": "は", "concepts": ["は"] },
+        { "japanese": "ありますか。", "korean": "있어요?", "type": "construction", "baseForm": "ある", "concepts": ["ある", "〜ますか"] }
+      ]
+    },
+    {
+      "id": "tv-4",
+      "japanese": "写真を撮ってもいいですか。",
+      "translation": "사진을 찍어도 될까요?",
+      "concepts": ["写真", "撮る", "〜てもいい"],
+      "topic": "asking permission",
+      "segments": [
+        { "japanese": "写真", "korean": "사진", "type": "vocabulary", "baseForm": "写真", "concepts": ["写真"] },
+        { "japanese": "を", "korean": "을", "type": "particle", "baseForm": "を", "concepts": ["を"] },
+        { "japanese": "撮ってもいいですか。", "korean": "찍어도 될까요?", "type": "construction", "baseForm": "撮る", "concepts": ["撮る", "〜てもいい"] }
+      ]
+    },
+    {
+      "id": "tv-5",
+      "japanese": "もう少し安いのはありませんか。",
+      "translation": "조금 더 싼 건 없어요?",
+      "concepts": ["もう少し", "安い", "ある", "〜ませんか"],
+      "topic": "shopping",
+      "segments": [
+        { "japanese": "もう少し", "korean": "조금 더", "type": "vocabulary", "baseForm": "もう少し", "concepts": ["もう少し"] },
+        { "japanese": "安いの", "korean": "싼 건", "type": "construction", "baseForm": "安い", "concepts": ["安い", "の"] },
+        { "japanese": "は", "korean": "는", "type": "particle", "baseForm": "は", "concepts": ["は"] },
+        { "japanese": "ありませんか。", "korean": "없어요?", "type": "construction", "baseForm": "ある", "concepts": ["ある", "〜ませんか"] }
+      ]
+    },
+    {
+      "id": "tv-6",
+      "japanese": "この電車は新宿に止まりますか。",
+      "translation": "이 전철은 신주쿠에 서요?",
+      "concepts": ["この", "電車", "新宿", "に", "止まる"],
+      "topic": "trains",
+      "segments": [
+        { "japanese": "この", "korean": "이", "type": "vocabulary", "baseForm": "この", "concepts": ["この"] },
+        { "japanese": "電車", "korean": "전철", "type": "vocabulary", "baseForm": "電車", "concepts": ["電車"] },
+        { "japanese": "は", "korean": "은", "type": "particle", "baseForm": "は", "concepts": ["は"] },
+        { "japanese": "新宿", "korean": "신주쿠", "type": "vocabulary", "baseForm": "新宿", "concepts": ["新宿"] },
+        { "japanese": "に", "korean": "에", "type": "particle", "baseForm": "に", "concepts": ["に"] },
+        { "japanese": "止まりますか。", "korean": "서요?", "type": "construction", "baseForm": "止まる", "concepts": ["止まる"] }
+      ]
+    }
+  ]
+}

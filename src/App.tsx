@@ -1,20 +1,18 @@
-import { Loader2, Sparkles } from 'lucide-react'
 import { useEffect, useState } from 'react'
-import { ApiKeyCard } from '@/components/ApiKeyCard'
+import { BrowseScreen } from '@/components/BrowseScreen'
 import { DarkModeToggle } from '@/components/DarkModeToggle'
 import { SentenceCard } from '@/components/SentenceCard'
 import { TabBar } from '@/components/TabBar'
-import { getApiKey, setApiKey } from '@/lib/apiKey'
 import { updateConceptsForReview } from '@/lib/conceptMastery'
-import { buildConstraintPayload } from '@/lib/constraintPayload'
 import { db } from '@/lib/db'
+import { getDecks } from '@/lib/deckStore'
 import { generateId } from '@/lib/id'
 import { comprehensionToFsrsRating, scheduleNext } from '@/lib/scheduler'
-import { generateValidatedSentence } from '@/lib/sentenceGenerator'
-import { getAllSentences, saveGeneratedSentence } from '@/lib/sentenceStore'
+import { getAllSentences } from '@/lib/sentenceStore'
 import { generateSession } from '@/lib/sessionGenerator'
+import { describeStudySource, getStudySource, setStudySource } from '@/lib/studySource'
 import { getThemeVars } from '@/lib/theme'
-import type { Comprehension, ConstraintPayload, RevealStage, Sentence } from '@/lib/types'
+import type { Comprehension, RevealStage, Sentence, StudySource } from '@/lib/types'
 
 type Screen = 'study' | 'browse'
 
@@ -22,27 +20,45 @@ function App() {
   const [screen, setScreen] = useState<Screen>('study')
   const [sentenceIds, setSentenceIds] = useState<string[] | null>(null)
   const [sentenceById, setSentenceById] = useState<Map<string, Sentence>>(new Map())
+  const [sourceLabel, setSourceLabel] = useState<string>('')
+  const [studySource, setStudySourceState] = useState<StudySource | null>(null)
   const [index, setIndex] = useState(0)
   const [completed, setCompleted] = useState(false)
   const [dark, setDark] = useState(false)
-
-  const [isGenerating, setIsGenerating] = useState(false)
-  const [needsKey, setNeedsKey] = useState(false)
-  const [genError, setGenError] = useState<string | null>(null)
-  const [lastPayload, setLastPayload] = useState<ConstraintPayload | null>(null)
+  const [loadError, setLoadError] = useState<string | null>(null)
 
   useEffect(() => {
-    void startSession()
+    void (async () => {
+      // Fall back to the first deck the very first time, before anything has been picked.
+      const decks = await getDecks().catch(() => [])
+      const stored = await getStudySource()
+      const source = stored ?? (decks[0] ? ({ kind: 'deck', deckId: decks[0].id } as StudySource) : null)
+      await startSession(source)
+    })()
   }, [])
 
-  async function startSession() {
+  async function startSession(source: StudySource | null) {
     setCompleted(false)
     setIndex(0)
-    setGenError(null)
-    setLastPayload(null)
-    const sentences = await getAllSentences()
-    setSentenceById(new Map(sentences.map((s) => [s.id, s])))
-    setSentenceIds(await generateSession())
+    setLoadError(null)
+    setStudySourceState(source)
+    try {
+      const [sentences, decks] = await Promise.all([getAllSentences(), getDecks()])
+      setSentenceById(new Map(sentences.map((s) => [s.id, s])))
+      const deckName = source?.kind === 'deck' ? decks.find((d) => d.id === source.deckId)?.name : undefined
+      setSourceLabel(source ? describeStudySource(source, deckName) : '')
+      setSentenceIds(await generateSession(source))
+    } catch (e) {
+      setLoadError(e instanceof Error ? e.message : String(e))
+      setSentenceIds([])
+    }
+  }
+
+  /** Browse picked a deck or saved set — persist it, rebuild the session, and jump to Study. */
+  async function handleSelectSource(source: StudySource) {
+    await setStudySource(source)
+    setScreen('study')
+    await startSession(source)
   }
 
   async function handleAnswer(comprehension: Comprehension, revealStage: RevealStage, responseLatencyMs: number) {
@@ -67,9 +83,6 @@ function App() {
     await db.fsrsStates.put(nextState)
     if (sentence) await updateConceptsForReview(sentence.concepts, fsrsRating, now)
 
-    setGenError(null)
-    setLastPayload(null)
-
     if (index + 1 >= sentenceIds.length) {
       setCompleted(true)
     } else {
@@ -77,78 +90,36 @@ function App() {
     }
   }
 
-  /** Generates one sentence from the constraint payload and jumps straight to it. */
-  async function handleGenerate() {
-    if (!sentenceIds) return
-    if (!(await getApiKey())) {
-      setNeedsKey(true)
-      return
-    }
-
-    setIsGenerating(true)
-    setGenError(null)
-    try {
-      const payload = await buildConstraintPayload()
-      const result = await generateValidatedSentence(payload)
-
-      if (result.status === 'rejected') {
-        setGenError(
-          `Couldn't produce a sentence inside the novelty budget after ${result.attempts} attempts (kept introducing: ${result.newTokens.join('、')}). Sticking with the authored sentences.`,
-        )
-        return
-      }
-
-      const generated = result.sentence
-      const sentence: Sentence = {
-        id: generateId(),
-        japanese: generated.japanese,
-        translation: generated.translation,
-        concepts: generated.concepts,
-        source: 'generated',
-        createdAt: new Date().toISOString(),
-      }
-      await saveGeneratedSentence(sentence)
-
-      setSentenceById((prev) => new Map(prev).set(sentence.id, sentence))
-      setSentenceIds((prev) => {
-        if (!prev) return prev
-        const next = [...prev]
-        next.splice(index + 1, 0, sentence.id)
-        return next
-      })
-      setLastPayload(payload)
-      setCompleted(false)
-      setIndex(index + 1)
-    } catch (e) {
-      setGenError(e instanceof Error ? e.message : String(e))
-    } finally {
-      setIsGenerating(false)
-    }
-  }
-
   const themeVars = getThemeVars(dark)
+  const sentence = sentenceIds ? sentenceById.get(sentenceIds[index]) : undefined
 
-  let content: React.ReactNode
-  if (screen === 'browse') {
-    content = (
+  let studyContent: React.ReactNode
+  if (loadError) {
+    studyContent = (
       <div className="flex flex-1 items-center justify-center px-4 text-center">
-        <p className="text-[var(--color-neutral-500)] text-sm">Browse is coming in a future update.</p>
+        <p className="text-destructive text-sm">Couldn't load decks: {loadError}</p>
       </div>
     )
   } else if (!sentenceIds) {
-    content = (
+    studyContent = (
       <div className="flex flex-1 items-center justify-center">
         <p className="text-[var(--color-neutral-500)]">Loading session…</p>
       </div>
     )
   } else if (sentenceIds.length === 0) {
-    content = (
+    studyContent = (
       <div className="flex flex-1 items-center justify-center px-4 text-center">
-        <p className="text-[var(--color-neutral-500)]">No sentences available.</p>
+        <p className="text-[var(--color-neutral-500)]">
+          {studySource?.kind === 'saved-sentences'
+            ? "You haven't starred any sentences yet."
+            : studySource?.kind === 'saved-words'
+              ? "You haven't saved any words yet — tap one after revealing a translation."
+              : 'No sentences available.'}
+        </p>
       </div>
     )
   } else if (completed) {
-    content = (
+    studyContent = (
       <div className="flex flex-1 flex-col items-center justify-center gap-4 px-4 text-center">
         <svg width="46" height="46" viewBox="0 0 24 24" fill="none">
           <circle cx="12" cy="12" r="10" stroke="var(--color-accent-500)" strokeWidth="1.4" />
@@ -169,7 +140,7 @@ function App() {
         <p className="text-[var(--color-neutral-500)] text-sm">You reviewed {sentenceIds.length} sentences.</p>
         <button
           type="button"
-          onClick={() => void startSession()}
+          onClick={() => void startSession(studySource)}
           className="btn btn-secondary"
           style={{ borderColor: '#312F2A' }}
         >
@@ -177,63 +148,49 @@ function App() {
         </button>
       </div>
     )
-  } else {
-    const sentence = sentenceById.get(sentenceIds[index])
-    content = sentence ? (
-      <div className="flex flex-1 flex-col items-center gap-4 px-4 py-8">
-        <div className="flex w-full max-w-md items-center justify-between pt-2">
-          <p className="font-[var(--font-body)] text-[13px] text-[var(--color-neutral-500)] tabular-nums">
-            {index + 1} / {sentenceIds.length}
-            {sentence.source === 'generated' && <span className="ml-2 text-[11px]">generated</span>}
-          </p>
-          <div className="flex items-center gap-2">
-            <button
-              type="button"
-              onClick={() => void handleGenerate()}
-              disabled={isGenerating}
-              aria-label="Generate a new sentence"
-              className="flex size-8 items-center justify-center text-[var(--color-accent-700)] disabled:opacity-50"
+  } else if (sentence) {
+    studyContent = (
+      <div className="flex flex-1 flex-col items-center px-4 pt-6">
+        <div className="flex w-full max-w-md items-start justify-between">
+          <div>
+            <p
+              className="text-[11px] uppercase"
+              style={{ fontFamily: 'var(--font-heading)', fontWeight: 600, letterSpacing: '0.08em' }}
             >
-              {isGenerating ? <Loader2 className="size-4 animate-spin" /> : <Sparkles className="size-4" />}
-            </button>
-            <DarkModeToggle dark={dark} onToggle={() => setDark((d) => !d)} />
+              Study
+            </p>
+            <p className="mt-0.5 text-[12px] text-[var(--color-neutral-500)] tabular-nums">
+              {index + 1} / {sentenceIds.length}
+            </p>
           </div>
+          <DarkModeToggle dark={dark} onToggle={() => setDark((d) => !d)} />
         </div>
 
-        {needsKey && (
-          <ApiKeyCard
-            providerLabel="Anthropic"
-            envVarName="VITE_ANTHROPIC_API_KEY"
-            placeholder="sk-ant-..."
-            onSave={setApiKey}
-            onSaved={() => {
-              setNeedsKey(false)
-              void handleGenerate()
-            }}
-            onCancel={() => setNeedsKey(false)}
-          />
+        {sourceLabel && (
+          <p
+            className="mt-5 mb-3 text-[17px]"
+            style={{ fontFamily: 'var(--font-heading)', fontWeight: 600, color: 'var(--color-text)' }}
+          >
+            {sourceLabel}
+          </p>
         )}
-
-        {genError && <p className="w-full max-w-md text-destructive text-sm">{genError}</p>}
 
         <SentenceCard key={sentence.id} sentence={sentence} onAnswer={handleAnswer} />
-
-        {lastPayload && sentence.source === 'generated' && (
-          <details className="w-full max-w-md text-[11px] text-[var(--color-neutral-500)]">
-            <summary className="cursor-pointer">
-              Built from {lastPayload.knownConcepts.length} known · {lastPayload.developingConcepts.length} developing ·{' '}
-              {lastPayload.conceptsDueForReview.length} due
-            </summary>
-            <pre className="mt-2 overflow-x-auto">{JSON.stringify(lastPayload, null, 2)}</pre>
-          </details>
-        )}
       </div>
-    ) : null
+    )
   }
 
   return (
     <main className="classical flex min-h-svh flex-col bg-[var(--color-bg)] text-[var(--color-text)]" style={themeVars}>
-      {content}
+      {/* Both screens stay mounted — switching tabs must not reset reveal state or re-fire autoplay. */}
+      <div className={screen === 'study' ? 'flex flex-1 flex-col' : 'hidden'}>{studyContent}</div>
+      <div className={screen === 'browse' ? 'flex flex-1 flex-col' : 'hidden'}>
+        <BrowseScreen
+          visible={screen === 'browse'}
+          activeSource={studySource}
+          onSelectSource={(source) => void handleSelectSource(source)}
+        />
+      </div>
       <TabBar screen={screen} onChange={setScreen} />
     </main>
   )

@@ -1,11 +1,12 @@
-import { sentenceBank } from '@/data/sentences'
 import { db } from './db'
+import { loadDecks } from './deckStore'
 import type { Sentence } from './types'
 
-/** Authored bank (§13 phase 0) plus any LLM-generated sentences persisted since. */
+/** Sentences from the loaded deck JSON files (§16), plus any generated ones still persisted. */
 export async function getAllSentences(): Promise<Sentence[]> {
+  const { sentences } = await loadDecks()
   const generated = await db.generatedSentences.toArray()
-  return [...sentenceBank, ...generated]
+  return [...sentences, ...generated]
 }
 
 export async function saveGeneratedSentence(sentence: Sentence): Promise<void> {

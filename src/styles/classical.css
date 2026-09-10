@@ -232,3 +232,6 @@ textarea.input { min-height: 90px; resize: vertical; }
 /* — Nihongo Listen: playing-audio equalizer bars — */
 @keyframes eqbar { 0%, 100% { transform: scaleY(0.3); } 50% { transform: scaleY(1); } }
 
+
+/* — Nihongo Listen: hide the horizontal scrollbar on the Browse deck rail — */
+.classical .overflow-x-auto::-webkit-scrollbar { display: none; }

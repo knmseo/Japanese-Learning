@@ -31,15 +31,16 @@ Goal: pattern recognition. A learner should notice the same particles, vocabular
 You will receive:
 - the Japanese sentence and its natural Korean translation (already fixed — do not change either)
 - a morphological tokenization (surface form, part of speech, dictionary form for each token) — a starting point, not a contract. You may merge tokens into one chunk when a construction spans them.
-- \`canonicalGlosses\`: concepts that already have an established Korean gloss from previously segmented sentences. Reuse these exactly wherever that concept appears in this sentence — do not invent a different phrasing for something already settled.
+- \`canonicalGlosses\`: concepts that already have an established Korean gloss from previously segmented sentences. Prefer them, so the same concept looks familiar across sentences — BUT grammatical correctness always wins. Japanese particles in particular do not map to one fixed Korean particle: 友達に会う takes 를/을 (친구를 만나요), while 京都に行く takes 에 (교토에 가요). If the canonical gloss would be ungrammatical in THIS sentence, use the correct form instead of the canonical one. Never produce Korean that a native speaker wouldn't say just to stay consistent.
 
 Rules:
 - The segments' \`japanese\` fields, concatenated in order, must reconstruct the original sentence EXACTLY (same characters, same punctuation, nothing dropped or added).
 - Do NOT force one-token-to-one-token mapping. Group a construction into one chunk when splitting it would be meaningless or misleading (e.g. ～たい, ～てもいい, ～なければならない, ～てください, ～ことがある often belong grouped with the verb they attach to).
+- Punctuation (。、！？「」etc.) is NEVER its own segment and NEVER gets a translated Korean value (do not render "、" as "," or "。" as "."). Attach it to the end of the adjacent word's \`japanese\` field instead — e.g. "会います。" is one segment with korean "만나요", not two segments where "。" gets its own fabricated gloss.
 - Each segment's \`baseForm\` is the dictionary form of its core word (from the tokenization when possible).
 - Each segment's \`concepts\` lists every reusable concept it represents. A grouped construction like 行きたい should list BOTH the underlying verb and the grammar pattern, e.g. ["行く", "〜たい"] — never treat a construction as one opaque, unrelated vocabulary item when it decomposes into concepts the learner has seen elsewhere.
 - Particles are usually their own segment.
-- \`type\`: "vocabulary" for content words, "particle" for particles, "construction" for a grouped grammar pattern, "other" for punctuation/fillers.
+- \`type\`: "vocabulary" for content words, "particle" for particles, "construction" for a grouped grammar pattern, "other" only for a standalone filler that truly isn't part of an adjacent word.
 - Prefer segments that are meaningful, reusable, and recognizable when the learner encounters the same concept in a different sentence — not raw morphological boundaries for their own sake.`
 
 function buildUserContent(
@@ -126,11 +127,20 @@ export async function generateValidatedSegmentation(
   return { status: 'fallback', segments: tokenizerOnlyFallback(plainTokens), attempts: MAX_ATTEMPTS }
 }
 
-/** Cache-first entry point: returns the cached segmentation if one exists, else generates and caches it. */
-export async function getOrCreateSegmentation(japanese: string, naturalKorean: string): Promise<SentenceSegmentation> {
+/**
+ * Deck-prep entry point (§15): calls the LLM. Cache-first — returns the
+ * cached segmentation if one exists, else generates and caches it. This is
+ * the ONLY function in the app that may trigger a segmentation LLM call —
+ * it's meant to be run deliberately ("prepare deck"), never implicitly
+ * during study.
+ */
+export async function getOrCreateSegmentation(
+  japanese: string,
+  naturalKorean: string,
+): Promise<{ segmentation: SentenceSegmentation; wasCached: boolean }> {
   const hash = await hashText(japanese)
   const cached = await db.segmentations.get(hash)
-  if (cached) return cached
+  if (cached) return { segmentation: cached, wasCached: true }
 
   const result = await generateValidatedSegmentation(japanese, naturalKorean)
   const segmentation: SentenceSegmentation = {
@@ -142,5 +152,28 @@ export async function getOrCreateSegmentation(japanese: string, naturalKorean: s
     source: 'llm',
   }
   await db.segmentations.put(segmentation)
-  return segmentation
+  return { segmentation, wasCached: false }
+}
+
+/**
+ * Study-time read path: cache ONLY, never calls the LLM. If the sentence
+ * wasn't prepared ahead of time (§15's "prepare deck before studying"
+ * workflow), falls back to the whole sentence as one segment — the known,
+ * correct Korean translation is never blank, just not yet broken into
+ * learning chunks. A per-token split with blank Korean would look broken;
+ * this doesn't.
+ */
+export async function getSegmentationForDisplay(japanese: string, naturalKorean: string): Promise<SentenceSegmentation> {
+  const hash = await hashText(japanese)
+  const cached = await db.segmentations.get(hash)
+  if (cached) return cached
+
+  return {
+    hash,
+    japanese,
+    naturalKorean,
+    segments: [{ japanese, korean: naturalKorean, type: 'other', baseForm: japanese, concepts: [] }],
+    createdAt: new Date().toISOString(),
+    source: 'tokenizer-fallback',
+  }
 }

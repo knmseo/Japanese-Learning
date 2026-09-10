@@ -17,8 +17,13 @@ implementation decision isn't here, ask before inventing one.
 ## 1. Core Learning Loop
 
 - One sentence at a time, audio-first.
-- Order of reveal: audio → (optional) Japanese text → (optional) translation.
-  Translation hidden by default. Optional furigana on kanji.
+- Order of reveal: audio + Japanese text → (optional) translation. The
+  Japanese text is visible from the start (revised in the Phase 4 UI pass —
+  it is no longer separately gated); only the translation is revealed, and
+  it stays hidden by default. Optional furigana on kanji.
+- Because of that, `revealStage` (§2) in practice only takes `audio_only`
+  → `translation`; `jp_text` is retained in the type but no longer
+  reachable.
 - Audio autoplays on every new sentence (once the user has interacted with
   the page at least once — browsers block un-prompted audio); a small
   top-right icon replays it on demand. No visible autoplay toggle or
@@ -36,8 +41,7 @@ implementation decision isn't here, ask before inventing one.
   1. Easy — understood immediately
   2. Needed text — required the Japanese text and/or translation reveal
   3. Don't know — did not understand
-- `revealStage` (§2) still tracks how far the user revealed before
-  answering, independent of the comprehension response above.
+- Ratings appear only once the translation is revealed.
 
 ---
 
@@ -286,7 +290,8 @@ expresses what the scheduler already decided is needed.
 | 6 | Travel-topic weighting in the generation prompt |
 | — | UI pass (Phase 4-adjacent, see below): Classical design system restyle, dark mode, 3-way rating scale, tap-to-reveal, Study/Browse tab shell (Browse has no functionality yet), Korean as target language, segmented JP↔KO translation (§15) |
 | 7 (v2, deferred) | True PWA offline-first: service worker, background sync |
-| — (future) | Browse tab: deck library, stats, saved-segment review UI — tab shell exists (added in the UI pass above), no functionality yet |
+| — | Browse tab (§16): deck library, deck selection scoping the session, saved sentences + saved words as study sets |
+| — (future) | Browse: stats, manual segmentation correction, per-deck due counts |
 
 Phases 0–3 are strictly sequential (each depends on the prior phase's
 schema/interfaces). Phases 4 and 6 can often run in parallel with each
@@ -315,6 +320,21 @@ should notice the same particle, vocabulary, or construction recurring
 across sentences (日本 | に | 行きたい, 学校 | に | 行きたい) and infer the
 reusable structure. Consistency across sentences matters more than a
 perfectly literal translation of any one sentence.
+
+**The segmented breakdown IS the translation reveal — there is no separate
+whole-sentence gloss line shown above it.** Tapping through to the
+"translation" stage (§1) shows the aligned segments directly.
+
+**Generation happens at deck-prep time, never during study.** A "Prepare
+deck" action (Browse tab) walks every sentence and generates+caches its
+segmentation ahead of time — the explicit, deliberate, API-cost-incurring
+step, matching the intended workflow (prepared at home on a laptop, before
+a commute). The study screen only ever *reads* cached segmentation
+(`getSegmentationForDisplay`) — it never calls the LLM. If a sentence
+wasn't prepared ahead of time, study falls back instantly to a local
+tokenizer-only split (Korean glosses blank) rather than making the learner
+wait on a network call mid-session; that fallback is never persisted, so
+"Prepare deck" run later still fills it in properly.
 
 **Data model** — a `SentenceSegmentation`, cached by `hashText(japanese)`
 (same discipline as `audioCache`, §8: generate once, never regenerate):
@@ -380,3 +400,80 @@ Deterministic code owns caching, the consistency registry, and structural
 validation (reconstruction of the original string) — never the linguistic
 correctness of a segmentation, which is why validation failures fall back
 to a plain tokenizer split rather than being silently "fixed."
+
+---
+
+## 16. Decks as Static JSON — the App is a Reader, Not a Generator
+
+Revised during the Phase 4 UI pass. Decks are authored **outside the app**
+and shipped as static, pre-segmented JSON. At runtime the app never
+generates sentences and never generates segmentation — it only reads
+prepared content. This removes the API key from the study path entirely.
+
+**Layout** — `public/decks/index.json` is a manifest (a static host can't
+list a directory), pointing at one JSON file per deck:
+
+```json
+{ "decks": ["example.json"] }
+```
+
+Each deck file is self-contained, with segments inline per sentence:
+
+```json
+{
+  "id": "example",
+  "name": "Everyday Japanese",
+  "sentences": [
+    {
+      "id": "ex-1",
+      "japanese": "京都に行きたいです。",
+      "translation": "교토에 가고 싶어요.",
+      "concepts": ["京都", "に", "行く", "〜たい"],
+      "topic": "trains",
+      "segments": [ /* SentenceSegment[] — see §15 */ ]
+    }
+  ]
+}
+```
+
+On load, `src/lib/deckStore.ts` splits each entry into a `Sentence` record
+and seeds a `SentenceSegmentation` row keyed by `hashText(japanese)`, so
+§15's existing cache-first read path finds it unchanged. Existing rows are
+never overwritten, so a manual correction survives a redeploy.
+
+**Consequences:**
+- In-app sentence generation (the ✨ control) is removed from the study
+  screen. §4's generation pipeline and §15's segmentation pipeline remain in
+  the codebase as the basis for the external deck-prep tool, but nothing in
+  the runtime calls them.
+- "Prepare deck" is gone from Browse for the same reason.
+- Adding a deck = drop a JSON file in `public/decks/` and add it to the
+  manifest. No backend, so §2's client-side-only rule still holds.
+
+**Browse as a deck library.** Browse lists every deck from the manifest plus
+two saved sets, and selecting any of them sets the **study source**, which
+scopes the next session:
+
+```ts
+type StudySource =
+  | { kind: 'deck'; deckId: string }
+  | { kind: 'saved-sentences' }
+  | { kind: 'saved-words' }
+```
+
+Persisted in `settings` (via `src/lib/studySource.ts`) so the choice survives
+a reload; `generateSession(source)` resolves it to sentence ids before the
+existing due/unseen/not-due ordering runs. Saved words resolve back to their
+source sentences by hashing each sentence and matching `sourceSentenceHash`
+— the same `hashText` the segmentation cache is keyed by.
+
+Two ways to collect:
+- **Saved sentences** — a star on the study card (`savedSentences` table)
+- **Saved words** — tapping a segment after reveal (§15's `savedSegments`)
+
+Both are toggles, and both are bookmarks only: neither mutates mastery
+scores, which still come solely from ordinary sentence reviews (§3).
+An empty saved set is shown disabled rather than opening an empty session.
+
+**Still future:** stats, manual segmentation correction, and per-deck due
+counts in the deck cards.

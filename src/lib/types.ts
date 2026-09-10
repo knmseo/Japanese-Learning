@@ -7,6 +7,31 @@ export type Sentence = {
   topic?: string
   source: 'authored' | 'generated'
   createdAt: string
+  /** Which deck JSON this came from (§16). */
+  deckId?: string
+}
+
+/** A deck as authored outside the app and shipped as static JSON (§16). */
+export type Deck = {
+  id: string
+  name: string
+  sentenceCount: number
+}
+
+/** Shape of a sentence entry inside a deck JSON file — segments ship inline. */
+export type DeckFileSentence = {
+  id: string
+  japanese: string
+  translation: string
+  concepts: string[]
+  topic?: string
+  segments?: SentenceSegment[]
+}
+
+export type DeckFile = {
+  id: string
+  name: string
+  sentences: DeckFileSentence[]
 }
 
 export type RevealStage = 'audio_only' | 'jp_text' | 'translation'
@@ -126,7 +151,8 @@ export type SentenceSegmentation = {
   naturalKorean: string
   segments: SentenceSegment[]
   createdAt: string
-  source: 'llm' | 'manual'
+  /** 'tokenizer-fallback' is a display-time-only synthesis (getSegmentationForDisplay), never persisted. */
+  source: 'llm' | 'manual' | 'tokenizer-fallback'
 }
 
 /** Structured JSON the LLM must return for segmentation (§15). */
@@ -153,3 +179,22 @@ export type SavedSegment = {
   sourceSentenceHash: string
   savedAt: string
 }
+
+/** A whole sentence starred during study (§16), for later focused review. */
+export type SavedSentence = {
+  id: string
+  sentenceId: string
+  japanese: string
+  translation: string
+  savedAt: string
+}
+
+/**
+ * What the current study session draws from (§16). Persisted in `settings`
+ * so the choice survives a reload — Browse sets it, the session generator
+ * resolves it to sentence ids.
+ */
+export type StudySource =
+  | { kind: 'deck'; deckId: string }
+  | { kind: 'saved-sentences' }
+  | { kind: 'saved-words' }

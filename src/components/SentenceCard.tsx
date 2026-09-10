@@ -1,8 +1,7 @@
-import { Loader2, Volume2 } from 'lucide-react'
+import { Loader2, Star, Volume2 } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
-import { ApiKeyCard } from '@/components/ApiKeyCard'
 import { SegmentedTranslation } from '@/components/SegmentedTranslation'
-import { setOpenAiApiKey } from '@/lib/apiKey'
+import { isSentenceSaved, saveSentence, unsaveSentence } from '@/lib/savedSentences'
 import type { Comprehension, RevealStage, Sentence } from '@/lib/types'
 import { useAudioPlayer } from '@/lib/useAudioPlayer'
 
@@ -12,10 +11,10 @@ type Props = {
 }
 
 const STROKE = '#312F2A'
-const REVEAL_STAGES: RevealStage[] = ['audio_only', 'jp_text', 'translation']
+const SAVED_COLOR = '#E4572E'
 const SWIPE_THRESHOLD_PX = 50
 
-/** §1's three comprehension responses (revised from a 4-way scale — see SPEC.md). */
+/** §1's three comprehension responses. */
 const RATINGS: { comprehension: Comprehension; label: string; fullWidth?: boolean }[] = [
   { comprehension: 1, label: 'Easy' },
   { comprehension: 2, label: 'Needed text' },
@@ -23,35 +22,44 @@ const RATINGS: { comprehension: Comprehension; label: string; fullWidth?: boolea
 ]
 
 export function SentenceCard({ sentence, onAnswer }: Props) {
-  const [stageIndex, setStageIndex] = useState(0)
+  const [revealed, setRevealed] = useState(false)
   const [revealedAt] = useState(() => Date.now())
-  const [showKeyCard, setShowKeyCard] = useState(false)
-  const [audioError, setAudioError] = useState<string | null>(null)
-  const { play, autoplay: autoplayAudio, isLoading, isPlaying, lastEngine, fallbackReason } = useAudioPlayer()
+  const { play, autoplay: autoplayAudio, isLoading, isPlaying } = useAudioPlayer()
   const swipeStart = useRef<{ x: number; y: number } | null>(null)
+  const autoplayedFor = useRef<string | null>(null)
+  const [starred, setStarred] = useState(false)
 
-  const revealStage = REVEAL_STAGES[stageIndex]
-
+  // Autoplay on first look only; the icon is the manual replay. Guarded by a ref because
+  // StrictMode double-invokes effects in dev — without it the sentence fires twice, which
+  // is audibly masked by cancel() but really does spend two TTS requests.
   useEffect(() => {
-    setStageIndex(0)
-    setAudioError(null)
+    setRevealed(false)
+    void isSentenceSaved(sentence.id).then(setStarred)
+    if (autoplayedFor.current === sentence.id) return
+    autoplayedFor.current = sentence.id
     autoplayAudio(sentence.japanese)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sentence.id])
 
-  const handleAnswer = (comprehension: Comprehension) => {
-    onAnswer(comprehension, revealStage, Date.now() - revealedAt)
+  async function handleToggleStar() {
+    if (starred) {
+      await unsaveSentence(sentence.id)
+      setStarred(false)
+    } else {
+      await saveSentence(sentence)
+      setStarred(true)
+    }
   }
 
-  const advanceStage = () => setStageIndex((i) => Math.min(i + 1, REVEAL_STAGES.length - 1))
-  const retreatStage = () => setStageIndex((i) => Math.max(i - 1, 0))
+  const handleAnswer = (comprehension: Comprehension) => {
+    onAnswer(comprehension, revealed ? 'translation' : 'audio_only', Date.now() - revealedAt)
+  }
 
   async function handlePlay() {
-    setAudioError(null)
     try {
       await play(sentence.japanese)
-    } catch (e) {
-      setAudioError(e instanceof Error ? e.message : String(e))
+    } catch {
+      // Audio failures degrade silently to the browser voice — no error text on the card.
     }
   }
 
@@ -64,17 +72,16 @@ export function SentenceCard({ sentence, onAnswer }: Props) {
     const dx = e.clientX - swipeStart.current.x
     const dy = e.clientY - swipeStart.current.y
     swipeStart.current = null
+
     if (Math.abs(dx) < SWIPE_THRESHOLD_PX || Math.abs(dx) < Math.abs(dy)) {
-      // Not a swipe — treat as a plain tap-to-advance, same as tapping the reveal area.
-      if (stageIndex < REVEAL_STAGES.length - 1) advanceStage()
+      setRevealed(true) // plain tap reveals
       return
     }
-    if (dx < 0) advanceStage()
-    else retreatStage()
+    setRevealed(dx < 0) // swipe left reveals, right hides
   }
 
   return (
-    <div className="flex w-full max-w-md flex-col gap-4">
+    <div className="flex w-full max-w-md flex-col gap-3">
       <div
         onPointerDown={handlePointerDown}
         onPointerUp={handlePointerUp}
@@ -82,8 +89,31 @@ export function SentenceCard({ sentence, onAnswer }: Props) {
           swipeStart.current = null
         }}
         className="card relative touch-pan-y select-none"
-        style={{ padding: '20px 20px 22px', textAlign: 'center', borderColor: STROKE, borderBottomWidth: 6 }}
+        style={{
+          padding: '28px 20px 30px',
+          textAlign: 'center',
+          borderColor: STROKE,
+          borderBottomWidth: 6,
+          minHeight: 190,
+          justifyContent: 'center',
+        }}
       >
+        <button
+          type="button"
+          onClick={() => void handleToggleStar()}
+          onPointerDown={(e) => e.stopPropagation()}
+          onPointerUp={(e) => e.stopPropagation()}
+          aria-label={starred ? 'Remove from saved sentences' : 'Save this sentence'}
+          aria-pressed={starred}
+          className="absolute top-3.5 left-3.5 flex size-7 items-center justify-center rounded-full"
+        >
+          <Star
+            className="size-[18px]"
+            style={{ color: starred ? SAVED_COLOR : 'var(--color-neutral-400)' }}
+            fill={starred ? SAVED_COLOR : 'none'}
+          />
+        </button>
+
         <button
           type="button"
           onClick={() => void handlePlay()}
@@ -101,7 +131,10 @@ export function SentenceCard({ sentence, onAnswer }: Props) {
                 <span
                   key={delay}
                   className="h-full w-[2.5px] rounded-sm"
-                  style={{ background: 'var(--color-accent-500)', animation: `eqbar 0.55s ease-in-out infinite ${delay}s` }}
+                  style={{
+                    background: 'var(--color-accent-500)',
+                    animation: `eqbar 0.55s ease-in-out infinite ${delay}s`,
+                  }}
                 />
               ))}
             </span>
@@ -110,84 +143,39 @@ export function SentenceCard({ sentence, onAnswer }: Props) {
           )}
         </button>
 
-        {!showKeyCard && lastEngine === 'webspeech' && (
-          <button
-            type="button"
-            className="mt-1 text-[11px] underline-offset-2 hover:underline"
-            style={{ color: 'var(--color-neutral-500)' }}
-            onClick={() => setShowKeyCard(true)}
-            onPointerDown={(e) => e.stopPropagation()}
-            onPointerUp={(e) => e.stopPropagation()}
-          >
-            {fallbackReason === 'openai-failed'
-              ? 'Using free browser voice — OpenAI TTS failed (check your key/billing)'
-              : 'Using free browser voice — add an OpenAI key for higher quality'}
-          </button>
-        )}
+        <SegmentedTranslation
+          japanese={sentence.japanese}
+          naturalKorean={sentence.translation}
+          revealed={revealed}
+        />
+      </div>
 
-        {showKeyCard && (
-          <div
-            className="mt-3"
-            onPointerDown={(e) => e.stopPropagation()}
-            onPointerUp={(e) => e.stopPropagation()}
-          >
-            <ApiKeyCard
-              providerLabel="OpenAI"
-              envVarName="VITE_OPENAI_API_KEY"
-              placeholder="sk-..."
-              onSave={setOpenAiApiKey}
-              onSaved={() => {
-                setShowKeyCard(false)
-                void handlePlay()
-              }}
-              onCancel={() => setShowKeyCard(false)}
-            />
-          </div>
-        )}
+      {!revealed && (
+        <button
+          type="button"
+          onClick={() => setRevealed(true)}
+          className="mx-auto text-[15px]"
+          style={{ fontFamily: 'var(--font-heading)', fontWeight: 600, color: 'var(--color-neutral-500)' }}
+        >
+          Show translation
+        </button>
+      )}
 
-        {audioError && <p className="mt-2 text-destructive text-xs">{audioError}</p>}
-
-        <div className="mt-9 min-h-16">
-          {stageIndex >= 1 ? (
-            <p
-              style={{
-                fontFamily: '"Noto Sans JP", var(--font-body), sans-serif',
-                fontSize: 24,
-                lineHeight: 1.5,
-                color: 'var(--color-text)',
-              }}
+      {revealed && (
+        <div className="grid grid-cols-2 gap-2.5">
+          {RATINGS.map((r) => (
+            <button
+              key={r.comprehension}
+              type="button"
+              onClick={() => handleAnswer(r.comprehension)}
+              className={`btn btn-secondary ${r.fullWidth ? 'col-span-2' : ''}`}
+              style={{ borderColor: STROKE, borderBottomWidth: 3 }}
             >
-              {sentence.japanese}
-            </p>
-          ) : (
-            <p className="text-[13px]" style={{ color: 'var(--color-neutral-400)' }}>
-              Tap to reveal
-            </p>
-          )}
+              {r.label}
+            </button>
+          ))}
         </div>
-
-        <div className="mt-2 min-h-12">
-          {stageIndex >= 2 && <SegmentedTranslation japanese={sentence.japanese} naturalKorean={sentence.translation} />}
-        </div>
-
-        <p className="mt-3 text-[11px]" style={{ color: 'var(--color-neutral-400)' }}>
-          Tap or swipe to reveal
-        </p>
-      </div>
-
-      <div className="grid grid-cols-2 gap-2.5">
-        {RATINGS.map((r) => (
-          <button
-            key={r.comprehension}
-            type="button"
-            onClick={() => handleAnswer(r.comprehension)}
-            className={`btn btn-secondary ${r.fullWidth ? 'col-span-2' : ''}`}
-            style={{ borderColor: STROKE, borderBottomWidth: 3 }}
-          >
-            {r.label}
-          </button>
-        ))}
-      </div>
+      )}
     </div>
   )
 }

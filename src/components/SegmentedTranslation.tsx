@@ -1,31 +1,36 @@
-import { Check } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { hashText } from '@/lib/hash'
-import { isSegmentSaved, saveSegment } from '@/lib/savedSegments'
-import { getOrCreateSegmentation } from '@/lib/segmentationGenerator'
+import { isSegmentSaved, saveSegment, unsaveSegment } from '@/lib/savedSegments'
+import { getSegmentationForDisplay } from '@/lib/segmentationGenerator'
 import type { SentenceSegment } from '@/lib/types'
 
 type Props = {
   japanese: string
   naturalKorean: string
+  revealed: boolean
 }
 
+const SAVED_COLOR = '#E4572E'
+
 /**
- * §15: shows the natural Korean translation immediately (already known
- * synchronously — it's the sentence's own `translation` field), then loads
- * the aligned, tappable segment breakdown underneath once generated/cached.
- * Reveal is never blocked on the segmentation LLM call.
+ * §15/§16: the single Japanese renderer for the card. Segments are rendered
+ * from first paint with zero gap — Japanese has no spaces, so that reads as
+ * one plain sentence. Revealing transitions the gap and per-segment padding
+ * so the sentence visibly spreads into learning chunks, while the Korean
+ * glosses (whose height is always reserved, so nothing reflows) fade in
+ * beneath each chunk.
+ *
+ * Study-time only ever reads cached segmentation — decks ship pre-segmented,
+ * so this never calls an LLM.
  */
-export function SegmentedTranslation({ japanese, naturalKorean }: Props) {
+export function SegmentedTranslation({ japanese, naturalKorean, revealed }: Props) {
   const [segments, setSegments] = useState<SentenceSegment[] | null>(null)
-  const [error, setError] = useState<string | null>(null)
   const [savedKeys, setSavedKeys] = useState<Set<string>>(new Set())
   const [sourceHash, setSourceHash] = useState<string | null>(null)
 
   useEffect(() => {
     let cancelled = false
     setSegments(null)
-    setError(null)
     setSavedKeys(new Set())
 
     void (async () => {
@@ -33,19 +38,15 @@ export function SegmentedTranslation({ japanese, naturalKorean }: Props) {
       if (cancelled) return
       setSourceHash(hash)
 
-      try {
-        const segmentation = await getOrCreateSegmentation(japanese, naturalKorean)
-        if (cancelled) return
-        setSegments(segmentation.segments)
+      const segmentation = await getSegmentationForDisplay(japanese, naturalKorean)
+      if (cancelled) return
+      setSegments(segmentation.segments)
 
-        const savedFlags = await Promise.all(
-          segmentation.segments.map(async (s) => (await isSegmentSaved(s.japanese, hash)) ? s.japanese : null),
-        )
-        if (cancelled) return
-        setSavedKeys(new Set(savedFlags.filter((v): v is string => v !== null)))
-      } catch (e) {
-        if (!cancelled) setError(e instanceof Error ? e.message : String(e))
-      }
+      const savedFlags = await Promise.all(
+        segmentation.segments.map(async (s) => ((await isSegmentSaved(s.japanese, hash)) ? s.japanese : null)),
+      )
+      if (cancelled) return
+      setSavedKeys(new Set(savedFlags.filter((v): v is string => v !== null)))
     })()
 
     return () => {
@@ -54,56 +55,94 @@ export function SegmentedTranslation({ japanese, naturalKorean }: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [japanese])
 
+  /** Toggle — tapping a saved segment again deselects it. Only active once revealed. */
   async function handleTapSegment(segment: SentenceSegment) {
-    if (!sourceHash || savedKeys.has(segment.japanese)) return
-    await saveSegment(segment, sourceHash)
-    setSavedKeys((prev) => new Set(prev).add(segment.japanese))
+    if (!sourceHash || !revealed) return
+    const alreadySaved = savedKeys.has(segment.japanese)
+
+    if (alreadySaved) {
+      await unsaveSegment(segment.japanese, sourceHash)
+      setSavedKeys((prev) => {
+        const next = new Set(prev)
+        next.delete(segment.japanese)
+        return next
+      })
+    } else {
+      await saveSegment(segment, sourceHash)
+      setSavedKeys((prev) => new Set(prev).add(segment.japanese))
+    }
+  }
+
+  // Until segmentation resolves, render the plain sentence so the card never flashes empty.
+  if (!segments) {
+    return (
+      <p
+        style={{
+          fontFamily: '"Noto Sans JP", var(--font-body), sans-serif',
+          fontSize: 26,
+          lineHeight: 1.45,
+          color: 'var(--color-text)',
+        }}
+      >
+        {japanese}
+      </p>
+    )
   }
 
   return (
-    <div className="flex flex-col items-center gap-3">
-      <p className="text-[13px]" style={{ color: 'var(--color-neutral-500)' }}>
-        {naturalKorean}
-      </p>
-
-      {error && <p className="text-destructive text-[11px]">Couldn't break this sentence into segments: {error}</p>}
-
-      {!error && !segments && (
-        <p className="text-[11px]" style={{ color: 'var(--color-neutral-400)' }}>
-          Analyzing…
-        </p>
-      )}
-
-      {segments && segments.length > 0 && (
-        <div className="flex flex-wrap justify-center gap-x-1 gap-y-2">
-          {segments.map((segment, i) => {
-            const saved = savedKeys.has(segment.japanese)
-            return (
-              <button
-                key={`${segment.japanese}-${i}`}
-                type="button"
-                onClick={() => void handleTapSegment(segment)}
-                onPointerDown={(e) => e.stopPropagation()}
-                onPointerUp={(e) => e.stopPropagation()}
-                className="flex flex-col items-center rounded-sm px-1.5 py-1 transition-colors"
-                style={{ background: saved ? 'var(--color-accent-100)' : 'transparent' }}
-                aria-label={`Save ${segment.japanese}`}
-              >
-                <span
-                  className="flex items-center gap-1"
-                  style={{ fontFamily: '"Noto Sans JP", var(--font-body), sans-serif', fontSize: 16, color: 'var(--color-text)' }}
-                >
-                  {segment.japanese}
-                  {saved && <Check className="size-3" style={{ color: 'var(--color-accent-700)' }} />}
-                </span>
-                <span className="text-[12px]" style={{ color: 'var(--color-neutral-500)' }}>
-                  {segment.korean}
-                </span>
-              </button>
-            )
-          })}
-        </div>
-      )}
+    <div
+      className="flex flex-wrap items-start justify-center"
+      style={{ gap: revealed ? '10px' : '0px', transition: 'gap 320ms ease' }}
+    >
+      {segments.map((segment, i) => {
+        const saved = savedKeys.has(segment.japanese)
+        return (
+          <button
+            key={`${segment.japanese}-${i}`}
+            type="button"
+            onClick={() => void handleTapSegment(segment)}
+            onPointerDown={(e) => e.stopPropagation()}
+            onPointerUp={(e) => e.stopPropagation()}
+            disabled={!revealed}
+            className="flex select-none flex-col items-center rounded-sm"
+            style={{
+              paddingInline: revealed ? '5px' : '0px',
+              paddingBlock: revealed ? '2px' : '0px',
+              background: saved && revealed ? `color-mix(in srgb, ${SAVED_COLOR} 10%, transparent)` : 'transparent',
+              transition: 'padding 320ms ease, background-color 200ms ease',
+              cursor: revealed ? 'pointer' : 'default',
+              WebkitUserSelect: 'none',
+            }}
+            aria-label={saved ? `Deselect ${segment.japanese}` : `Save ${segment.japanese}`}
+            aria-pressed={saved}
+          >
+            <span
+              style={{
+                fontFamily: '"Noto Sans JP", var(--font-body), sans-serif',
+                fontSize: 26,
+                lineHeight: 1.45,
+                color: saved && revealed ? SAVED_COLOR : 'var(--color-text)',
+                transition: 'color 200ms ease',
+              }}
+            >
+              {segment.japanese}
+            </span>
+            {/* Height is always reserved so revealing never reflows the card — only opacity animates. */}
+            <span
+              className="text-[12px] leading-[18px]"
+              style={{
+                height: 18,
+                whiteSpace: 'nowrap',
+                opacity: revealed ? 1 : 0,
+                color: saved ? SAVED_COLOR : 'var(--color-neutral-500)',
+                transition: 'opacity 260ms ease, color 200ms ease',
+              }}
+            >
+              {segment.korean}
+            </span>
+          </button>
+        )
+      })}
     </div>
   )
 }

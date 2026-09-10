@@ -20,7 +20,26 @@ export async function saveSegment(segment: SentenceSegment, sourceSentenceHash: 
   return record
 }
 
-export async function isSegmentSaved(japanese: string, sourceSentenceHash: string): Promise<boolean> {
+async function findSavedSegment(japanese: string, sourceSentenceHash: string): Promise<SavedSegment | undefined> {
   const matches = await db.savedSegments.where('sourceSentenceHash').equals(sourceSentenceHash).toArray()
-  return matches.some((m) => m.japanese === japanese)
+  return matches.find((m) => m.japanese === japanese)
+}
+
+export async function isSegmentSaved(japanese: string, sourceSentenceHash: string): Promise<boolean> {
+  return (await findSavedSegment(japanese, sourceSentenceHash)) !== undefined
+}
+
+/** Tapping a saved segment again removes it — saving is a toggle, not one-way. */
+export async function unsaveSegment(japanese: string, sourceSentenceHash: string): Promise<void> {
+  const existing = await findSavedSegment(japanese, sourceSentenceHash)
+  if (existing) await db.savedSegments.delete(existing.id)
+}
+
+/** For a future Browse-tab review view (§15) — already-real storage, not a placeholder. */
+export async function listSavedSegments(): Promise<SavedSegment[]> {
+  return db.savedSegments.orderBy('savedAt').reverse().toArray()
+}
+
+export async function deleteSavedSegmentById(id: string): Promise<void> {
+  await db.savedSegments.delete(id)
 }

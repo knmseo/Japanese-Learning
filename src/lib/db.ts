@@ -4,6 +4,7 @@ import type {
   ConceptMasteryRecord,
   ReviewLog,
   SavedSegment,
+  SavedSentence,
   Sentence,
   SentenceFsrsState,
   SentenceSegmentation,
@@ -21,6 +22,7 @@ const db = new Dexie('japanese-acquisition') as Dexie & {
   audioCache: EntityTable<AudioCacheEntry, 'hash'>
   segmentations: EntityTable<SentenceSegmentation, 'hash'>
   savedSegments: EntityTable<SavedSegment, 'id'>
+  savedSentences: EntityTable<SavedSentence, 'id'>
 }
 
 db.version(1).stores({
@@ -65,6 +67,19 @@ db.version(5).stores({
   audioCache: 'hash, createdAt',
   segmentations: 'hash, createdAt',
   savedSegments: 'id, sourceSentenceHash, savedAt, *concepts',
+})
+
+db.version(6).stores({
+  reviewLogs: 'id, sentenceId, timestamp',
+  fsrsStates: 'sentenceId, dueAt',
+  sessions: 'id, startedAt',
+  conceptMastery: 'concept, lastSeenAt',
+  generatedSentences: 'id, createdAt',
+  settings: 'key',
+  audioCache: 'hash, createdAt',
+  segmentations: 'hash, createdAt',
+  savedSegments: 'id, sourceSentenceHash, savedAt, *concepts',
+  savedSentences: 'id, sentenceId, savedAt',
 })
 
 export { db }
