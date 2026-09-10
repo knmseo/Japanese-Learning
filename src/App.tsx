@@ -1,8 +1,9 @@
 import { Loader2, Sparkles } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { ApiKeyCard } from '@/components/ApiKeyCard'
+import { DarkModeToggle } from '@/components/DarkModeToggle'
 import { SentenceCard } from '@/components/SentenceCard'
-import { Button } from '@/components/ui/button'
+import { TabBar } from '@/components/TabBar'
 import { getApiKey, setApiKey } from '@/lib/apiKey'
 import { updateConceptsForReview } from '@/lib/conceptMastery'
 import { buildConstraintPayload } from '@/lib/constraintPayload'
@@ -12,13 +13,18 @@ import { comprehensionToFsrsRating, scheduleNext } from '@/lib/scheduler'
 import { generateValidatedSentence } from '@/lib/sentenceGenerator'
 import { getAllSentences, saveGeneratedSentence } from '@/lib/sentenceStore'
 import { generateSession } from '@/lib/sessionGenerator'
+import { getThemeVars } from '@/lib/theme'
 import type { Comprehension, ConstraintPayload, RevealStage, Sentence } from '@/lib/types'
 
+type Screen = 'study' | 'browse'
+
 function App() {
+  const [screen, setScreen] = useState<Screen>('study')
   const [sentenceIds, setSentenceIds] = useState<string[] | null>(null)
   const [sentenceById, setSentenceById] = useState<Map<string, Sentence>>(new Map())
   const [index, setIndex] = useState(0)
   const [completed, setCompleted] = useState(false)
+  const [dark, setDark] = useState(false)
 
   const [isGenerating, setIsGenerating] = useState(false)
   const [needsKey, setNeedsKey] = useState(false)
@@ -120,80 +126,115 @@ function App() {
     }
   }
 
-  if (!sentenceIds) {
-    return (
-      <main className="flex min-h-svh items-center justify-center">
-        <p className="text-muted-foreground">Loading session…</p>
-      </main>
-    )
-  }
+  const themeVars = getThemeVars(dark)
 
-  if (sentenceIds.length === 0) {
-    return (
-      <main className="flex min-h-svh items-center justify-center px-4 text-center">
-        <p className="text-muted-foreground">No sentences available.</p>
-      </main>
+  let content: React.ReactNode
+  if (screen === 'browse') {
+    content = (
+      <div className="flex flex-1 items-center justify-center px-4 text-center">
+        <p className="text-[var(--color-neutral-500)] text-sm">Browse is coming in a future update.</p>
+      </div>
     )
-  }
-
-  if (completed) {
-    return (
-      <main className="flex min-h-svh flex-col items-center justify-center gap-4 px-4 text-center">
-        <h1 className="font-semibold text-2xl">Session complete</h1>
-        <p className="text-muted-foreground">You reviewed {sentenceIds.length} sentences.</p>
-        <Button onClick={() => void startSession()}>Start another session</Button>
-      </main>
+  } else if (!sentenceIds) {
+    content = (
+      <div className="flex flex-1 items-center justify-center">
+        <p className="text-[var(--color-neutral-500)]">Loading session…</p>
+      </div>
     )
-  }
+  } else if (sentenceIds.length === 0) {
+    content = (
+      <div className="flex flex-1 items-center justify-center px-4 text-center">
+        <p className="text-[var(--color-neutral-500)]">No sentences available.</p>
+      </div>
+    )
+  } else if (completed) {
+    content = (
+      <div className="flex flex-1 flex-col items-center justify-center gap-4 px-4 text-center">
+        <svg width="46" height="46" viewBox="0 0 24 24" fill="none">
+          <circle cx="12" cy="12" r="10" stroke="var(--color-accent-500)" strokeWidth="1.4" />
+          <path
+            d="M8 12.5l2.7 2.7L16 9.5"
+            stroke="var(--color-accent-700)"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+        <h1
+          className="text-2xl"
+          style={{ fontFamily: 'var(--font-heading)', fontWeight: 'var(--font-heading-weight)' as unknown as number }}
+        >
+          Session complete
+        </h1>
+        <p className="text-[var(--color-neutral-500)] text-sm">You reviewed {sentenceIds.length} sentences.</p>
+        <button
+          type="button"
+          onClick={() => void startSession()}
+          className="btn btn-secondary"
+          style={{ borderColor: '#312F2A' }}
+        >
+          Start another session
+        </button>
+      </div>
+    )
+  } else {
+    const sentence = sentenceById.get(sentenceIds[index])
+    content = sentence ? (
+      <div className="flex flex-1 flex-col items-center gap-4 px-4 py-8">
+        <div className="flex w-full max-w-md items-center justify-between pt-2">
+          <p className="font-[var(--font-body)] text-[13px] text-[var(--color-neutral-500)] tabular-nums">
+            {index + 1} / {sentenceIds.length}
+            {sentence.source === 'generated' && <span className="ml-2 text-[11px]">generated</span>}
+          </p>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => void handleGenerate()}
+              disabled={isGenerating}
+              aria-label="Generate a new sentence"
+              className="flex size-8 items-center justify-center text-[var(--color-accent-700)] disabled:opacity-50"
+            >
+              {isGenerating ? <Loader2 className="size-4 animate-spin" /> : <Sparkles className="size-4" />}
+            </button>
+            <DarkModeToggle dark={dark} onToggle={() => setDark((d) => !d)} />
+          </div>
+        </div>
 
-  const sentence = sentenceById.get(sentenceIds[index])
-  if (!sentence) return null
+        {needsKey && (
+          <ApiKeyCard
+            providerLabel="Anthropic"
+            envVarName="VITE_ANTHROPIC_API_KEY"
+            placeholder="sk-ant-..."
+            onSave={setApiKey}
+            onSaved={() => {
+              setNeedsKey(false)
+              void handleGenerate()
+            }}
+            onCancel={() => setNeedsKey(false)}
+          />
+        )}
+
+        {genError && <p className="w-full max-w-md text-destructive text-sm">{genError}</p>}
+
+        <SentenceCard key={sentence.id} sentence={sentence} onAnswer={handleAnswer} />
+
+        {lastPayload && sentence.source === 'generated' && (
+          <details className="w-full max-w-md text-[11px] text-[var(--color-neutral-500)]">
+            <summary className="cursor-pointer">
+              Built from {lastPayload.knownConcepts.length} known · {lastPayload.developingConcepts.length} developing ·{' '}
+              {lastPayload.conceptsDueForReview.length} due
+            </summary>
+            <pre className="mt-2 overflow-x-auto">{JSON.stringify(lastPayload, null, 2)}</pre>
+          </details>
+        )}
+      </div>
+    ) : null
+  }
 
   return (
-    <main className="flex min-h-svh flex-col items-center justify-center gap-4 px-4 py-8">
-      <div className="flex w-full max-w-md items-center justify-between">
-        <p className="text-muted-foreground text-sm">
-          {index + 1} / {sentenceIds.length}
-          {sentence.source === 'generated' && <span className="ml-2 text-xs">generated</span>}
-        </p>
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={() => void handleGenerate()}
-          disabled={isGenerating}
-          aria-label="Generate a new sentence"
-        >
-          {isGenerating ? <Loader2 className="size-4 animate-spin" /> : <Sparkles className="size-4" />}
-        </Button>
-      </div>
-
-      {needsKey && (
-        <ApiKeyCard
-          providerLabel="Anthropic"
-          envVarName="VITE_ANTHROPIC_API_KEY"
-          placeholder="sk-ant-..."
-          onSave={setApiKey}
-          onSaved={() => {
-            setNeedsKey(false)
-            void handleGenerate()
-          }}
-          onCancel={() => setNeedsKey(false)}
-        />
-      )}
-
-      {genError && <p className="w-full max-w-md text-destructive text-sm">{genError}</p>}
-
-      <SentenceCard key={sentence.id} sentence={sentence} onAnswer={handleAnswer} />
-
-      {lastPayload && sentence.source === 'generated' && (
-        <details className="w-full max-w-md text-muted-foreground text-xs">
-          <summary className="cursor-pointer">
-            Built from {lastPayload.knownConcepts.length} known · {lastPayload.developingConcepts.length} developing ·{' '}
-            {lastPayload.conceptsDueForReview.length} due
-          </summary>
-          <pre className="mt-2 overflow-x-auto">{JSON.stringify(lastPayload, null, 2)}</pre>
-        </details>
-      )}
+    <main className="classical flex min-h-svh flex-col bg-[var(--color-bg)] text-[var(--color-text)]" style={themeVars}>
+      {content}
+      <TabBar screen={screen} onChange={setScreen} />
     </main>
   )
 }

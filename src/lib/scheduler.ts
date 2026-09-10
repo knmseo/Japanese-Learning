@@ -1,5 +1,5 @@
 import { type Card, createEmptyCard, fsrs, type Grade, State } from 'ts-fsrs'
-import type { FsrsRating, SentenceFsrsState } from './types'
+import type { Comprehension, FsrsRating, SentenceFsrsState } from './types'
 
 const f = fsrs()
 
@@ -21,7 +21,7 @@ function toFsrsCard(state: SentenceFsrsState | undefined): Card {
 
 /**
  * Advances a sentence's FSRS state from a comprehension-derived rating.
- * `rating` is already mapped from the 4-way comprehension response (§2).
+ * `rating` is already mapped from the 3-way comprehension response (§2).
  */
 export function scheduleNext(
   sentenceId: string,
@@ -43,15 +43,13 @@ export function scheduleNext(
 }
 
 /** Comprehension response (§1) → FSRS rating (§2). Deterministic mapping, not LLM-driven. */
-export function comprehensionToFsrsRating(comprehension: 1 | 2 | 3 | 4): FsrsRating {
+export function comprehensionToFsrsRating(comprehension: Comprehension): FsrsRating {
   switch (comprehension) {
     case 1:
-      return 4 // understood immediately -> Easy
+      return 4 // Easy -> Easy
     case 2:
-      return 3 // understood after JP text -> Good
+      return 2 // Needed text -> Hard
     case 3:
-      return 2 // understood after translation -> Hard
-    case 4:
-      return 1 // did not understand -> Again
+      return 1 // Don't know -> Again
   }
 }

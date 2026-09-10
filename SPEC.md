@@ -4,6 +4,11 @@ Personal-use, mobile-first PWA for Japanese acquisition via listening,
 sentence-based comprehension, and adaptive spaced repetition. Single user.
 Not social, not gamified — no leaderboards, XP, streak mechanics.
 
+**Target language: Korean.** The learner is a Korean speaker; all
+translations, glosses, and segment-level meanings are Korean, not English.
+(Phase 0 authored the sentence bank in English without confirming this —
+corrected during the Phase 4 UI pass. See §15.)
+
 This file is the source of truth for architecture and scope. If an
 implementation decision isn't here, ask before inventing one.
 
@@ -14,14 +19,25 @@ implementation decision isn't here, ask before inventing one.
 - One sentence at a time, audio-first.
 - Order of reveal: audio → (optional) Japanese text → (optional) translation.
   Translation hidden by default. Optional furigana on kanji.
-- Instant replay, autoplay toggle, playback-speed control.
-- Mobile-first controls: swipe or tap for next/previous. Built for
+- Audio autoplays on every new sentence (once the user has interacted with
+  the page at least once — browsers block un-prompted audio); a small
+  top-right icon replays it on demand. No visible autoplay toggle or
+  playback-speed control — revised during the Phase 4 UI pass to cut down
+  to one simple control, since the icon replaces both "replay" and
+  "autoplay is already always on."
+- Mobile-first controls: swipe or tap for next/previous, and a direct tap
+  to advance the staged reveal (in addition to swipe). Built for
   one-handed use while commuting.
-- After each sentence, four comprehension responses:
-  1. Understood immediately
-  2. Understood after seeing Japanese text
-  3. Understood after seeing translation
-  4. Did not understand
+- After each sentence, three comprehension responses (revised from the
+  original four-way scale during the Phase 4 UI pass — collapsing "needed
+  Japanese text" and "needed translation" into one "needed text" tier, since
+  in practice the two staged-reveal levels weren't scored differently enough
+  to justify separate buttons):
+  1. Easy — understood immediately
+  2. Needed text — required the Japanese text and/or translation reveal
+  3. Don't know — did not understand
+- `revealStage` (§2) still tracks how far the user revealed before
+  answering, independent of the comprehension response above.
 
 ---
 
@@ -43,7 +59,7 @@ type ReviewLog = {
   sentenceId: string;
   timestamp: string;
   revealStage: "audio_only" | "jp_text" | "translation"; // how far user needed to go
-  comprehension: 1 | 2 | 3 | 4;   // maps to the four buttons above
+  comprehension: 1 | 2 | 3;       // maps to the three buttons above (§1)
   responseLatencyMs: number;
   fsrsRating: 1 | 2 | 3 | 4;      // derived from comprehension, feeds ts-fsrs
 };
@@ -268,7 +284,9 @@ expresses what the scheduler already decided is needed.
 | 4 | TTS integration + hash-based audio caching |
 | 5 | Commute-bundle pre-download/offline-run/sync-on-reconnect |
 | 6 | Travel-topic weighting in the generation prompt |
+| — | UI pass (Phase 4-adjacent, see below): Classical design system restyle, dark mode, 3-way rating scale, tap-to-reveal, Study/Browse tab shell (Browse has no functionality yet), Korean as target language, segmented JP↔KO translation (§15) |
 | 7 (v2, deferred) | True PWA offline-first: service worker, background sync |
+| — (future) | Browse tab: deck library, stats, saved-segment review UI — tab shell exists (added in the UI pass above), no functionality yet |
 
 Phases 0–3 are strictly sequential (each depends on the prior phase's
 schema/interfaces). Phases 4 and 6 can often run in parallel with each
@@ -287,3 +305,78 @@ achievements, AI pronunciation scoring, speech-recognition grading, native
 iOS/Android app, elaborate cloud infrastructure, cross-device sync,
 separate listening/reading mastery axes, per-concept independent FSRS
 instances, full PWA offline-first (see §9).
+
+---
+
+## 15. Segmented Japanese ↔ Korean Translation
+
+Added during the Phase 4 UI pass. Purpose: pattern recognition — a learner
+should notice the same particle, vocabulary, or construction recurring
+across sentences (日本 | に | 行きたい, 学校 | に | 行きたい) and infer the
+reusable structure. Consistency across sentences matters more than a
+perfectly literal translation of any one sentence.
+
+**Data model** — a `SentenceSegmentation`, cached by `hashText(japanese)`
+(same discipline as `audioCache`, §8: generate once, never regenerate):
+
+```ts
+type SegmentType = "vocabulary" | "particle" | "construction" | "other";
+
+type SentenceSegment = {
+  japanese: string;
+  korean: string;
+  type: SegmentType;
+  baseForm: string;        // dictionary form
+  concepts: string[];      // a construction may map to more than one, e.g. 行きたい → [行く, 〜たい]
+};
+
+type SentenceSegmentation = {
+  hash: string;             // hashText(japanese)
+  japanese: string;
+  naturalKorean: string;
+  segments: SentenceSegment[];
+  createdAt: string;
+  source: "llm" | "manual"; // a manual correction is never re-generated over
+};
+```
+
+Tap-to-save on a segment writes a thin `SavedSegment` pointer (japanese,
+baseForm, concepts, sourceSentenceHash) — **not** a parallel scheduling
+system. Its concepts roll up through the existing ConceptMastery pipeline
+(§3) via ordinary sentence reviews; saving itself never mutates a mastery
+score, it's a bookmark for a future Browse-tab review view.
+
+**Generation pipeline:**
+
+```
+japanese sentence
+  → tokenize() (§12's morphological analyzer — input only, never the final
+    segment boundary; kuromoji splits ～たい, ～てもいい etc. into several
+    tokens with no signal they're one construction, so the LLM is grounded
+    by the tokenization but free to merge tokens into one segment)
+  → LLM receives { japanese, naturalKorean, tokens, canonicalGlosses }
+  → LLM proposes segments (structured output)
+  → deterministic structural validation: segments concatenate back to the
+    exact original sentence; no empty japanese/korean/baseForm
+  → bounded retry (2 attempts) on validation failure
+  → tokenizer-only fallback (one segment per token, Korean left blank) if
+    still invalid — never a dead end, always renders something
+  → cache in SentenceSegmentation, keyed by hash
+```
+
+**Consistency mechanism** (the hard part — an LLM called statelessly on the
+same word twice will not reliably repeat its own past choice without help):
+before generating, deterministic code looks up any concept in the current
+sentence that already has an established Korean gloss from a prior
+segmentation (`canonicalGlosses`, same "prior state becomes a prompt
+constraint" principle `buildConstraintPayload` already uses in §4) and
+tells the LLM to reuse it rather than invent a new phrasing. First-seen
+gloss wins; a `source: 'manual'` correction always overrides an LLM one.
+Cross-sentence drift is surfaced for manual review (a query grouping saved
+segments by `baseForm`), not auto-reconciled.
+
+**§11 boundary:** the LLM owns chunk-boundary judgment and Korean phrasing.
+Deterministic code owns caching, the consistency registry, and structural
+validation (reconstruction of the original string) — never the linguistic
+correctness of a segmentation, which is why validation failures fall back
+to a plain tokenizer split rather than being silently "fixed."

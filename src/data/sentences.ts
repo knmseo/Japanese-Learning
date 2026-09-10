@@ -4,7 +4,7 @@ export const sentenceBank: Sentence[] = [
   {
     id: 's1',
     japanese: '京都に行きたいです。',
-    translation: 'I want to go to Kyoto.',
+    translation: '교토에 가고 싶어요.',
     concepts: ['京都', 'に', '行く', '〜たい'],
     topic: 'trains',
     source: 'authored',
@@ -13,7 +13,7 @@ export const sentenceBank: Sentence[] = [
   {
     id: 's2',
     japanese: 'このコーヒーはおいしいです。',
-    translation: 'This coffee is delicious.',
+    translation: '이 커피는 맛있어요.',
     concepts: ['この', 'コーヒー', 'は', 'おいしい'],
     topic: 'restaurants',
     source: 'authored',
@@ -22,7 +22,7 @@ export const sentenceBank: Sentence[] = [
   {
     id: 's3',
     japanese: '駅はどこですか。',
-    translation: 'Where is the station?',
+    translation: '역은 어디예요?',
     concepts: ['駅', 'は', 'どこ', 'ですか'],
     topic: 'directions',
     source: 'authored',
@@ -31,7 +31,7 @@ export const sentenceBank: Sentence[] = [
   {
     id: 's4',
     japanese: '今日は天気がいいですね。',
-    translation: "The weather is nice today, isn't it.",
+    translation: '오늘은 날씨가 좋네요.',
     concepts: ['今日', 'は', '天気', 'いい', 'ですね'],
     topic: 'small talk',
     source: 'authored',
@@ -40,7 +40,7 @@ export const sentenceBank: Sentence[] = [
   {
     id: 's5',
     japanese: 'すみません、もう一度言ってください。',
-    translation: 'Excuse me, please say that again.',
+    translation: '죄송합니다, 다시 한번 말씀해 주세요.',
     concepts: ['すみません', 'もう一度', '言う', '〜てください'],
     topic: 'asking for clarification',
     source: 'authored',
@@ -49,7 +49,7 @@ export const sentenceBank: Sentence[] = [
   {
     id: 's6',
     japanese: 'ホテルの予約をしたいです。',
-    translation: 'I would like to make a hotel reservation.',
+    translation: '호텔 예약을 하고 싶어요.',
     concepts: ['ホテル', '予約', 'する', '〜たい'],
     topic: 'hotels',
     source: 'authored',
@@ -58,7 +58,7 @@ export const sentenceBank: Sentence[] = [
   {
     id: 's7',
     japanese: 'これはいくらですか。',
-    translation: 'How much is this?',
+    translation: '이것은 얼마예요?',
     concepts: ['これ', 'は', 'いくら', 'ですか'],
     topic: 'convenience stores',
     source: 'authored',
@@ -67,7 +67,7 @@ export const sentenceBank: Sentence[] = [
   {
     id: 's8',
     japanese: '明日、友達に会います。',
-    translation: 'I will meet a friend tomorrow.',
+    translation: '내일 친구를 만나요.',
     concepts: ['明日', '友達', 'に', '会う'],
     topic: 'meeting people',
     source: 'authored',
@@ -76,7 +76,7 @@ export const sentenceBank: Sentence[] = [
   {
     id: 's9',
     japanese: '電車は何時に出発しますか。',
-    translation: 'What time does the train depart?',
+    translation: '전철은 몇 시에 출발해요?',
     concepts: ['電車', '何時', 'に', '出発する'],
     topic: 'trains',
     source: 'authored',
@@ -85,7 +85,7 @@ export const sentenceBank: Sentence[] = [
   {
     id: 's10',
     japanese: 'このレストランはとても人気です。',
-    translation: 'This restaurant is very popular.',
+    translation: '이 레스토랑은 아주 인기가 많아요.',
     concepts: ['この', 'レストラン', 'とても', '人気'],
     topic: 'restaurants',
     source: 'authored',
@@ -94,7 +94,7 @@ export const sentenceBank: Sentence[] = [
   {
     id: 's11',
     japanese: '道に迷いました。助けてください。',
-    translation: 'I am lost. Please help me.',
+    translation: '길을 잃었어요. 도와주세요.',
     concepts: ['道', '迷う', '助ける', '〜てください'],
     topic: 'directions',
     source: 'authored',
@@ -103,7 +103,7 @@ export const sentenceBank: Sentence[] = [
   {
     id: 's12',
     japanese: 'チェックインは何時からですか。',
-    translation: 'What time does check-in start from?',
+    translation: '체크인은 몇 시부터예요?',
     concepts: ['チェックイン', '何時', 'から', 'ですか'],
     topic: 'hotels',
     source: 'authored',

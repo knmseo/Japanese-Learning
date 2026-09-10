@@ -1,3 +1,4 @@
+/** `translation` is Korean (the app's target language — see SPEC.md §1 note). */
 export type Sentence = {
   id: string
   japanese: string
@@ -10,7 +11,8 @@ export type Sentence = {
 
 export type RevealStage = 'audio_only' | 'jp_text' | 'translation'
 
-export type Comprehension = 1 | 2 | 3 | 4
+/** 1=Easy, 2=Needed text, 3=Don't know (§1, revised from a 4-way scale in the Phase 4 UI pass). */
+export type Comprehension = 1 | 2 | 3
 
 export type FsrsRating = 1 | 2 | 3 | 4
 
@@ -97,4 +99,57 @@ export type AudioCacheEntry = {
   hash: string
   audio: Blob
   createdAt: string
+}
+
+/** One learner-oriented aligned chunk within a segmented sentence (§15). */
+export type SegmentType = 'vocabulary' | 'particle' | 'construction' | 'other'
+
+export type SentenceSegment = {
+  japanese: string
+  korean: string
+  type: SegmentType
+  /** Dictionary/base form — how conjugated verbs are matched back to a concept. */
+  baseForm: string
+  /** Concepts this chunk represents; a construction can map to more than one (e.g. 行きたい → [行く, 〜たい]). */
+  concepts: string[]
+}
+
+/**
+ * A sentence's segmentation, cached by hashText(japanese) — same cache
+ * discipline as audioCache (§8): generate once, never regenerate. `source`
+ * distinguishes an LLM-produced segmentation from a human correction, which
+ * is never re-generated over.
+ */
+export type SentenceSegmentation = {
+  hash: string
+  japanese: string
+  naturalKorean: string
+  segments: SentenceSegment[]
+  createdAt: string
+  source: 'llm' | 'manual'
+}
+
+/** Structured JSON the LLM must return for segmentation (§15). */
+export type GeneratedSegmentation = {
+  segments: SentenceSegment[]
+}
+
+/** Outcome of the segmentation validate-and-regenerate loop (§15). */
+export type ValidatedSegmentation =
+  | { status: 'valid'; segments: SentenceSegment[]; attempts: number }
+  | { status: 'fallback'; segments: SentenceSegment[]; attempts: number }
+
+/**
+ * A learner tapped a segment to save it for later review — a thin pointer,
+ * not a parallel scheduling system. Its concepts roll up through the
+ * existing ConceptMastery pipeline (§3); saving itself never mutates
+ * mastery scores, only actual sentence reviews do.
+ */
+export type SavedSegment = {
+  id: string
+  japanese: string
+  baseForm: string
+  concepts: string[]
+  sourceSentenceHash: string
+  savedAt: string
 }

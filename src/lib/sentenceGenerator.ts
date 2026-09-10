@@ -12,13 +12,13 @@ const MAX_ATTEMPTS = 3
 
 const GeneratedSentenceSchema = z.object({
   japanese: z.string(),
-  translation: z.string(),
+  translation: z.string().describe('Natural Korean (한국어) translation of the sentence — not English.'),
   concepts: z.array(z.string()),
 })
 
-const SYSTEM_PROMPT = `You write single Japanese sentences for a learner's spaced-repetition app.
+const SYSTEM_PROMPT = `You write single Japanese sentences for a Korean-speaking learner's spaced-repetition app.
 
-You will receive a JSON constraint payload describing what the learner already knows and what needs reinforcement. That payload is the curriculum — it was decided by the app's scheduler, not by you. Your job is only to express it as one natural Japanese sentence.
+You will receive a JSON constraint payload describing what the learner already knows and what needs reinforcement. That payload is the curriculum — it was decided by the app's scheduler, not by you. Your job is only to express it as one natural Japanese sentence, plus its Korean translation.
 
 Rules:
 - Write exactly one sentence. Natural, idiomatic Japanese a native speaker would actually say.
@@ -26,6 +26,7 @@ Rules:
 - Respect the novelty budget: introduce at most \`noveltyBudget.maxNewConcepts\` concepts the learner has not met, and keep roughly \`noveltyBudget.targetFamiliarRatio\` of the sentence familiar.
 - Match the requested register and difficulty.
 - Do not reuse or lightly reword anything in \`avoidRepeatingSentences\`.
+- \`translation\` must be natural, idiomatic Korean (한국어) — never English. Match the Japanese sentence's politeness level (です/ます ↔ 해요체, plain form ↔ 반말).
 - Return the concepts your sentence actually uses (vocabulary and grammar points), as they appear in the payload's vocabulary where possible.`
 
 const STRICTER_SUFFIX = `
