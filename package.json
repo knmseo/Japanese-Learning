@@ -8,8 +8,10 @@
     "build": "tsc -b && vite build",
     "lint": "oxlint",
     "preview": "vite preview",
-    "predev": "node scripts/copy-dict.mjs",
-    "prebuild": "node scripts/copy-dict.mjs"
+    "predev": "node scripts/copy-dict.mjs && node scripts/decks.mjs sync",
+    "prebuild": "node scripts/copy-dict.mjs && node scripts/decks.mjs sync",
+    "decks:check": "node scripts/decks.mjs check",
+    "decks:sync": "node scripts/decks.mjs sync"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.124.0",

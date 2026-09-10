@@ -1,5 +1,5 @@
 import { BookMarked, ChevronRight, Tag } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { PressableButton } from '@/components/PressableButton'
 import { StatsScreen } from '@/components/StatsScreen'
 import { getDecks } from '@/lib/deckStore'
@@ -19,6 +19,12 @@ const RAIL_GAP = 12
 /** The second rail starts half a card further along, so the two rows never line
  * up into a grid — cards sit cropped at the frame edge instead. */
 const ROW_OFFSET = 74
+/** Vertical room a deck card needs below its box for the thick bottom edge and the
+ * press animation's travel — the deepest rest shadow is 4px (an active deck). */
+const CARD_PRESS_ROOM = 6
+
+type TabId = 'library' | 'stats'
+const TABS: TabId[] = ['library', 'stats']
 
 function isActive(active: StudySource | null, candidate: StudySource): boolean {
   if (!active) return false
@@ -34,7 +40,9 @@ function isActive(active: StudySource | null, candidate: StudySource): boolean {
  * scopes the next session.
  */
 export function BrowseScreen({ visible, activeSource, onSelectSource }: Props) {
-  const [tab, setTab] = useState<'library' | 'stats'>('library')
+  const [tab, setTab] = useState<TabId>('library')
+  const tabRefs = useRef<Record<TabId, HTMLButtonElement | null>>({ library: null, stats: null })
+  const [underline, setUnderline] = useState({ left: 0, width: 0 })
   const [decks, setDecks] = useState<Deck[]>([])
   const [savedSentenceCount, setSavedSentenceCount] = useState(0)
   const [savedWordCount, setSavedWordCount] = useState(0)
@@ -47,6 +55,15 @@ export function BrowseScreen({ visible, activeSource, onSelectSource }: Props) {
       setSavedWordCount(await db.savedSegments.count())
     })()
   }, [visible])
+
+  /** Track the active tab button's position so the shared underline can slide to it.
+   * Re-measured when the tab changes or the pane becomes visible (widths are 0
+   * while the pane is off-screen, so the first measure has to wait for that). */
+  useEffect(() => {
+    const el = tabRefs.current[tab]
+    if (!el) return
+    setUnderline({ left: el.offsetLeft, width: el.offsetWidth })
+  }, [tab, visible])
 
   /** Deal the decks alternately into two rows. Each row scrolls on its own, and
    * any number of decks distributes evenly — nothing is capped at six. */
@@ -116,12 +133,18 @@ export function BrowseScreen({ visible, activeSource, onSelectSource }: Props) {
         Browse
       </p>
 
-      <div className="mt-4 flex gap-5" style={{ borderBottom: '1px solid var(--color-divider)' }}>
-        {(['library', 'stats'] as const).map((t) => {
+      {/* One shared underline that slides between the tabs, rather than a border
+          per button that would pop on/off. Measured from the buttons themselves so
+          it matches each label's real width. */}
+      <div className="relative mt-4 flex gap-5" style={{ borderBottom: '1px solid var(--color-divider)' }}>
+        {TABS.map((t) => {
           const active = tab === t
           return (
             <button
               key={t}
+              ref={(el) => {
+                tabRefs.current[t] = el
+              }}
               type="button"
               onClick={() => setTab(t)}
               aria-current={active}
@@ -130,15 +153,29 @@ export function BrowseScreen({ visible, activeSource, onSelectSource }: Props) {
                 fontFamily: 'var(--font-heading)',
                 fontWeight: 600,
                 color: active ? 'var(--color-text)' : 'var(--color-neutral-500)',
-                borderBottom: `2px solid ${active ? STROKE : 'transparent'}`,
-                marginBottom: -1,
-                transition: 'color 260ms var(--ease-damped)',
+                transition: 'color 320ms var(--ease-damped)',
               }}
             >
               {t}
             </button>
           )
         })}
+        <span
+          aria-hidden
+          className="absolute bottom-0 block"
+          style={{
+            height: 2,
+            background: STROKE,
+            width: underline.width,
+            transform: `translateX(${underline.left}px)`,
+            marginBottom: -1,
+            // Same damped curve as the rest of the app, so the underline overshoots
+            // slightly and settles rather than sliding linearly into place.
+            transition: 'transform 420ms var(--ease-damped), width 420ms var(--ease-damped)',
+            // Nothing to show until the first measurement lands.
+            opacity: underline.width ? 1 : 0,
+          }}
+        />
       </div>
 
       {tab === 'stats' ? (
@@ -158,7 +195,9 @@ export function BrowseScreen({ visible, activeSource, onSelectSource }: Props) {
           No decks found in public/decks/.
         </p>
       ) : (
-        <div className="-mx-4 flex flex-col" style={{ gap: RAIL_GAP }}>
+        // Outer gap is reduced by CARD_PRESS_ROOM because each rail now carries that
+        // much bottom padding — keeps the visual gap between rows unchanged.
+        <div className="-mx-4 flex flex-col" style={{ gap: RAIL_GAP - CARD_PRESS_ROOM }}>
           {rows.map((row, rowIndex) =>
             row.length === 0 ? null : (
               <div
@@ -167,10 +206,18 @@ export function BrowseScreen({ visible, activeSource, onSelectSource }: Props) {
                 style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' } as React.CSSProperties}
               >
                 {/* pr keeps the last card from butting against the frame; the second
-                    row's extra leading pad staggers it against the first. */}
+                    row's extra leading pad staggers it against the first.
+                    paddingBottom is what keeps the card's thick bottom edge visible:
+                    `overflow-x: auto` forces overflow-y to `auto` too, so this rail
+                    clips vertically — without the padding the shadow slab is cut off
+                    at rest, and the press animation's downward travel with it. */}
                 <div
                   className="flex w-max pr-4"
-                  style={{ gap: RAIL_GAP, paddingLeft: rowIndex === 1 ? ROW_OFFSET : 16 }}
+                  style={{
+                    gap: RAIL_GAP,
+                    paddingLeft: rowIndex === 1 ? ROW_OFFSET : 16,
+                    paddingBottom: CARD_PRESS_ROOM,
+                  }}
                 >
                   {row.map(deckCard)}
                 </div>

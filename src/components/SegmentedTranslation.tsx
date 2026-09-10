@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { hashText } from '@/lib/hash'
 import { isSegmentSaved, saveSegment, unsaveSegment } from '@/lib/savedSegments'
 import { getSegmentationForDisplay } from '@/lib/segmentationGenerator'
+import { playSound } from '@/lib/sounds'
 import type { SentenceSegment } from '@/lib/types'
 
 type Props = {
@@ -61,6 +62,7 @@ export function SegmentedTranslation({ japanese, naturalKorean, revealed }: Prop
     const alreadySaved = savedKeys.has(segment.japanese)
 
     if (alreadySaved) {
+      playSound('wordUnsave')
       await unsaveSegment(segment.japanese, sourceHash)
       setSavedKeys((prev) => {
         const next = new Set(prev)
@@ -68,6 +70,7 @@ export function SegmentedTranslation({ japanese, naturalKorean, revealed }: Prop
         return next
       })
     } else {
+      playSound('wordSave')
       await saveSegment(segment, sourceHash)
       setSavedKeys((prev) => new Set(prev).add(segment.japanese))
     }

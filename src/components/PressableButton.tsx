@@ -1,5 +1,6 @@
 import type { ButtonHTMLAttributes, CSSProperties, ReactNode } from 'react'
 import { pressStyle } from '@/lib/press'
+import { playSound } from '@/lib/sounds'
 import { usePressed } from '@/lib/usePressed'
 
 type Props = ButtonHTMLAttributes<HTMLButtonElement> & {
@@ -28,6 +29,13 @@ export function PressableButton({ restDepthPx, shadowColor, pressedBackground, s
     <button
       {...rest}
       {...handlers}
+      // On press-down, not on click — the sound should land with the finger,
+      // matching the moment the button visually sinks.
+      onPointerDown={(e) => {
+        if (!rest.disabled) playSound('press')
+        handlers.onPointerDown()
+        rest.onPointerDown?.(e)
+      }}
       style={{ ...style, ...pressStyle(pressed, restDepthPx, shadowColor, pressedBackground) } as CSSProperties}
     >
       {children}

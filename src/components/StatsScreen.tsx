@@ -1,3 +1,4 @@
+import NumberFlow from '@number-flow/react'
 import { useEffect, useState } from 'react'
 import {
   HeatmapCells,
@@ -22,15 +23,29 @@ const LEVEL_COLORS: readonly [string, string, string, string, string] = [
   'var(--color-accent-700)',
 ]
 
-function StatFigure({ value, label }: { value: number | string; label: string }) {
+/**
+ * A stat figure that counts up on first paint. Motion UI's own stats-counters
+ * component is behind a Motion+ membership, so this is the same idea built from
+ * what's already in the project: NumberFlow (installed alongside the heatmap)
+ * for the ticking tabular figures, staggered so they don't all fire at once.
+ */
+function StatFigure({ value, label, delayMs }: { value: number; label: string; delayMs: number }) {
+  const [shown, setShown] = useState(0)
+
+  useEffect(() => {
+    const id = setTimeout(() => setShown(value), delayMs)
+    return () => clearTimeout(id)
+  }, [value, delayMs])
+
   return (
     <div className="flex flex-col gap-0.5">
-      <span
-        className="text-[22px] tabular-nums"
+      <NumberFlow
+        className="text-[22px]"
         style={{ fontFamily: 'var(--font-heading)', fontWeight: 600, lineHeight: 1.1 }}
-      >
-        {value}
-      </span>
+        value={shown}
+        transformTiming={{ duration: 900, easing: 'cubic-bezier(0.34, 1.2, 0.64, 1)' }}
+        willChange
+      />
       <span className="text-[11px]" style={{ color: 'var(--color-neutral-500)' }}>
         {label}
       </span>
@@ -115,11 +130,18 @@ export function StatsScreen({ visible }: Props) {
 
       <div className="mt-7 border-t pt-5" style={{ borderColor: 'var(--color-divider)' }}>
         <div className="grid grid-cols-2 gap-y-5">
-          <StatFigure value={stats.totalReviews} label={stats.totalReviews === 1 ? 'Sentence reviewed' : 'Sentences reviewed'} />
-          <StatFigure value={stats.activeDays} label={stats.activeDays === 1 ? 'Day studied' : 'Days studied'} />
-          <StatFigure value={stats.conceptsEncountered} label="Concepts seen" />
-          <StatFigure value={stats.conceptsKnown} label="Concepts known" />
-          <StatFigure value={stats.minutesStudied} label={stats.minutesStudied === 1 ? 'Minute studied' : 'Minutes studied'} />
+          <StatFigure
+            value={stats.totalReviews}
+            label={stats.totalReviews === 1 ? 'Sentence reviewed' : 'Sentences reviewed'}
+            delayMs={0}
+          />
+          <StatFigure
+            value={stats.activeDays}
+            label={stats.activeDays === 1 ? 'Day studied' : 'Days studied'}
+            delayMs={80}
+          />
+          <StatFigure value={stats.conceptsEncountered} label="Concepts seen" delayMs={160} />
+          <StatFigure value={stats.conceptsKnown} label="Concepts known" delayMs={240} />
         </div>
       </div>
 

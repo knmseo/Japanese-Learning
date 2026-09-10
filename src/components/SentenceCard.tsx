@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 import { PressableButton } from '@/components/PressableButton'
 import { SegmentedTranslation } from '@/components/SegmentedTranslation'
 import { isSentenceSaved, saveSentence, unsaveSentence } from '@/lib/savedSentences'
+import { playSound } from '@/lib/sounds'
 import type { Comprehension, RevealStage, Sentence } from '@/lib/types'
 import { useAudioPlayer } from '@/lib/useAudioPlayer'
 
@@ -45,9 +46,11 @@ export function SentenceCard({ sentence, viewOnly, onAnswer, onSwipe }: Props) {
 
   async function handleToggleStar() {
     if (starred) {
+      playSound('sentenceUnsave')
       await unsaveSentence(sentence.id)
       setStarred(false)
     } else {
+      playSound('sentenceSave')
       await saveSentence(sentence)
       setStarred(true)
     }
@@ -76,7 +79,12 @@ export function SentenceCard({ sentence, viewOnly, onAnswer, onSwipe }: Props) {
     swipeStart.current = null
 
     if (Math.abs(dx) < SWIPE_THRESHOLD_PX || Math.abs(dx) < Math.abs(dy)) {
-      setRevealed((prev) => !prev) // plain tap toggles — tapping the open card again closes it
+      // Plain tap toggles — tapping the open card again closes it. The sound is
+      // played out here, not inside the updater: StrictMode double-invokes state
+      // updaters to surface impurity, which fired the blip twice in dev.
+      const next = !revealed
+      if (next) playSound('reveal')
+      setRevealed(next)
       return
     }
     onSwipe(dx < 0 ? 'next' : 'previous') // swipe left/right navigates between cards, not reveal
