@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react'
 import { BrowseScreen } from '@/components/BrowseScreen'
 import { DarkModeToggle } from '@/components/DarkModeToggle'
+import { OfflineBundleControl } from '@/components/OfflineBundleControl'
+import { ScreenToggle } from '@/components/ScreenToggle'
 import { SentenceCard } from '@/components/SentenceCard'
-import { TabBar } from '@/components/TabBar'
 import { updateConceptsForReview } from '@/lib/conceptMastery'
 import { db } from '@/lib/db'
 import { getDecks } from '@/lib/deckStore'
@@ -54,10 +55,10 @@ function App() {
     }
   }
 
-  /** Browse picked a deck or saved set — persist it, rebuild the session, and jump to Study. */
+  /** Browse picked a deck or saved set — persist it and rebuild the session in the background.
+   * Stays on the Browse screen (item 3): the next Study visit just shows the new session. */
   async function handleSelectSource(source: StudySource) {
     await setStudySource(source)
-    setScreen('study')
     await startSession(source)
   }
 
@@ -92,6 +93,10 @@ function App() {
 
   const themeVars = getThemeVars(dark)
   const sentence = sentenceIds ? sentenceById.get(sentenceIds[index]) : undefined
+  /** The whole session, for §9's commute bundle — not just the current card. */
+  const sessionSentences = (sentenceIds ?? [])
+    .map((id) => sentenceById.get(id))
+    .filter((s): s is Sentence => !!s)
 
   let studyContent: React.ReactNode
   if (loadError) {
@@ -163,7 +168,10 @@ function App() {
               {index + 1} / {sentenceIds.length}
             </p>
           </div>
-          <DarkModeToggle dark={dark} onToggle={() => setDark((d) => !d)} />
+          <div className="flex flex-col items-end gap-2">
+            <DarkModeToggle dark={dark} onToggle={() => setDark((d) => !d)} />
+            <OfflineBundleControl sentences={sessionSentences} />
+          </div>
         </div>
 
         {sourceLabel && (
@@ -180,18 +188,35 @@ function App() {
     )
   }
 
+  const SLIDE_TRANSITION = 'transform 420ms var(--ease-damped)'
+
   return (
     <main className="classical flex min-h-svh flex-col bg-[var(--color-bg)] text-[var(--color-text)]" style={themeVars}>
-      {/* Both screens stay mounted — switching tabs must not reset reveal state or re-fire autoplay. */}
-      <div className={screen === 'study' ? 'flex flex-1 flex-col' : 'hidden'}>{studyContent}</div>
-      <div className={screen === 'browse' ? 'flex flex-1 flex-col' : 'hidden'}>
-        <BrowseScreen
-          visible={screen === 'browse'}
-          activeSource={studySource}
-          onSelectSource={(source) => void handleSelectSource(source)}
-        />
+      {/* Both screens stay mounted — switching tabs must not reset reveal state or re-fire
+          autoplay. Sliding via `transform` (rather than the old display:none/flex swap) is
+          what makes the transition animatable; overflow-hidden on the wrapper is what keeps
+          the off-screen pane from creating a horizontal scrollbar. */}
+      <div className="relative flex flex-1 overflow-hidden">
+        <div
+          className="absolute inset-0 flex flex-col"
+          style={{ transform: screen === 'study' ? 'translateX(0%)' : 'translateX(-100%)', transition: SLIDE_TRANSITION }}
+          inert={screen !== 'study'}
+        >
+          {studyContent}
+        </div>
+        <div
+          className="absolute inset-0 flex flex-col"
+          style={{ transform: screen === 'browse' ? 'translateX(0%)' : 'translateX(100%)', transition: SLIDE_TRANSITION }}
+          inert={screen !== 'browse'}
+        >
+          <BrowseScreen
+            visible={screen === 'browse'}
+            activeSource={studySource}
+            onSelectSource={(source) => void handleSelectSource(source)}
+          />
+        </div>
       </div>
-      <TabBar screen={screen} onChange={setScreen} />
+      <ScreenToggle screen={screen} onChange={setScreen} />
     </main>
   )
 }

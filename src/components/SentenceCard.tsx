@@ -1,5 +1,6 @@
 import { Loader2, Star, Volume2 } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
+import { PressableButton } from '@/components/PressableButton'
 import { SegmentedTranslation } from '@/components/SegmentedTranslation'
 import { isSentenceSaved, saveSentence, unsaveSentence } from '@/lib/savedSentences'
 import type { Comprehension, RevealStage, Sentence } from '@/lib/types'
@@ -14,11 +15,12 @@ const STROKE = '#312F2A'
 const SAVED_COLOR = '#E4572E'
 const SWIPE_THRESHOLD_PX = 50
 
-/** §1's three comprehension responses. */
-const RATINGS: { comprehension: Comprehension; label: string; fullWidth?: boolean }[] = [
+/** §1's three comprehension responses. Laid out as an upside-down triangle —
+ * the third button sits centered beneath the first two, same width as each. */
+const RATINGS: { comprehension: Comprehension; label: string }[] = [
   { comprehension: 1, label: 'Easy' },
-  { comprehension: 2, label: 'Needed text' },
-  { comprehension: 3, label: "Don't know", fullWidth: true },
+  { comprehension: 2, label: 'Needed Text' },
+  { comprehension: 3, label: "Don't Know" },
 ]
 
 export function SentenceCard({ sentence, onAnswer }: Props) {
@@ -74,7 +76,7 @@ export function SentenceCard({ sentence, onAnswer }: Props) {
     swipeStart.current = null
 
     if (Math.abs(dx) < SWIPE_THRESHOLD_PX || Math.abs(dx) < Math.abs(dy)) {
-      setRevealed(true) // plain tap reveals
+      setRevealed((prev) => !prev) // plain tap toggles — tapping the open card again closes it
       return
     }
     setRevealed(dx < 0) // swipe left reveals, right hides
@@ -93,7 +95,8 @@ export function SentenceCard({ sentence, onAnswer }: Props) {
           padding: '28px 20px 30px',
           textAlign: 'center',
           borderColor: STROKE,
-          borderBottomWidth: 6,
+          borderBottomWidth: 12,
+          borderRadius: 24, // rounder than the sitewide --radius-md=4px — this card only
           minHeight: 190,
           justifyContent: 'center',
         }}
@@ -151,18 +154,31 @@ export function SentenceCard({ sentence, onAnswer }: Props) {
       </div>
 
       {revealed && (
-        <div className="grid grid-cols-2 gap-2.5">
-          {RATINGS.map((r) => (
-            <button
-              key={r.comprehension}
-              type="button"
-              onClick={() => handleAnswer(r.comprehension)}
-              className={`btn btn-secondary ${r.fullWidth ? 'col-span-2' : ''}`}
-              style={{ borderColor: STROKE, borderBottomWidth: 3 }}
-            >
-              {r.label}
-            </button>
-          ))}
+        // Pinned to the bottom of the viewport, not the card — thumb-reachable
+        // one-handed regardless of where the card itself sits on the page.
+        // Cleared well above the ScreenToggle (bottom-5, 56px tall — its top
+        // edge sits ~76px up) so the two never overlap.
+        <div
+          className="fixed inset-x-0 bottom-0 z-10 flex justify-center px-4"
+          style={{ paddingBottom: 'calc(92px + env(safe-area-inset-bottom))' }}
+        >
+          {/* 4 columns so the bottom button can span the middle 2 — exactly the
+              width of either top button — and land centered beneath them. */}
+          <div className="grid w-full max-w-md grid-cols-4 gap-2.5">
+            {RATINGS.map((r, i) => (
+              <PressableButton
+                key={r.comprehension}
+                type="button"
+                onClick={() => handleAnswer(r.comprehension)}
+                className={`btn btn-secondary col-span-2 ${i === 2 ? 'col-start-2' : ''}`}
+                restDepthPx={5}
+                shadowColor={STROKE}
+                style={{ borderColor: STROKE, background: 'var(--color-bg)' }}
+              >
+                {r.label}
+              </PressableButton>
+            ))}
+          </div>
         </div>
       )}
     </div>

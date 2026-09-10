@@ -34,6 +34,15 @@ export type DeckFile = {
   sentences: DeckFileSentence[]
 }
 
+/** §9: a deck file the app has downloaded, kept so sessions cold-start offline.
+ * `manifest` is stored under the same table, keyed by the manifest's filename. */
+export type DeckCacheEntry = {
+  /** Filename as it appears in the manifest, e.g. "travel.json". */
+  file: string
+  content: DeckFile | { decks: string[] }
+  fetchedAt: string
+}
+
 export type RevealStage = 'audio_only' | 'jp_text' | 'translation'
 
 /** 1=Easy, 2=Needed text, 3=Don't know (§1, revised from a 4-way scale in the Phase 4 UI pass). */

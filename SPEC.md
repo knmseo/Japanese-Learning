@@ -56,6 +56,7 @@ type Sentence = {
   topic?: string;           // e.g. "trains", "restaurants"
   source: "authored" | "generated";
   createdAt: string;
+  deckId?: string;          // which §16 deck file this came from; scopes the session
 };
 
 type ReviewLog = {
@@ -93,10 +94,32 @@ type SessionState = {
   currentIndex: number;
   completedAt?: string;
 };
+
+// §9, added in phase 5: deck JSON the app has already downloaded, so a
+// session can cold-start with no network. Keyed by the filename as it
+// appears in the manifest; the manifest itself is stored the same way
+// under "index.json".
+type DeckCacheEntry = {
+  file: string;
+  content: DeckFile | { decks: string[] };
+  fetchedAt: string;
+};
 ```
 
 Storage: **Dexie.js** over IndexedDB, client-side only for v1. No backend,
 no cross-device sync in v1.
+
+The types above are the core model. Supporting tables are specified in the
+sections that own them rather than duplicated here: `audioCache` (§8),
+`segmentations` and `savedSegments` (§15), `savedSentences` and the study
+source (§16), `deckCache` (§9), plus `settings` and `generatedSentences`.
+
+**Current Dexie schema version: 7.** Version history — v1 review logs /
+FSRS states / sessions; v2 concept mastery; v3 generated sentences +
+settings; v4 audio cache; v5 segmentations + saved segments; v6 saved
+sentences; v7 deck cache (§9). Bump the version and add a new
+`db.version(n).stores({...})` block rather than editing an existing one —
+Dexie replays them in order to migrate a user's existing database.
 
 ---
 
@@ -211,6 +234,37 @@ runs entirely from that bundle regardless of connectivity. Results sync
 (review logs pushed to persistent storage) once the session ends —
 no background sync, no service-worker cache strategy needed for this.
 
+**Revised when phase 5 was built.** Two clauses above were written before
+§16 made decks static JSON and are no longer accurate as specified:
+
+- **Sentences, translations, and metadata need no pre-fetch step of their
+  own.** §16 ships them as static deck JSON and §15's segmentation is
+  cached in IndexedDB, so they are already local before "prepare" is
+  tapped. **TTS audio is the only genuinely network-bound piece**, and it
+  is the only thing `prepareBundle()` fetches. It writes through the same
+  hash-keyed `audioCache` the player already reads (§8), so a prepared
+  session and a naturally-warmed cache are indistinguishable.
+- **There is no sync step, and none should be built.** "Results sync once
+  the session ends" presumed a remote store; §2 rules out a backend and
+  cross-device sync for v1, and review logs are written to IndexedDB at
+  answer time. The data is durable the moment it is recorded. Do not add a
+  deferred-write queue to satisfy the original wording.
+
+Downloading audio costs money per sentence, so preparing is always a
+deliberate user tap that states how many sentences it is about to fetch —
+never automatic, and never a silent background top-up. Fetching is
+sequential: a parallel burst against a paid API is the quickest way to hit
+a rate limit and fail the very sentences the bundle exists to guarantee.
+
+**Deck JSON is cached in IndexedDB (`deckCache`) on every successful
+fetch**, and read back when the network is unavailable. Without this the
+bundle is lost on reload — audio would still be cached with no sentences
+to play it against, which is the failure mode a commute actually produces
+(a backgrounded tab gets evicted). The network copy wins whenever it is
+reachable, so a redeploy still propagates. This is *not* the deferred v2
+service worker: it persists data the app already downloaded into the
+database it already uses, and caches no app-shell assets.
+
 **v2 (deferred, do not build unless v1 proves insufficient):** full
 PWA offline-first — service worker, IndexedDB-backed asset caching,
 background sync on reconnect. Real engineering cost; only justified if
@@ -286,7 +340,7 @@ expresses what the scheduler already decided is needed.
 | 2 | LLM generation (unvalidated) wired to constraint payload |
 | 3 | Validator pass (tokenizer-based constraint checking + regenerate loop) |
 | 4 | TTS integration + hash-based audio caching |
-| 5 | Commute-bundle pre-download/offline-run/sync-on-reconnect |
+| 5 | Commute-bundle pre-download/offline-run/sync-on-reconnect — **scope reduced when built; see §9.** Audio is the only thing pre-fetched, and there is no sync-on-reconnect step to build |
 | 6 | Travel-topic weighting in the generation prompt |
 | — | UI pass (Phase 4-adjacent, see below): Classical design system restyle, dark mode, 3-way rating scale, tap-to-reveal, Study/Browse tab shell (Browse has no functionality yet), Korean as target language, segmented JP↔KO translation (§15) |
 | 7 (v2, deferred) | True PWA offline-first: service worker, background sync |

@@ -61,6 +61,13 @@
   --radius-md: 4px;
   --radius-lg: 7px;
 
+  /* A damped-spring feel (slight overshoot past the target, then settle) for
+     every transition in the app — toggles, the study/browse slide, the
+     segment-reveal spread. Values stay ≥0 throughout the curve (peaks a bit
+     over 1 near the end, never dips below 0), so it's safe on size/opacity
+     properties that can't go negative. */
+  --ease-damped: cubic-bezier(0.34, 1.56, 0.64, 1);
+
   /* Elevation — derived from the ground: soft ink-tinted shadows on a
      light theme, a hairline edge + ambient darkness on a dark one. */
   --shadow-sm: 0 1px 2px color-mix(in srgb, #2d2b2b 14%, transparent);

@@ -92,7 +92,7 @@ export function SegmentedTranslation({ japanese, naturalKorean, revealed }: Prop
   return (
     <div
       className="flex flex-wrap items-start justify-center"
-      style={{ gap: revealed ? '10px' : '0px', transition: 'gap 320ms ease' }}
+      style={{ gap: revealed ? '10px' : '0px', transition: 'gap 320ms var(--ease-damped)' }}
     >
       {segments.map((segment, i) => {
         const saved = savedKeys.has(segment.japanese)
@@ -101,15 +101,21 @@ export function SegmentedTranslation({ japanese, naturalKorean, revealed }: Prop
             key={`${segment.japanese}-${i}`}
             type="button"
             onClick={() => void handleTapSegment(segment)}
-            onPointerDown={(e) => e.stopPropagation()}
-            onPointerUp={(e) => e.stopPropagation()}
-            disabled={!revealed}
+            // Only swallow the tap once revealed — a saved-word tap shouldn't also
+            // toggle the card. Before reveal it must bubble up to the card's own
+            // handler, which is what turns a tap anywhere on the box into a reveal.
+            // (A plain `disabled` button here used to eat the tap outright: disabled
+            // elements don't dispatch pointer events at all in most browsers, so a
+            // touch landing on the Japanese text itself — most of the box — never
+            // reached the card. Only the padding around it worked.)
+            onPointerDown={(e) => revealed && e.stopPropagation()}
+            onPointerUp={(e) => revealed && e.stopPropagation()}
             className="flex select-none flex-col items-center rounded-sm"
             style={{
               paddingInline: revealed ? '5px' : '0px',
               paddingBlock: revealed ? '2px' : '0px',
               background: saved && revealed ? `color-mix(in srgb, ${SAVED_COLOR} 10%, transparent)` : 'transparent',
-              transition: 'padding 320ms ease, background-color 200ms ease',
+              transition: 'padding 320ms var(--ease-damped), background-color 200ms var(--ease-damped)',
               cursor: revealed ? 'pointer' : 'default',
               WebkitUserSelect: 'none',
             }}
@@ -122,7 +128,7 @@ export function SegmentedTranslation({ japanese, naturalKorean, revealed }: Prop
                 fontSize: 26,
                 lineHeight: 1.45,
                 color: saved && revealed ? SAVED_COLOR : 'var(--color-text)',
-                transition: 'color 200ms ease',
+                transition: 'color 200ms var(--ease-damped)',
               }}
             >
               {segment.japanese}
@@ -135,7 +141,7 @@ export function SegmentedTranslation({ japanese, naturalKorean, revealed }: Prop
                 whiteSpace: 'nowrap',
                 opacity: revealed ? 1 : 0,
                 color: saved ? SAVED_COLOR : 'var(--color-neutral-500)',
-                transition: 'opacity 260ms ease, color 200ms ease',
+                transition: 'opacity 260ms var(--ease-damped), color 200ms var(--ease-damped)',
               }}
             >
               {segment.korean}

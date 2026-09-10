@@ -1,6 +1,6 @@
 import { db } from './db'
 import { hashText } from './hash'
-import type { Deck, DeckFile, Sentence, SentenceSegmentation } from './types'
+import type { Deck, DeckCacheEntry, DeckFile, Sentence, SentenceSegmentation } from './types'
 
 /**
  * §16: decks are authored outside the app and shipped as static pre-segmented
@@ -13,10 +13,29 @@ const MANIFEST = `${DECKS_ROOT}index.json`
 
 let loaded: { decks: Deck[]; sentences: Sentence[] } | null = null
 
-async function fetchJson<T>(url: string): Promise<T> {
-  const response = await fetch(url)
-  if (!response.ok) throw new Error(`Couldn't load ${url} (${response.status})`)
-  return response.json() as Promise<T>
+/**
+ * §9: fetch a deck file, keeping a copy in IndexedDB, and fall back to that
+ * copy when the network is gone. Without this a prepared commute bundle dies
+ * the moment the tab reloads — the audio would still be cached but there'd be
+ * no sentences to play it against. Network wins when available, so a redeploy
+ * still propagates.
+ */
+async function fetchJson<T>(url: string, cacheKey: string): Promise<T> {
+  try {
+    const response = await fetch(url)
+    if (!response.ok) throw new Error(`Couldn't load ${url} (${response.status})`)
+    const content = (await response.json()) as T
+    await db.deckCache.put({
+      file: cacheKey,
+      content: content as DeckCacheEntry['content'],
+      fetchedAt: new Date().toISOString(),
+    })
+    return content
+  } catch (networkError) {
+    const cached = await db.deckCache.get(cacheKey)
+    if (cached) return cached.content as T
+    throw networkError
+  }
 }
 
 /**
@@ -48,12 +67,12 @@ async function seedSegmentations(deckFile: DeckFile): Promise<void> {
 export async function loadDecks(): Promise<{ decks: Deck[]; sentences: Sentence[] }> {
   if (loaded) return loaded
 
-  const manifest = await fetchJson<{ decks: string[] }>(MANIFEST)
+  const manifest = await fetchJson<{ decks: string[] }>(MANIFEST, 'index.json')
   const decks: Deck[] = []
   const sentences: Sentence[] = []
 
   for (const file of manifest.decks) {
-    const deckFile = await fetchJson<DeckFile>(`${DECKS_ROOT}${file}`)
+    const deckFile = await fetchJson<DeckFile>(`${DECKS_ROOT}${file}`, file)
     await seedSegmentations(deckFile)
 
     decks.push({ id: deckFile.id, name: deckFile.name, sentenceCount: deckFile.sentences.length })

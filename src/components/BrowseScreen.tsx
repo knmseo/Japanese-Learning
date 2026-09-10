@@ -1,5 +1,6 @@
 import { BookMarked, ChevronRight, Tag } from 'lucide-react'
 import { useEffect, useState } from 'react'
+import { PressableButton } from '@/components/PressableButton'
 import { getDecks } from '@/lib/deckStore'
 import { db } from '@/lib/db'
 import type { Deck, StudySource } from '@/lib/types'
@@ -71,17 +72,18 @@ export function BrowseScreen({ visible, activeSource, onSelectSource }: Props) {
     const source: StudySource = { kind: 'deck', deckId: deck.id }
     const active = isActive(activeSource, source)
     return (
-      <button
+      <PressableButton
         key={deck.id}
         type="button"
         onClick={() => onSelectSource(source)}
         className="card shrink-0 text-left"
+        restDepthPx={active ? 4 : 1}
+        shadowColor={STROKE}
         style={{
           width: CARD_WIDTH,
           minHeight: 92,
           padding: '12px 13px 11px',
           borderColor: STROKE,
-          borderBottomWidth: active ? 5 : 2,
           background: active
             ? 'color-mix(in srgb, var(--color-accent-500) 12%, transparent)'
             : 'transparent',
@@ -99,7 +101,7 @@ export function BrowseScreen({ visible, activeSource, onSelectSource }: Props) {
           {deck.sentenceCount} sentences
           {active && ' · studying'}
         </span>
-      </button>
+      </PressableButton>
     )
   }
 
@@ -158,19 +160,20 @@ export function BrowseScreen({ visible, activeSource, onSelectSource }: Props) {
           const active = isActive(activeSource, row.source)
           const empty = row.count === 0
           return (
-            <button
+            <PressableButton
               key={row.label}
               type="button"
               disabled={empty}
               onClick={() => onSelectSource(row.source)}
               className="card w-full flex-row items-center justify-between disabled:opacity-55"
+              restDepthPx={active ? 3 : 1}
+              shadowColor={STROKE}
               style={{
                 // `.card`'s column direction ties with Tailwind's `flex-row` on
                 // specificity and wins on source order — pin it here.
                 flexDirection: 'row',
                 padding: '14px 16px',
                 borderColor: STROKE,
-                borderBottomWidth: active ? 4 : 2,
                 background: active ? 'color-mix(in srgb, var(--color-accent-500) 12%, transparent)' : 'transparent',
               }}
               aria-pressed={active}
@@ -185,7 +188,7 @@ export function BrowseScreen({ visible, activeSource, onSelectSource }: Props) {
                 </span>
               </span>
               {!empty && <ChevronRight className="size-4" style={{ color: 'var(--color-neutral-500)' }} />}
-            </button>
+            </PressableButton>
           )
         })}
       </div>

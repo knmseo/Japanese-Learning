@@ -2,6 +2,7 @@ import Dexie, { type EntityTable } from 'dexie'
 import type {
   AudioCacheEntry,
   ConceptMasteryRecord,
+  DeckCacheEntry,
   ReviewLog,
   SavedSegment,
   SavedSentence,
@@ -23,6 +24,7 @@ const db = new Dexie('japanese-acquisition') as Dexie & {
   segmentations: EntityTable<SentenceSegmentation, 'hash'>
   savedSegments: EntityTable<SavedSegment, 'id'>
   savedSentences: EntityTable<SavedSentence, 'id'>
+  deckCache: EntityTable<DeckCacheEntry, 'file'>
 }
 
 db.version(1).stores({
@@ -80,6 +82,23 @@ db.version(6).stores({
   segmentations: 'hash, createdAt',
   savedSegments: 'id, sourceSentenceHash, savedAt, *concepts',
   savedSentences: 'id, sentenceId, savedAt',
+})
+
+/** §9: the deck JSON the app has already downloaded, kept so a session can
+ * cold-start with no network — otherwise a prepared commute bundle is lost the
+ * moment the tab reloads. */
+db.version(7).stores({
+  reviewLogs: 'id, sentenceId, timestamp',
+  fsrsStates: 'sentenceId, dueAt',
+  sessions: 'id, startedAt',
+  conceptMastery: 'concept, lastSeenAt',
+  generatedSentences: 'id, createdAt',
+  settings: 'key',
+  audioCache: 'hash, createdAt',
+  segmentations: 'hash, createdAt',
+  savedSegments: 'id, sourceSentenceHash, savedAt, *concepts',
+  savedSentences: 'id, sentenceId, savedAt',
+  deckCache: 'file, fetchedAt',
 })
 
 export { db }

@@ -10,15 +10,20 @@ export function DarkModeToggle({ dark, onToggle }: Props) {
       type="button"
       onClick={onToggle}
       aria-label="Toggle dark mode"
-      className="box-border flex h-7 w-12 flex-none items-center justify-start rounded-full p-1 transition-colors"
+      className="box-border flex h-7 w-12 flex-none items-center justify-start rounded-full p-1"
       style={{
         border: '1px solid var(--color-accent-500)',
         background: dark ? 'var(--color-accent-500)' : 'transparent',
+        transition: 'background-color 320ms var(--ease-damped)',
       }}
     >
       <span
-        className="flex size-5 items-center justify-center rounded-full transition-transform"
-        style={{ background: 'var(--color-bg)', transform: dark ? 'translateX(18px)' : 'translateX(0px)' }}
+        className="flex size-5 items-center justify-center rounded-full"
+        style={{
+          background: 'var(--color-bg)',
+          transform: dark ? 'translateX(18px)' : 'translateX(0px)',
+          transition: 'transform 320ms var(--ease-damped)',
+        }}
       >
         {dark ? (
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
