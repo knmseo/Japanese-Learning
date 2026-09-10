@@ -91,3 +91,10 @@ export type GeneratedSentence = {
 export type ValidatedGeneration =
   | { status: 'valid'; sentence: GeneratedSentence; attempts: number; usedStrictPrompt: boolean }
   | { status: 'rejected'; attempts: number; newTokens: string[] }
+
+/** Cached TTS audio, keyed by a hash of the exact sentence text (§8). */
+export type AudioCacheEntry = {
+  hash: string
+  audio: Blob
+  createdAt: string
+}

@@ -1,5 +1,13 @@
 import Dexie, { type EntityTable } from 'dexie'
-import type { ConceptMasteryRecord, ReviewLog, Sentence, SentenceFsrsState, SessionState, Setting } from './types'
+import type {
+  AudioCacheEntry,
+  ConceptMasteryRecord,
+  ReviewLog,
+  Sentence,
+  SentenceFsrsState,
+  SessionState,
+  Setting,
+} from './types'
 
 const db = new Dexie('japanese-acquisition') as Dexie & {
   reviewLogs: EntityTable<ReviewLog, 'id'>
@@ -8,6 +16,7 @@ const db = new Dexie('japanese-acquisition') as Dexie & {
   conceptMastery: EntityTable<ConceptMasteryRecord, 'concept'>
   generatedSentences: EntityTable<Sentence, 'id'>
   settings: EntityTable<Setting, 'key'>
+  audioCache: EntityTable<AudioCacheEntry, 'hash'>
 }
 
 db.version(1).stores({
@@ -30,6 +39,16 @@ db.version(3).stores({
   conceptMastery: 'concept, lastSeenAt',
   generatedSentences: 'id, createdAt',
   settings: 'key',
+})
+
+db.version(4).stores({
+  reviewLogs: 'id, sentenceId, timestamp',
+  fsrsStates: 'sentenceId, dueAt',
+  sessions: 'id, startedAt',
+  conceptMastery: 'concept, lastSeenAt',
+  generatedSentences: 'id, createdAt',
+  settings: 'key',
+  audioCache: 'hash, createdAt',
 })
 
 export { db }

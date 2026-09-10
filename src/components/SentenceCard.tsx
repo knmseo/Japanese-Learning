@@ -1,9 +1,11 @@
-import { Ear, FastForward, Play } from 'lucide-react'
+import { Ear, FastForward, Loader2, Play } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
+import { ApiKeyCard } from '@/components/ApiKeyCard'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
+import { setOpenAiApiKey } from '@/lib/apiKey'
 import type { Comprehension, RevealStage, Sentence } from '@/lib/types'
-import { useSpeech } from '@/lib/useSpeech'
+import { useAudioPlayer } from '@/lib/useAudioPlayer'
 
 type Props = {
   sentence: Sentence
@@ -19,7 +21,9 @@ export function SentenceCard({ sentence, onAnswer }: Props) {
   const [autoplay, setAutoplay] = useState(true)
   const [speedIndex, setSpeedIndex] = useState(1)
   const [revealedAt] = useState(() => Date.now())
-  const { speak, autoplay: autoplaySpeak, isSpeaking } = useSpeech()
+  const [showKeyCard, setShowKeyCard] = useState(false)
+  const [audioError, setAudioError] = useState<string | null>(null)
+  const { play, autoplay: autoplayAudio, isLoading, isPlaying, lastEngine, fallbackReason } = useAudioPlayer()
   const swipeStart = useRef<{ x: number; y: number } | null>(null)
 
   const speed = PLAYBACK_SPEEDS[speedIndex]
@@ -27,7 +31,8 @@ export function SentenceCard({ sentence, onAnswer }: Props) {
 
   useEffect(() => {
     setStageIndex(0)
-    if (autoplay) autoplaySpeak(sentence.japanese, speed)
+    setAudioError(null)
+    if (autoplay) autoplayAudio(sentence.japanese, speed)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sentence.id])
 
@@ -37,6 +42,15 @@ export function SentenceCard({ sentence, onAnswer }: Props) {
 
   const advanceStage = () => setStageIndex((i) => Math.min(i + 1, REVEAL_STAGES.length - 1))
   const retreatStage = () => setStageIndex((i) => Math.max(i - 1, 0))
+
+  async function handlePlay() {
+    setAudioError(null)
+    try {
+      await play(sentence.japanese, speed)
+    } catch (e) {
+      setAudioError(e instanceof Error ? e.message : String(e))
+    }
+  }
 
   const handlePointerDown = (e: React.PointerEvent) => {
     swipeStart.current = { x: e.clientX, y: e.clientY }
@@ -65,12 +79,13 @@ export function SentenceCard({ sentence, onAnswer }: Props) {
         <CardContent className="flex flex-col items-center gap-4 py-8">
           <Button
             size="lg"
-            variant={isSpeaking ? 'secondary' : 'default'}
+            variant={isPlaying ? 'secondary' : 'default'}
             className="h-16 w-16 rounded-full"
-            onClick={() => speak(sentence.japanese, speed)}
+            onClick={() => void handlePlay()}
+            disabled={isLoading}
             aria-label="Play audio"
           >
-            <Play className="size-6" />
+            {isLoading ? <Loader2 className="size-6 animate-spin" /> : <Play className="size-6" />}
           </Button>
 
           <div className="flex items-center gap-2 text-muted-foreground text-sm">
@@ -92,6 +107,34 @@ export function SentenceCard({ sentence, onAnswer }: Props) {
               autoplay {autoplay ? 'on' : 'off'}
             </button>
           </div>
+
+          {!showKeyCard && lastEngine === 'webspeech' && (
+            <button
+              type="button"
+              className="text-muted-foreground text-xs underline-offset-2 hover:underline"
+              onClick={() => setShowKeyCard(true)}
+            >
+              {fallbackReason === 'openai-failed'
+                ? 'Using free browser voice — OpenAI TTS failed (check your key/billing)'
+                : 'Using free browser voice — add an OpenAI key for higher quality'}
+            </button>
+          )}
+
+          {showKeyCard && (
+            <ApiKeyCard
+              providerLabel="OpenAI"
+              envVarName="VITE_OPENAI_API_KEY"
+              placeholder="sk-..."
+              onSave={setOpenAiApiKey}
+              onSaved={() => {
+                setShowKeyCard(false)
+                void handlePlay()
+              }}
+              onCancel={() => setShowKeyCard(false)}
+            />
+          )}
+
+          {audioError && <p className="text-destructive text-xs">{audioError}</p>}
 
           <div className="mt-2 min-h-16 text-center">
             {stageIndex >= 1 ? (

@@ -1,20 +1,31 @@
 import { db } from './db'
 
-const API_KEY_SETTING = 'anthropicApiKey'
+function createApiKeyStore(settingKey: string, envValue: string | undefined) {
+  const envKey = envValue?.trim()
 
-/** Set in .env.local so the key never has to be pasted into the UI. */
-const envKey = import.meta.env.VITE_ANTHROPIC_API_KEY?.trim()
-
-export async function getApiKey(): Promise<string | null> {
-  if (envKey) return envKey
-  const setting = await db.settings.get(API_KEY_SETTING)
-  return setting?.value ?? null
+  return {
+    async get(): Promise<string | null> {
+      if (envKey) return envKey
+      const setting = await db.settings.get(settingKey)
+      return setting?.value ?? null
+    },
+    async set(value: string): Promise<void> {
+      await db.settings.put({ key: settingKey, value })
+    },
+    async clear(): Promise<void> {
+      await db.settings.delete(settingKey)
+    },
+  }
 }
 
-export async function setApiKey(value: string): Promise<void> {
-  await db.settings.put({ key: API_KEY_SETTING, value })
-}
+const anthropicKeyStore = createApiKeyStore('anthropicApiKey', import.meta.env.VITE_ANTHROPIC_API_KEY)
 
-export async function clearApiKey(): Promise<void> {
-  await db.settings.delete(API_KEY_SETTING)
-}
+export const getApiKey = anthropicKeyStore.get
+export const setApiKey = anthropicKeyStore.set
+export const clearApiKey = anthropicKeyStore.clear
+
+const openaiKeyStore = createApiKeyStore('openaiApiKey', import.meta.env.VITE_OPENAI_API_KEY)
+
+export const getOpenAiApiKey = openaiKeyStore.get
+export const setOpenAiApiKey = openaiKeyStore.set
+export const clearOpenAiApiKey = openaiKeyStore.clear

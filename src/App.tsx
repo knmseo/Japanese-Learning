@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { ApiKeyCard } from '@/components/ApiKeyCard'
 import { SentenceCard } from '@/components/SentenceCard'
 import { Button } from '@/components/ui/button'
-import { getApiKey } from '@/lib/apiKey'
+import { getApiKey, setApiKey } from '@/lib/apiKey'
 import { updateConceptsForReview } from '@/lib/conceptMastery'
 import { buildConstraintPayload } from '@/lib/constraintPayload'
 import { db } from '@/lib/db'
@@ -169,6 +169,10 @@ function App() {
 
       {needsKey && (
         <ApiKeyCard
+          providerLabel="Anthropic"
+          envVarName="VITE_ANTHROPIC_API_KEY"
+          placeholder="sk-ant-..."
+          onSave={setApiKey}
           onSaved={() => {
             setNeedsKey(false)
             void handleGenerate()
