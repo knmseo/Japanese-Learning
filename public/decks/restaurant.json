@@ -1,0 +1,54 @@
+{
+  "id": "restaurant",
+  "name": "At the Restaurant",
+  "sentences": [
+    {
+      "id": "rs-1",
+      "japanese": "メニューをお願いします。",
+      "translation": "메뉴 부탁합니다.",
+      "concepts": ["メニュー", "を", "お願いする"],
+      "topic": "restaurants",
+      "segments": [
+        { "japanese": "メニュー", "korean": "메뉴", "type": "vocabulary", "baseForm": "メニュー", "concepts": ["メニュー"] },
+        { "japanese": "を", "korean": "를", "type": "particle", "baseForm": "を", "concepts": ["を"] },
+        { "japanese": "お願いします。", "korean": "부탁합니다", "type": "construction", "baseForm": "お願いする", "concepts": ["お願いする"] }
+      ]
+    },
+    {
+      "id": "rs-2",
+      "japanese": "これはとても辛いですか。",
+      "translation": "이것은 아주 매워요?",
+      "concepts": ["これ", "は", "とても", "辛い"],
+      "topic": "restaurants",
+      "segments": [
+        { "japanese": "これ", "korean": "이것", "type": "vocabulary", "baseForm": "これ", "concepts": ["これ"] },
+        { "japanese": "は", "korean": "은", "type": "particle", "baseForm": "は", "concepts": ["は"] },
+        { "japanese": "とても", "korean": "아주", "type": "vocabulary", "baseForm": "とても", "concepts": ["とても"] },
+        { "japanese": "辛いですか。", "korean": "매워요?", "type": "construction", "baseForm": "辛い", "concepts": ["辛い", "ですか"] }
+      ]
+    },
+    {
+      "id": "rs-3",
+      "japanese": "お水をください。",
+      "translation": "물을 주세요.",
+      "concepts": ["お水", "を", "ください"],
+      "topic": "restaurants",
+      "segments": [
+        { "japanese": "お水", "korean": "물", "type": "vocabulary", "baseForm": "お水", "concepts": ["お水"] },
+        { "japanese": "を", "korean": "을", "type": "particle", "baseForm": "を", "concepts": ["を"] },
+        { "japanese": "ください。", "korean": "주세요", "type": "construction", "baseForm": "ください", "concepts": ["ください"] }
+      ]
+    },
+    {
+      "id": "rs-4",
+      "japanese": "とてもおいしかったです。",
+      "translation": "아주 맛있었어요.",
+      "concepts": ["とても", "おいしい"],
+      "topic": "restaurants",
+      "segments": [
+        { "japanese": "とても", "korean": "아주", "type": "vocabulary", "baseForm": "とても", "concepts": ["とても"] },
+        { "japanese": "おいしかったです。", "korean": "맛있었어요", "type": "construction", "baseForm": "おいしい", "concepts": ["おいしい", "〜かった"] }
+      ]
+    }
+  ]
+}

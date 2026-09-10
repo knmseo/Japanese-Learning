@@ -12,6 +12,11 @@ type Props = {
 }
 
 const STROKE = '#312F2A'
+const CARD_WIDTH = 168
+const RAIL_GAP = 12
+/** The second rail starts half a card further along, so the two rows never line
+ * up into a grid — cards sit cropped at the frame edge instead. */
+const ROW_OFFSET = 74
 
 function isActive(active: StudySource | null, candidate: StudySource): boolean {
   if (!active) return false
@@ -40,6 +45,13 @@ export function BrowseScreen({ visible, activeSource, onSelectSource }: Props) {
     })()
   }, [visible])
 
+  /** Deal the decks alternately into two rows. Each row scrolls on its own, and
+   * any number of decks distributes evenly — nothing is capped at six. */
+  const rows: Deck[][] = [
+    decks.filter((_, i) => i % 2 === 0),
+    decks.filter((_, i) => i % 2 === 1),
+  ]
+
   const savedRows: { source: StudySource; label: string; count: number; icon: React.ReactNode }[] = [
     {
       source: { kind: 'saved-sentences' },
@@ -55,6 +67,42 @@ export function BrowseScreen({ visible, activeSource, onSelectSource }: Props) {
     },
   ]
 
+  function deckCard(deck: Deck) {
+    const source: StudySource = { kind: 'deck', deckId: deck.id }
+    const active = isActive(activeSource, source)
+    return (
+      <button
+        key={deck.id}
+        type="button"
+        onClick={() => onSelectSource(source)}
+        className="card shrink-0 text-left"
+        style={{
+          width: CARD_WIDTH,
+          minHeight: 92,
+          padding: '12px 13px 11px',
+          borderColor: STROKE,
+          borderBottomWidth: active ? 5 : 2,
+          background: active
+            ? 'color-mix(in srgb, var(--color-accent-500) 12%, transparent)'
+            : 'transparent',
+          justifyContent: 'space-between',
+        }}
+        aria-pressed={active}
+      >
+        <span
+          className="text-[14px] leading-snug"
+          style={{ fontFamily: 'var(--font-heading)', fontWeight: 600 }}
+        >
+          {deck.name}
+        </span>
+        <span className="text-[11px]" style={{ color: 'var(--color-neutral-500)' }}>
+          {deck.sentenceCount} sentences
+          {active && ' · studying'}
+        </span>
+      </button>
+    )
+  }
+
   return (
     <div className="flex flex-1 flex-col overflow-y-auto px-4 pt-6 pb-2">
       <p
@@ -64,55 +112,46 @@ export function BrowseScreen({ visible, activeSource, onSelectSource }: Props) {
         Browse
       </p>
 
-      <h2 className="mt-4 mb-3 text-[22px]" style={{ fontFamily: 'var(--font-heading)', fontWeight: 600 }}>
-        Study Decks
-      </h2>
+      {/* Spacing lives on the wrapper: classical.css's `.classical h2` margin rule
+          out-specifies Tailwind's margin utilities on the heading itself. */}
+      <div className="pt-7 pb-1">
+        <h2 className="text-[22px]" style={{ fontFamily: 'var(--font-heading)', fontWeight: 600 }}>
+          Study Decks
+        </h2>
+      </div>
 
       {decks.length === 0 ? (
         <p className="text-[13px]" style={{ color: 'var(--color-neutral-500)' }}>
           No decks found in public/decks/.
         </p>
       ) : (
-        <div
-          className="-mx-4 flex gap-3 overflow-x-auto px-4 pb-1"
-          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' } as React.CSSProperties}
-        >
-          {decks.map((deck) => {
-            const source: StudySource = { kind: 'deck', deckId: deck.id }
-            const active = isActive(activeSource, source)
-            return (
-              <button
-                key={deck.id}
-                type="button"
-                onClick={() => onSelectSource(source)}
-                className="card flex-none text-left"
-                style={{
-                  width: 168,
-                  minHeight: 104,
-                  padding: '14px 14px 12px',
-                  borderColor: STROKE,
-                  borderBottomWidth: active ? 6 : 2,
-                  background: active ? 'color-mix(in srgb, var(--color-accent-500) 12%, transparent)' : 'transparent',
-                  justifyContent: 'space-between',
-                }}
-                aria-pressed={active}
+        <div className="-mx-4 flex flex-col" style={{ gap: RAIL_GAP }}>
+          {rows.map((row, rowIndex) =>
+            row.length === 0 ? null : (
+              <div
+                key={rowIndex}
+                className="overflow-x-auto"
+                style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' } as React.CSSProperties}
               >
-                <span className="text-[15px] leading-snug" style={{ fontFamily: 'var(--font-heading)', fontWeight: 600 }}>
-                  {deck.name}
-                </span>
-                <span className="text-[11px]" style={{ color: 'var(--color-neutral-500)' }}>
-                  {deck.sentenceCount} sentences
-                  {active && ' · studying'}
-                </span>
-              </button>
-            )
-          })}
+                {/* pr keeps the last card from butting against the frame; the second
+                    row's extra leading pad staggers it against the first. */}
+                <div
+                  className="flex w-max pr-4"
+                  style={{ gap: RAIL_GAP, paddingLeft: rowIndex === 1 ? ROW_OFFSET : 16 }}
+                >
+                  {row.map(deckCard)}
+                </div>
+              </div>
+            ),
+          )}
         </div>
       )}
 
-      <h2 className="mt-7 mb-3 text-[22px]" style={{ fontFamily: 'var(--font-heading)', fontWeight: 600 }}>
-        My Sentences
-      </h2>
+      <div className="pt-12">
+        <h2 className="text-[22px]" style={{ fontFamily: 'var(--font-heading)', fontWeight: 600 }}>
+          My Sentences
+        </h2>
+      </div>
 
       <div className="flex flex-col gap-2.5">
         {savedRows.map((row) => {
@@ -126,6 +165,9 @@ export function BrowseScreen({ visible, activeSource, onSelectSource }: Props) {
               onClick={() => onSelectSource(row.source)}
               className="card w-full flex-row items-center justify-between disabled:opacity-55"
               style={{
+                // `.card`'s column direction ties with Tailwind's `flex-row` on
+                // specificity and wins on source order — pin it here.
+                flexDirection: 'row',
                 padding: '14px 16px',
                 borderColor: STROKE,
                 borderBottomWidth: active ? 4 : 2,

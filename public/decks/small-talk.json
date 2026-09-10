@@ -1,0 +1,57 @@
+{
+  "id": "small-talk",
+  "name": "Small Talk",
+  "sentences": [
+    {
+      "id": "st-1",
+      "japanese": "今日はいい天気ですね。",
+      "translation": "오늘은 날씨가 좋네요.",
+      "concepts": ["今日", "は", "天気", "〜ね"],
+      "topic": "weather",
+      "segments": [
+        { "japanese": "今日", "korean": "오늘", "type": "vocabulary", "baseForm": "今日", "concepts": ["今日"] },
+        { "japanese": "は", "korean": "은", "type": "particle", "baseForm": "は", "concepts": ["は"] },
+        { "japanese": "いい天気", "korean": "좋은 날씨", "type": "construction", "baseForm": "いい天気", "concepts": ["いい", "天気"] },
+        { "japanese": "ですね。", "korean": "네요", "type": "construction", "baseForm": "です", "concepts": ["です", "〜ね"] }
+      ]
+    },
+    {
+      "id": "st-2",
+      "japanese": "週末は何をしましたか。",
+      "translation": "주말에는 뭐 했어요?",
+      "concepts": ["週末", "何", "する"],
+      "topic": "daily life",
+      "segments": [
+        { "japanese": "週末", "korean": "주말", "type": "vocabulary", "baseForm": "週末", "concepts": ["週末"] },
+        { "japanese": "は", "korean": "에는", "type": "particle", "baseForm": "は", "concepts": ["は"] },
+        { "japanese": "何", "korean": "뭐", "type": "vocabulary", "baseForm": "何", "concepts": ["何"] },
+        { "japanese": "を", "korean": "를", "type": "particle", "baseForm": "を", "concepts": ["を"] },
+        { "japanese": "しましたか。", "korean": "했어요?", "type": "construction", "baseForm": "する", "concepts": ["する", "past"] }
+      ]
+    },
+    {
+      "id": "st-3",
+      "japanese": "お仕事は何ですか。",
+      "translation": "직업은 뭐예요?",
+      "concepts": ["仕事", "は", "何"],
+      "topic": "daily life",
+      "segments": [
+        { "japanese": "お仕事", "korean": "직업", "type": "vocabulary", "baseForm": "仕事", "concepts": ["仕事"] },
+        { "japanese": "は", "korean": "은", "type": "particle", "baseForm": "は", "concepts": ["は"] },
+        { "japanese": "何ですか。", "korean": "뭐예요?", "type": "construction", "baseForm": "何", "concepts": ["何", "ですか"] }
+      ]
+    },
+    {
+      "id": "st-4",
+      "japanese": "また今度会いましょう。",
+      "translation": "다음에 또 만나요.",
+      "concepts": ["また", "今度", "会う", "〜ましょう"],
+      "topic": "daily life",
+      "segments": [
+        { "japanese": "また", "korean": "또", "type": "vocabulary", "baseForm": "また", "concepts": ["また"] },
+        { "japanese": "今度", "korean": "다음에", "type": "vocabulary", "baseForm": "今度", "concepts": ["今度"] },
+        { "japanese": "会いましょう。", "korean": "만나요", "type": "construction", "baseForm": "会う", "concepts": ["会う", "〜ましょう"] }
+      ]
+    }
+  ]
+}

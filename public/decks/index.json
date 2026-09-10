@@ -1,3 +1,10 @@
 {
-  "decks": ["example.json", "travel.json"]
+  "decks": [
+    "example.json",
+    "travel.json",
+    "restaurant.json",
+    "shopping.json",
+    "directions.json",
+    "small-talk.json"
+  ]
 }

@@ -39,6 +39,14 @@ export function speakWithWebSpeech(text: string, rate: number = 1): Promise<void
     }
     utterance.onerror = (e) => {
       clearTimeout(timeoutId)
+      // `canceled`/`interrupted` mean *we* stopped playback — every play() calls
+      // stop() first, and moving to the next sentence cancels the queue. That's
+      // normal control flow, not a failure, so it resolves like a completed
+      // utterance rather than rejecting into the caller.
+      if (e.error === 'canceled' || e.error === 'interrupted') {
+        resolve()
+        return
+      }
       reject(new Error(`Web Speech failed: ${e.error}`))
     }
 

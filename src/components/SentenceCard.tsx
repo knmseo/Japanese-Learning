@@ -150,17 +150,6 @@ export function SentenceCard({ sentence, onAnswer }: Props) {
         />
       </div>
 
-      {!revealed && (
-        <button
-          type="button"
-          onClick={() => setRevealed(true)}
-          className="mx-auto text-[15px]"
-          style={{ fontFamily: 'var(--font-heading)', fontWeight: 600, color: 'var(--color-neutral-500)' }}
-        >
-          Show translation
-        </button>
-      )}
-
       {revealed && (
         <div className="grid grid-cols-2 gap-2.5">
           {RATINGS.map((r) => (

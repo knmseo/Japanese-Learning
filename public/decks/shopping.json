@@ -1,0 +1,55 @@
+{
+  "id": "shopping",
+  "name": "Shopping",
+  "sentences": [
+    {
+      "id": "sh-1",
+      "japanese": "これはいくらですか。",
+      "translation": "이것은 얼마예요?",
+      "concepts": ["これ", "は", "いくら"],
+      "topic": "shopping",
+      "segments": [
+        { "japanese": "これ", "korean": "이것", "type": "vocabulary", "baseForm": "これ", "concepts": ["これ"] },
+        { "japanese": "は", "korean": "은", "type": "particle", "baseForm": "は", "concepts": ["は"] },
+        { "japanese": "いくらですか。", "korean": "얼마예요?", "type": "construction", "baseForm": "いくら", "concepts": ["いくら", "ですか"] }
+      ]
+    },
+    {
+      "id": "sh-2",
+      "japanese": "もっと安いのはありますか。",
+      "translation": "더 싼 것은 있어요?",
+      "concepts": ["もっと", "安い", "ある"],
+      "topic": "shopping",
+      "segments": [
+        { "japanese": "もっと", "korean": "더", "type": "vocabulary", "baseForm": "もっと", "concepts": ["もっと"] },
+        { "japanese": "安いの", "korean": "싼 것", "type": "construction", "baseForm": "安い", "concepts": ["安い", "の"] },
+        { "japanese": "は", "korean": "은", "type": "particle", "baseForm": "は", "concepts": ["は"] },
+        { "japanese": "ありますか。", "korean": "있어요?", "type": "construction", "baseForm": "ある", "concepts": ["ある", "ですか"] }
+      ]
+    },
+    {
+      "id": "sh-3",
+      "japanese": "これをください。",
+      "translation": "이것을 주세요.",
+      "concepts": ["これ", "を", "ください"],
+      "topic": "shopping",
+      "segments": [
+        { "japanese": "これ", "korean": "이것", "type": "vocabulary", "baseForm": "これ", "concepts": ["これ"] },
+        { "japanese": "を", "korean": "을", "type": "particle", "baseForm": "を", "concepts": ["を"] },
+        { "japanese": "ください。", "korean": "주세요", "type": "construction", "baseForm": "ください", "concepts": ["ください"] }
+      ]
+    },
+    {
+      "id": "sh-4",
+      "japanese": "カードで払えますか。",
+      "translation": "카드로 낼 수 있어요?",
+      "concepts": ["カード", "で", "払う"],
+      "topic": "shopping",
+      "segments": [
+        { "japanese": "カード", "korean": "카드", "type": "vocabulary", "baseForm": "カード", "concepts": ["カード"] },
+        { "japanese": "で", "korean": "로", "type": "particle", "baseForm": "で", "concepts": ["で"] },
+        { "japanese": "払えますか。", "korean": "낼 수 있어요?", "type": "construction", "baseForm": "払う", "concepts": ["払う", "可能形"] }
+      ]
+    }
+  ]
+}

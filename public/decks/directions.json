@@ -1,0 +1,53 @@
+{
+  "id": "directions",
+  "name": "Asking Directions",
+  "sentences": [
+    {
+      "id": "dr-1",
+      "japanese": "駅はどこですか。",
+      "translation": "역은 어디예요?",
+      "concepts": ["駅", "は", "どこ"],
+      "topic": "trains",
+      "segments": [
+        { "japanese": "駅", "korean": "역", "type": "vocabulary", "baseForm": "駅", "concepts": ["駅"] },
+        { "japanese": "は", "korean": "은", "type": "particle", "baseForm": "は", "concepts": ["は"] },
+        { "japanese": "どこですか。", "korean": "어디예요?", "type": "construction", "baseForm": "どこ", "concepts": ["どこ", "ですか"] }
+      ]
+    },
+    {
+      "id": "dr-2",
+      "japanese": "まっすぐ行ってください。",
+      "translation": "곧장 가 주세요.",
+      "concepts": ["まっすぐ", "行く", "〜てください"],
+      "topic": "trains",
+      "segments": [
+        { "japanese": "まっすぐ", "korean": "곧장", "type": "vocabulary", "baseForm": "まっすぐ", "concepts": ["まっすぐ"] },
+        { "japanese": "行ってください。", "korean": "가 주세요", "type": "construction", "baseForm": "行く", "concepts": ["行く", "〜てください"] }
+      ]
+    },
+    {
+      "id": "dr-3",
+      "japanese": "ここから近いですか。",
+      "translation": "여기서 가까워요?",
+      "concepts": ["ここ", "から", "近い"],
+      "topic": "trains",
+      "segments": [
+        { "japanese": "ここ", "korean": "여기", "type": "vocabulary", "baseForm": "ここ", "concepts": ["ここ"] },
+        { "japanese": "から", "korean": "서", "type": "particle", "baseForm": "から", "concepts": ["から"] },
+        { "japanese": "近いですか。", "korean": "가까워요?", "type": "construction", "baseForm": "近い", "concepts": ["近い", "ですか"] }
+      ]
+    },
+    {
+      "id": "dr-4",
+      "japanese": "地図を見せてもらえますか。",
+      "translation": "지도를 보여 주실 수 있어요?",
+      "concepts": ["地図", "を", "見せる", "〜てもらう"],
+      "topic": "trains",
+      "segments": [
+        { "japanese": "地図", "korean": "지도", "type": "vocabulary", "baseForm": "地図", "concepts": ["地図"] },
+        { "japanese": "を", "korean": "를", "type": "particle", "baseForm": "を", "concepts": ["を"] },
+        { "japanese": "見せてもらえますか。", "korean": "보여 주실 수 있어요?", "type": "construction", "baseForm": "見せる", "concepts": ["見せる", "〜てもらう"] }
+      ]
+    }
+  ]
+}

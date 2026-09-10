@@ -96,7 +96,14 @@ export function useAudioPlayer() {
 
         setLastEngine('webspeech')
         setFallbackReason(hasKey ? 'openai-failed' : 'no-key')
-        await playViaWebSpeech(text, rate)
+        try {
+          await playViaWebSpeech(text, rate)
+        } catch {
+          // Last resort in the chain — if the free voice fails too there's
+          // nothing left to fall back to, and §8 says audio degrades silently.
+          // Swallowing here is what keeps play() from rejecting at all, so no
+          // caller (least of all fire-and-forget autoplay) can leak it.
+        }
       } finally {
         setIsLoading(false)
       }
@@ -108,7 +115,11 @@ export function useAudioPlayer() {
   const autoplay = useCallback(
     (text: string, rate: number = 1) => {
       if (!userHasActivated) return
-      void play(text, rate)
+      // Fire-and-forget, so it needs its own catch: `void` doesn't handle a
+      // rejection. play() shouldn't reject any more, but the settings read at
+      // its top isn't inside its catch, and an unhandled rejection here would
+      // surface in the console on every card.
+      play(text, rate).catch(() => {})
     },
     [play],
   )
