@@ -8,7 +8,11 @@ import { useAudioPlayer } from '@/lib/useAudioPlayer'
 
 type Props = {
   sentence: Sentence
+  /** True for a card already rated this session, revisited via swipe-back —
+   * shown revealed, no rating buttons, doesn't touch its existing data. */
+  viewOnly: boolean
   onAnswer: (comprehension: Comprehension, revealStage: RevealStage, responseLatencyMs: number) => void
+  onSwipe: (direction: 'next' | 'previous') => void
 }
 
 const STROKE = '#312F2A'
@@ -23,23 +27,19 @@ const RATINGS: { comprehension: Comprehension; label: string }[] = [
   { comprehension: 3, label: "Don't Know" },
 ]
 
-export function SentenceCard({ sentence, onAnswer }: Props) {
-  const [revealed, setRevealed] = useState(false)
+export function SentenceCard({ sentence, viewOnly, onAnswer, onSwipe }: Props) {
+  const [revealed, setRevealed] = useState(viewOnly)
   const [revealedAt] = useState(() => Date.now())
-  const { play, autoplay: autoplayAudio, isLoading, isPlaying } = useAudioPlayer()
+  const { play, isLoading, isPlaying } = useAudioPlayer()
   const swipeStart = useRef<{ x: number; y: number } | null>(null)
-  const autoplayedFor = useRef<string | null>(null)
   const [starred, setStarred] = useState(false)
 
-  // Autoplay on first look only; the icon is the manual replay. Guarded by a ref because
-  // StrictMode double-invokes effects in dev — without it the sentence fires twice, which
-  // is audibly masked by cancel() but really does spend two TTS requests.
+  // A live card starts closed; a revisited (viewOnly) card opens already
+  // revealed — matching how it was left. Audio never autoplays here (cost
+  // control): the replay button below is the only way it ever plays.
   useEffect(() => {
-    setRevealed(false)
+    setRevealed(viewOnly)
     void isSentenceSaved(sentence.id).then(setStarred)
-    if (autoplayedFor.current === sentence.id) return
-    autoplayedFor.current = sentence.id
-    autoplayAudio(sentence.japanese)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sentence.id])
 
@@ -79,7 +79,7 @@ export function SentenceCard({ sentence, onAnswer }: Props) {
       setRevealed((prev) => !prev) // plain tap toggles — tapping the open card again closes it
       return
     }
-    setRevealed(dx < 0) // swipe left reveals, right hides
+    onSwipe(dx < 0 ? 'next' : 'previous') // swipe left/right navigates between cards, not reveal
   }
 
   return (
@@ -153,7 +153,7 @@ export function SentenceCard({ sentence, onAnswer }: Props) {
         />
       </div>
 
-      {revealed && (
+      {revealed && !viewOnly && (
         // Pinned to the bottom of the viewport, not the card — thumb-reachable
         // one-handed regardless of where the card itself sits on the page.
         // Cleared well above the ScreenToggle (bottom-5, 56px tall — its top

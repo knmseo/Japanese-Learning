@@ -20,19 +20,25 @@ implementation decision isn't here, ask before inventing one.
 - Order of reveal: audio + Japanese text → (optional) translation. The
   Japanese text is visible from the start (revised in the Phase 4 UI pass —
   it is no longer separately gated); only the translation is revealed, and
-  it stays hidden by default. Optional furigana on kanji.
+  it stays hidden by default. No furigana — decided against; kanji render
+  plain.
 - Because of that, `revealStage` (§2) in practice only takes `audio_only`
   → `translation`; `jp_text` is retained in the type but no longer
   reachable.
-- Audio autoplays on every new sentence (once the user has interacted with
-  the page at least once — browsers block un-prompted audio); a small
-  top-right icon replays it on demand. No visible autoplay toggle or
-  playback-speed control — revised during the Phase 4 UI pass to cut down
-  to one simple control, since the icon replaces both "replay" and
-  "autoplay is already always on."
-- Mobile-first controls: swipe or tap for next/previous, and a direct tap
-  to advance the staged reveal (in addition to swipe). Built for
-  one-handed use while commuting.
+- **Audio never autoplays** (revised again after the Phase 4 UI pass, which
+  still had it firing on first look) — every `play()` call is a real,
+  billed TTS request, and autoplaying on every card would spend API usage
+  just for looking at a sentence. The top-right icon is the *only* way
+  audio ever plays; no visible autoplay toggle or playback-speed control,
+  since there's no autoplay left to toggle.
+- Mobile-first controls, tap and swipe doing different jobs: **tap**
+  toggles the translation reveal (tapping an open card again closes it).
+  **Swipe** navigates between cards — left toward the live card, right back
+  through ones already rated this session. Swiping cannot skip the current,
+  unrated card: rating (below) is the only way to advance the live
+  frontier, so every FSRS/ReviewLog write stays honest. A revisited past
+  card opens already revealed, with no rating buttons — view-only, doesn't
+  touch its existing data. Built for one-handed use while commuting.
 - After each sentence, three comprehension responses (revised from the
   original four-way scale during the Phase 4 UI pass — collapsing "needed
   Japanese text" and "needed translation" into one "needed text" tier, since
@@ -220,8 +226,9 @@ generated sentences use, nothing more.
   yourself at build time, this is not architecturally load-bearing).
 - Cache audio by a hash of the exact sentence text — never regenerate
   identical audio.
-- Replay, autoplay toggle, playback-speed control. Selectable voice is a
-  nice-to-have, not required for v1.
+- Replay only, manually triggered — no autoplay, no playback-speed control
+  (§1: every play is a billed request, so it's never automatic). Selectable
+  voice is a nice-to-have, not required for v1.
 
 ---
 

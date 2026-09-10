@@ -23,7 +23,14 @@ function App() {
   const [sentenceById, setSentenceById] = useState<Map<string, Sentence>>(new Map())
   const [sourceLabel, setSourceLabel] = useState<string>('')
   const [studySource, setStudySourceState] = useState<StudySource | null>(null)
-  const [index, setIndex] = useState(0)
+  /** How many cards have been rated this session — `sentenceIds[answeredCount]`
+   * is always the current live/unrated card. Advances only via a rating. */
+  const [answeredCount, setAnsweredCount] = useState(0)
+  /** Which card is on screen. Starts equal to answeredCount and tracks it
+   * forward after each rating; swipe can move it back to review an already-
+   * rated card (viewOnly) or forward again, but never past answeredCount —
+   * rating is the only way to advance the live frontier. */
+  const [viewIndex, setViewIndex] = useState(0)
   const [completed, setCompleted] = useState(false)
   const [dark, setDark] = useState(false)
   const [loadError, setLoadError] = useState<string | null>(null)
@@ -40,7 +47,8 @@ function App() {
 
   async function startSession(source: StudySource | null) {
     setCompleted(false)
-    setIndex(0)
+    setAnsweredCount(0)
+    setViewIndex(0)
     setLoadError(null)
     setStudySourceState(source)
     try {
@@ -64,7 +72,11 @@ function App() {
 
   async function handleAnswer(comprehension: Comprehension, revealStage: RevealStage, responseLatencyMs: number) {
     if (!sentenceIds) return
-    const sentenceId = sentenceIds[index]
+    // Rating only ever applies to the live card — the current answeredCount
+    // index — regardless of which card is on screen (swipe-back leaves
+    // rating buttons hidden, but this guard is the defensive backstop).
+    if (viewIndex !== answeredCount) return
+    const sentenceId = sentenceIds[answeredCount]
     const sentence = sentenceById.get(sentenceId)
     const now = new Date()
 
@@ -84,15 +96,28 @@ function App() {
     await db.fsrsStates.put(nextState)
     if (sentence) await updateConceptsForReview(sentence.concepts, fsrsRating, now)
 
-    if (index + 1 >= sentenceIds.length) {
+    const next = answeredCount + 1
+    setAnsweredCount(next)
+    if (next >= sentenceIds.length) {
       setCompleted(true)
     } else {
-      setIndex(index + 1)
+      setViewIndex(next)
+    }
+  }
+
+  /** Swipe navigates among already-rated cards plus the current live one —
+   * never past it, since rating is the only way to advance the frontier. */
+  function handleSwipe(direction: 'next' | 'previous') {
+    if (direction === 'next') {
+      setViewIndex((v) => Math.min(answeredCount, v + 1))
+    } else {
+      setViewIndex((v) => Math.max(0, v - 1))
     }
   }
 
   const themeVars = getThemeVars(dark)
-  const sentence = sentenceIds ? sentenceById.get(sentenceIds[index]) : undefined
+  const sentence = sentenceIds ? sentenceById.get(sentenceIds[viewIndex]) : undefined
+  const viewOnly = viewIndex < answeredCount
   /** The whole session, for §9's commute bundle — not just the current card. */
   const sessionSentences = (sentenceIds ?? [])
     .map((id) => sentenceById.get(id))
@@ -165,7 +190,8 @@ function App() {
               Study
             </p>
             <p className="mt-0.5 text-[12px] text-[var(--color-neutral-500)] tabular-nums">
-              {index + 1} / {sentenceIds.length}
+              {viewIndex + 1} / {sentenceIds.length}
+              {viewOnly && ' · reviewing'}
             </p>
           </div>
           <div className="flex flex-col items-end gap-2">
@@ -183,7 +209,13 @@ function App() {
           </p>
         )}
 
-        <SentenceCard key={sentence.id} sentence={sentence} onAnswer={handleAnswer} />
+        <SentenceCard
+          key={sentence.id}
+          sentence={sentence}
+          viewOnly={viewOnly}
+          onAnswer={handleAnswer}
+          onSwipe={handleSwipe}
+        />
       </div>
     )
   }
@@ -192,10 +224,10 @@ function App() {
 
   return (
     <main className="classical flex min-h-svh flex-col bg-[var(--color-bg)] text-[var(--color-text)]" style={themeVars}>
-      {/* Both screens stay mounted — switching tabs must not reset reveal state or re-fire
-          autoplay. Sliding via `transform` (rather than the old display:none/flex swap) is
-          what makes the transition animatable; overflow-hidden on the wrapper is what keeps
-          the off-screen pane from creating a horizontal scrollbar. */}
+      {/* Both screens stay mounted — switching tabs must not reset reveal state. Sliding
+          via `transform` (rather than the old display:none/flex swap) is what makes the
+          transition animatable; overflow-hidden on the wrapper is what keeps the off-screen
+          pane from creating a horizontal scrollbar. */}
       <div className="relative flex flex-1 overflow-hidden">
         <div
           className="absolute inset-0 flex flex-col"

@@ -1,6 +1,7 @@
 import { BookMarked, ChevronRight, Tag } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { PressableButton } from '@/components/PressableButton'
+import { StatsScreen } from '@/components/StatsScreen'
 import { getDecks } from '@/lib/deckStore'
 import { db } from '@/lib/db'
 import type { Deck, StudySource } from '@/lib/types'
@@ -33,6 +34,7 @@ function isActive(active: StudySource | null, candidate: StudySource): boolean {
  * scopes the next session.
  */
 export function BrowseScreen({ visible, activeSource, onSelectSource }: Props) {
+  const [tab, setTab] = useState<'library' | 'stats'>('library')
   const [decks, setDecks] = useState<Deck[]>([])
   const [savedSentenceCount, setSavedSentenceCount] = useState(0)
   const [savedWordCount, setSavedWordCount] = useState(0)
@@ -106,7 +108,7 @@ export function BrowseScreen({ visible, activeSource, onSelectSource }: Props) {
   }
 
   return (
-    <div className="flex flex-1 flex-col overflow-y-auto px-4 pt-6 pb-2">
+    <div className="flex flex-1 flex-col overflow-y-auto px-4 pt-6 pb-24">
       <p
         className="text-[11px] uppercase"
         style={{ fontFamily: 'var(--font-heading)', fontWeight: 600, letterSpacing: '0.08em' }}
@@ -114,6 +116,35 @@ export function BrowseScreen({ visible, activeSource, onSelectSource }: Props) {
         Browse
       </p>
 
+      <div className="mt-4 flex gap-5" style={{ borderBottom: '1px solid var(--color-divider)' }}>
+        {(['library', 'stats'] as const).map((t) => {
+          const active = tab === t
+          return (
+            <button
+              key={t}
+              type="button"
+              onClick={() => setTab(t)}
+              aria-current={active}
+              className="pb-2 text-[15px] capitalize"
+              style={{
+                fontFamily: 'var(--font-heading)',
+                fontWeight: 600,
+                color: active ? 'var(--color-text)' : 'var(--color-neutral-500)',
+                borderBottom: `2px solid ${active ? STROKE : 'transparent'}`,
+                marginBottom: -1,
+                transition: 'color 260ms var(--ease-damped)',
+              }}
+            >
+              {t}
+            </button>
+          )
+        })}
+      </div>
+
+      {tab === 'stats' ? (
+        <StatsScreen visible={visible && tab === 'stats'} />
+      ) : (
+        <>
       {/* Spacing lives on the wrapper: classical.css's `.classical h2` margin rule
           out-specifies Tailwind's margin utilities on the heading itself. */}
       <div className="pt-7 pb-1">
@@ -196,6 +227,8 @@ export function BrowseScreen({ visible, activeSource, onSelectSource }: Props) {
       <p className="mt-3 text-[11px]" style={{ color: 'var(--color-neutral-400)' }}>
         Star a sentence, or tap a word after revealing, to collect it here.
       </p>
+        </>
+      )}
     </div>
   )
 }
