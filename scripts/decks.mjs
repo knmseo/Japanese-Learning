@@ -24,6 +24,8 @@ const MANIFEST_NAME = 'index.json'
 const SEGMENT_TYPES = new Set(['vocabulary', 'particle', 'construction'])
 /** Mirrors src/lib/segmentationValidator.ts — punctuation may have an empty gloss. */
 const PUNCTUATION_ONLY = /^[。、！？!?,.「」『』（）()・…\s]+$/u
+/** CJK ideographs — used to reject kanji left inside a kana "reading". */
+const KANJI = /\p{Script=Han}/u
 
 const problems = []
 const notes = []
@@ -52,6 +54,21 @@ function validateDeck(file, deck) {
     if (typeof s?.japanese !== 'string' || !s.japanese.trim()) fail(file, `${where}: missing "japanese"`)
     if (typeof s?.translation !== 'string' || !s.translation.trim()) fail(file, `${where}: missing "translation" (Korean)`)
     if (!Array.isArray(s?.concepts) || s.concepts.length === 0) fail(file, `${where}: missing "concepts"`)
+
+    // Optional kana reading, spoken by TTS instead of the written sentence (§8).
+    if (s?.reading !== undefined) {
+      if (typeof s.reading !== 'string' || !s.reading.trim()) {
+        fail(file, `${where}: "reading" must be a non-empty string when present`)
+      } else if (/[a-zA-Z]/.test(s.reading)) {
+        // §8 is explicit: speech is never generated from romanization.
+        fail(file, `${where}: "reading" contains romaji — it must be kana\n    got: ${s.reading}`)
+      } else if (KANJI.test(s.reading)) {
+        // Kanji in the reading defeats the point: the ambiguity survives.
+        fail(file, `${where}: "reading" still contains kanji — spell it in kana\n    got: ${s.reading}`)
+      } else if (s.reading === s.japanese) {
+        notes.push(`${file}: ${where} has a "reading" identical to "japanese" — it can be dropped`)
+      }
+    }
 
     if (s?.segments === undefined) {
       // Allowed, but the study screen then shows the whole sentence as one

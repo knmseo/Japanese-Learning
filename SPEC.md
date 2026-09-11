@@ -221,11 +221,26 @@ generated sentences use, nothing more.
 ## 8. Audio
 
 - TTS generated directly from Japanese text (never from romanization).
+- **Heterophone override.** A deck sentence may carry an optional `reading` — a
+  **kana** spelling that TTS speaks instead of the written sentence. Needed
+  because kanji like 辛い have several readings with unrelated meanings, and the
+  dictionary default can be the wrong one: 辛い defaults to つらい (painful)
+  even in `これはとても辛いですか。`, where the Korean gloss is 매워요 (spicy).
+  Without the override the audio says a different sentence than the card means.
+  Kana is Japanese script, not romanization, so this does not loosen the rule
+  above — and the deck validator rejects a `reading` containing romaji or
+  leftover kanji. The card always displays `japanese`; only audio uses
+  `reading`.
 - Provider: pick one reliable neural TTS API (Google Cloud TTS, Azure
   Neural, or OpenAI TTS are all reasonable — evaluate cost/quality
   yourself at build time, this is not architecturally load-bearing).
-- Cache audio by a hash of the exact sentence text — never regenerate
-  identical audio.
+- Cache audio by a hash of the exact text **spoken** — i.e. the `reading` when
+  there is one, else the sentence — never regenerate identical audio. Keying on
+  the spoken text rather than the displayed sentence means correcting a reading
+  produces a new key, so the stale clip is bypassed instead of served forever.
+  `speechTextFor()` in `src/lib/tts.ts` is the single source of that decision;
+  the player and the commute bundle both go through it so the key and the
+  request can't drift apart.
 - Replay only, manually triggered — no autoplay, no playback-speed control
   (§1: every play is a billed request, so it's never automatic). Selectable
   voice is a nice-to-have, not required for v1.
@@ -276,6 +291,27 @@ database it already uses, and caches no app-shell assets.
 PWA offline-first — service worker, IndexedDB-backed asset caching,
 background sync on reconnect. Real engineering cost; only justified if
 the commute-bundle approach is actually inconvenient in practice.
+
+**v2's service worker was built** — v1 did prove insufficient, in exactly the
+way the deck-cache note above predicts: the commute bundle survives only as
+long as the tab does, and a backgrounded phone evicts it. Reloading on a train
+with no signal got you nothing. Now shipped via `vite-plugin-pwa`
+(`vite.config.ts`):
+
+- **Precache** (~1MB, 24 files): app shell, every deck JSON, icons, manifest.
+- **Explicitly excluded: the kuromoji dictionary (~17MB).** The deployed app
+  never loads it — decks ship pre-segmented (§16) and the study screen only
+  reads cached segmentation — so it is no longer copied into the build at all.
+  It lives outside `public/` and is served by the dev server only.
+- **Runtime cache**: Google Fonts, which the app would otherwise lose offline.
+- `registerType: 'autoUpdate'` — single user, single device, so there is no
+  update-prompt UI to build.
+
+**Background sync is still not built, and should not be** — there is nothing to
+sync. §2 rules out a backend, and review logs are durable in IndexedDB at write
+time (see the note above).
+
+Installability (manifest, icons, iOS meta tags) ships with it. See DEPLOY.md.
 
 ---
 
@@ -350,7 +386,7 @@ expresses what the scheduler already decided is needed.
 | 5 | Commute-bundle pre-download/offline-run/sync-on-reconnect — **scope reduced when built; see §9.** Audio is the only thing pre-fetched, and there is no sync-on-reconnect step to build |
 | 6 | Travel-topic weighting in the generation prompt |
 | — | UI pass (Phase 4-adjacent, see below): Classical design system restyle, dark mode, 3-way rating scale, tap-to-reveal, Study/Browse tab shell (Browse has no functionality yet), Korean as target language, segmented JP↔KO translation (§15) |
-| 7 (v2, deferred) | True PWA offline-first: service worker, background sync |
+| 7 (v2) | True PWA offline-first — **service worker + installability built** (see §9); background sync deliberately not built, there is nothing to sync |
 | — | Browse tab (§16): deck library, deck selection scoping the session, saved sentences + saved words as study sets |
 | — (future) | Browse: stats, manual segmentation correction, per-deck due counts |
 

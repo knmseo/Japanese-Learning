@@ -46,10 +46,41 @@ You never edit `public/decks/index.json` by hand. It's generated from whatever
 | `id` (sentence) | Unique within the deck. |
 | `translation` | **Korean**, not English. The whole app targets a Korean speaker. |
 | `concepts` | What this sentence teaches — drives concept mastery (§3) and, later, session composition (§6). Particles count. |
+| `reading` | Optional. Kana spelling spoken by TTS instead of `japanese`. Add it **only** for heterophones — see below. Kana only: romaji and leftover kanji are both rejected. |
 | `segments` | Optional but strongly recommended — without it the card shows the sentence as one unsplittable block with no per-word glosses, and tap-to-save-a-word does nothing useful. |
 | `segments[].type` | One of `vocabulary`, `particle`, `construction`. |
 | `segments[].korean` | May be empty **only** for punctuation-only segments. |
 | `segments[].baseForm` | Dictionary form (`行きたいです` → `行く`). |
+
+### When to add a `reading`
+
+Some kanji have more than one reading with completely different meanings, and
+TTS has to guess. Sometimes it guesses wrong — and the dictionary default is not
+always the one you want:
+
+```json
+{
+  "japanese": "これはとても辛いですか。",
+  "reading":  "これはとてもからいですか。",
+  "translation": "이것은 아주 매워요?"
+}
+```
+
+辛い is **からい** (spicy) here, but **つらい** (painful) by default — the
+tokenizer picks つらい in this exact sentence. Without `reading`, the audio asks
+"is this very *painful*?"
+
+The card still shows the kanji; only the audio uses the kana. So this costs the
+learner nothing.
+
+Worth checking for: 辛い, 入る, 開く, 生, 方, 間, 何 (なに vs なん — `何ですか`
+is *なん*), 一日, 人気, 上手.
+
+Don't add `reading` to sentences that aren't ambiguous. It's extra data to keep
+in sync, and the validator will tell you when it's identical to `japanese`.
+
+> Changing a `reading` changes the audio cache key, so the old clip is bypassed
+> and the corrected one is fetched next time it plays. No cache clearing needed.
 
 ### The one rule that matters most
 

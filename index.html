@@ -3,7 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- iOS ignores the web manifest's icons entirely and uses this instead. -->
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+    <!-- viewport-fit=cover lets the layout reach under the notch; the app already
+         pads with env(safe-area-inset-*) where it matters. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#f3f2f2" />
+    <!-- Standalone display on iOS, which predates the manifest's display field. -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Nihongo" />
     <title>Japanese Sentence Acquisition</title>
   </head>
   <body>

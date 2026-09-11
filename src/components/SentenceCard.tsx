@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 import { PressableButton } from '@/components/PressableButton'
 import { SegmentedTranslation } from '@/components/SegmentedTranslation'
 import { isSentenceSaved, saveSentence, unsaveSentence } from '@/lib/savedSentences'
+import { speechTextFor } from '@/lib/tts'
 import { playSound } from '@/lib/sounds'
 import type { Comprehension, RevealStage, Sentence } from '@/lib/types'
 import { useAudioPlayer } from '@/lib/useAudioPlayer'
@@ -62,7 +63,9 @@ export function SentenceCard({ sentence, viewOnly, onAnswer, onSwipe }: Props) {
 
   async function handlePlay() {
     try {
-      await play(sentence.japanese)
+      // Speaks the deck's kana reading when it supplies one (§8) — the card
+      // still shows the kanji.
+      await play(speechTextFor(sentence))
     } catch {
       // Audio failures degrade silently to the browser voice — no error text on the card.
     }

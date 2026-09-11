@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url'
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const source = resolve(root, 'node_modules/@sglkc/kuromoji/dict')
-const target = resolve(root, 'public/kuromoji-dict')
+const target = resolve(root, ".kuromoji-dict")
 
 if (!existsSync(source)) {
   console.error('kuromoji dictionary not found — run npm install first.')

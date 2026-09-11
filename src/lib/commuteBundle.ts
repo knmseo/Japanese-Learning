@@ -1,6 +1,6 @@
 import { db } from './db'
 import { hashText } from './hash'
-import { getAudioForSentence, MissingOpenAiKeyError } from './tts'
+import { getAudioForSentence, MissingOpenAiKeyError, speechTextFor } from './tts'
 import type { Sentence } from './types'
 
 /**
@@ -35,7 +35,7 @@ export type PrepareResult = {
 
 /** How much of this session is already playable offline. */
 export async function getBundleStatus(sentences: Sentence[]): Promise<BundleStatus> {
-  const hashes = await Promise.all(sentences.map((s) => hashText(s.japanese)))
+  const hashes = await Promise.all(sentences.map((s) => hashText(speechTextFor(s))))
   const rows = await db.audioCache.bulkGet(hashes)
   const ready = rows.filter(Boolean).length
   return { total: sentences.length, ready, complete: sentences.length > 0 && ready === sentences.length }
@@ -56,12 +56,12 @@ export async function prepareBundle(
   const result: PrepareResult = { fetched: 0, alreadyCached: 0, failed: 0, missingKey: false }
 
   for (const [i, sentence] of sentences.entries()) {
-    const hash = await hashText(sentence.japanese)
+    const hash = await hashText(speechTextFor(sentence))
     if (await db.audioCache.get(hash)) {
       result.alreadyCached++
     } else {
       try {
-        await getAudioForSentence(sentence.japanese)
+        await getAudioForSentence(speechTextFor(sentence))
         result.fetched++
       } catch (e) {
         result.failed++

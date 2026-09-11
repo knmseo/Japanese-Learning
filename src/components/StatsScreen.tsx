@@ -23,27 +23,64 @@ const LEVEL_COLORS: readonly [string, string, string, string, string] = [
   'var(--color-accent-700)',
 ]
 
+const COUNT_UP_MS = 900
+
+/** easeOutCubic — quick off the mark, settles gently on the final value. */
+function easeOut(t: number): number {
+  return 1 - (1 - t) ** 3
+}
+
 /**
  * A stat figure that counts up on first paint. Motion UI's own stats-counters
  * component is behind a Motion+ membership, so this is the same idea built from
- * what's already in the project: NumberFlow (installed alongside the heatmap)
- * for the ticking tabular figures, staggered so they don't all fire at once.
+ * what's already in the project.
+ *
+ * The value is tweened through real intermediate numbers rather than handed to
+ * NumberFlow as a single 0 → N jump. NumberFlow animates each digit column
+ * independently, so a straight jump to a number like 11 or 22 spins both reels
+ * in lockstep — it reads as "00 flips to 11", not as counting. Feeding it the
+ * in-between values makes the digits actually count, and NumberFlow's own short
+ * transition smooths the steps.
  */
 function StatFigure({ value, label, delayMs }: { value: number; label: string; delayMs: number }) {
   const [shown, setShown] = useState(0)
 
   useEffect(() => {
-    const id = setTimeout(() => setShown(value), delayMs)
-    return () => clearTimeout(id)
+    if (value === 0) return
+
+    const reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+    if (reduceMotion) {
+      setShown(value)
+      return
+    }
+
+    let frame = 0
+    let start = 0
+    const startTimer = setTimeout(() => {
+      const step = (now: number) => {
+        start ||= now
+        const progress = Math.min(1, (now - start) / COUNT_UP_MS)
+        setShown(Math.round(easeOut(progress) * value))
+        if (progress < 1) frame = requestAnimationFrame(step)
+      }
+      frame = requestAnimationFrame(step)
+    }, delayMs)
+
+    return () => {
+      clearTimeout(startTimer)
+      cancelAnimationFrame(frame)
+    }
   }, [value, delayMs])
 
   return (
     <div className="flex flex-col gap-0.5">
       <NumberFlow
         className="text-[22px]"
-        style={{ fontFamily: 'var(--font-heading)', fontWeight: 600, lineHeight: 1.1 }}
+        style={{ fontFamily: 'var(--font-body)', fontWeight: 600, lineHeight: 1.1 }}
         value={shown}
-        transformTiming={{ duration: 900, easing: 'cubic-bezier(0.34, 1.2, 0.64, 1)' }}
+        // Short enough that each tweened step lands before the next frame —
+        // the counting comes from the tween, not from NumberFlow's own timing.
+        transformTiming={{ duration: 80, easing: 'linear' }}
         willChange
       />
       <span className="text-[11px]" style={{ color: 'var(--color-neutral-500)' }}>
@@ -82,9 +119,11 @@ export function StatsScreen({ visible }: Props) {
   const { heatmap } = stats
 
   return (
-    <div className="flex flex-col">
+    // Lora (--font-body) across the whole tab, including the heatmap's axis
+    // labels and legend, which otherwise inherit the app's default face.
+    <div className="flex flex-col" style={{ fontFamily: 'var(--font-body)' }}>
       <div className="pt-2 pb-3">
-        <h2 className="text-[22px]" style={{ fontFamily: 'var(--font-heading)', fontWeight: 600 }}>
+        <h2 className="text-[22px]" style={{ fontFamily: 'var(--font-body)', fontWeight: 600 }}>
           Study Activity
         </h2>
       </div>

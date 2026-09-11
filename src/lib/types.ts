@@ -9,6 +9,14 @@ export type Sentence = {
   createdAt: string
   /** Which deck JSON this came from (§16). */
   deckId?: string
+  /**
+   * Kana spelling, spoken by TTS instead of `japanese` when present (§8).
+   * Only needed for heterophones — kanji with more than one reading, where the
+   * wrong one changes the meaning. 辛い is からい (spicy) here but つらい
+   * (painful) by dictionary default, so without this the audio says the wrong
+   * word. Kana, never romaji: §8 forbids generating speech from romanization.
+   */
+  reading?: string
 }
 
 /** A deck as authored outside the app and shipped as static JSON (§16). */
@@ -26,6 +34,8 @@ export type DeckFileSentence = {
   concepts: string[]
   topic?: string
   segments?: SentenceSegment[]
+  /** Optional kana reading for TTS — see `Sentence.reading`. */
+  reading?: string
 }
 
 export type DeckFile = {

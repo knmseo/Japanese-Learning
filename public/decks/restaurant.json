@@ -17,6 +17,7 @@
     {
       "id": "rs-2",
       "japanese": "これはとても辛いですか。",
+      "reading": "これはとてもからいですか。",
       "translation": "이것은 아주 매워요?",
       "concepts": ["これ", "は", "とても", "辛い"],
       "topic": "restaurants",

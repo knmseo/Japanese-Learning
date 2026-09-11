@@ -86,6 +86,7 @@ export async function loadDecks(): Promise<{ decks: Deck[]; sentences: Sentence[
         source: 'authored',
         createdAt: new Date().toISOString(),
         deckId: deckFile.id,
+        reading: entry.reading,
       })
     }
   }

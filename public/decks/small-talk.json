@@ -32,6 +32,7 @@
     {
       "id": "st-3",
       "japanese": "お仕事は何ですか。",
+      "reading": "おしごとはなんですか。",
       "translation": "직업은 뭐예요?",
       "concepts": ["仕事", "は", "何"],
       "topic": "daily life",
