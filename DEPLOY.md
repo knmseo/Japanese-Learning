@@ -77,8 +77,29 @@ site can read it out of the JS. For a public URL, don't ship it:
 2. Enter the key in the app instead — it's stored in IndexedDB (`settings`),
    never in the bundle.
 
-Or put the whole site behind Netlify/Vercel password protection and keep using
-the env var. Either is fine; shipping the key on a public URL is not.
+**Do not** reach for site-wide password protection as the alternative. It looks
+like it solves the key problem, but it breaks the thing this whole file exists
+for — see below.
+
+## Site access control breaks the PWA
+
+Netlify's site protection (and Vercel's equivalent) gates *every* request behind
+a login redirect, including `/sw.js`, which then comes back as `401
+text/html` instead of JavaScript. Service worker registration requires a 2xx
+response with a JS MIME type, so it fails outright:
+
+- no service worker → **no offline, and no install prompt**
+- on iOS, a home-screen PWA doesn't share Safari's cookie jar, so the installed
+  app hits the login gate again with no good way through it
+- offline navigation would resolve to a login redirect rather than the app
+
+So the two goals are mutually exclusive: you can have a gated site, or an
+installable offline app, not both. For this app the resolution is the one above
+— leave `VITE_OPENAI_API_KEY` unset at build time, keep the site open, and enter
+the key in the app, where it lives in IndexedDB on your phone only.
+
+A gated site is still useful while you're testing in a desktop browser; just
+turn the protection off before expecting install or offline to work.
 
 ## Updating
 
