@@ -5,6 +5,7 @@ import { DarkModeToggle } from '@/components/DarkModeToggle'
 import { OfflineBundleControl } from '@/components/OfflineBundleControl'
 import { ScreenToggle } from '@/components/ScreenToggle'
 import { SentenceCard } from '@/components/SentenceCard'
+import { consumeInviteFromUrl } from '@/lib/accessToken'
 import { updateConceptsForReview } from '@/lib/conceptMastery'
 import { db } from '@/lib/db'
 import { getDecks } from '@/lib/deckStore'
@@ -43,6 +44,9 @@ function App() {
 
   useEffect(() => {
     void (async () => {
+      // Before anything can ask for audio, so a fresh invite link works on the
+      // very first sentence rather than only after a reload.
+      await consumeInviteFromUrl()
       // Fall back to the first deck the very first time, before anything has been picked.
       const decks = await getDecks().catch(() => [])
       const stored = await getStudySource()

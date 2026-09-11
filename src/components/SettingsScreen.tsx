@@ -1,6 +1,7 @@
 import { Check, KeyRound } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { PressableButton } from '@/components/PressableButton'
+import { clearAccessToken, getAccessToken } from '@/lib/accessToken'
 import { clearOpenAiApiKey, getOpenAiApiKey, setOpenAiApiKey } from '@/lib/apiKey'
 
 type Props = {
@@ -24,6 +25,7 @@ const ENV_KEY = import.meta.env.VITE_OPENAI_API_KEY?.trim()
  */
 export function SettingsScreen({ visible }: Props) {
   const [saved, setSaved] = useState<boolean | null>(null)
+  const [invited, setInvited] = useState(false)
   const [value, setValue] = useState('')
   const [note, setNote] = useState<string | null>(null)
 
@@ -32,6 +34,9 @@ export function SettingsScreen({ visible }: Props) {
     let cancelled = false
     void getOpenAiApiKey().then((k) => {
       if (!cancelled) setSaved(!!k)
+    })
+    void getAccessToken().then((t) => {
+      if (!cancelled) setInvited(!!t)
     })
     return () => {
       cancelled = true
@@ -66,6 +71,26 @@ export function SettingsScreen({ visible }: Props) {
         Japanese voice otherwise. The built-in voice is free and works offline — a key
         mainly buys better pronunciation, and is what "Prepare for offline" downloads.
       </p>
+
+      {invited && (
+        <div
+          className="mt-4 rounded-md px-3 py-2.5"
+          style={{ border: '1px solid var(--color-divider)' }}
+        >
+          <p className="flex items-center gap-2 text-[13px]">
+            <Check className="size-4 flex-none" style={{ color: 'var(--color-accent-700)' }} />
+            Shared voice active — you were invited, so audio works with no key of your own.
+          </p>
+          <button
+            type="button"
+            onClick={() => void clearAccessToken().then(() => setInvited(false))}
+            className="mt-2 text-[12px] underline"
+            style={{ color: 'var(--color-neutral-500)' }}
+          >
+            Stop using the shared voice
+          </button>
+        </div>
+      )}
 
       {ENV_KEY ? (
         <p

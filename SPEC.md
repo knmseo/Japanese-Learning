@@ -115,6 +115,29 @@ type DeckCacheEntry = {
 Storage: **Dexie.js** over IndexedDB, client-side only for v1. No backend,
 no cross-device sync in v1.
 
+**Amended — one server-side function exists (`netlify/functions/tts.mts`).**
+"No backend" was about *learning data*: history, mastery, scheduling and
+audio cache all still live only on the device, and there is still nothing
+to sync. What the function does is hold the OpenAI key so invited users get
+neural audio without one of their own. It had to be server-side: a
+`VITE_`-prefixed key is inlined into the bundle by Vite, so on a public URL
+anyone can read it out of the JS and spend the owner's credit.
+
+- **Access** is a per-person token in the `ACCESS_TOKENS` env var, delivered
+  as an invite link (`/?k=TOKEN`). The app stores it and strips it from the
+  URL, so a friend never sees a login screen or types a code. Revoking is
+  removing the token and redeploying.
+- **It is an invite, not authentication.** It gates the owner's billing, not
+  anything private — there is nothing private on the server.
+- **The function stores nothing.** No users, no sessions, no logs of what was
+  studied. It validates a token and proxies one request.
+- **Cost limits** are the token allowlist, a pinned model and voice, a
+  200-character input cap, and the client's existing hash-keyed audio cache,
+  which makes normal use hit it once per sentence ever.
+- An **empty `ACCESS_TOKENS` fails closed** — a misconfiguration must not
+  become an open billable endpoint.
+- A personal key, if saved, still wins over the proxy.
+
 The types above are the core model. Supporting tables are specified in the
 sections that own them rather than duplicated here: `audioCache` (§8),
 `segmentations` and `savedSegments` (§15), `savedSentences` and the study

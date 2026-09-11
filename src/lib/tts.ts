@@ -1,4 +1,5 @@
 import { db } from './db'
+import { getAccessToken } from './accessToken'
 import { getOpenAiApiKey } from './apiKey'
 import { hashText } from './hash'
 import type { Sentence } from './types'
@@ -12,16 +13,40 @@ import type { Sentence } from './types'
 const TTS_MODEL = 'tts-1'
 const TTS_VOICE = 'alloy'
 
+/** Neither a personal key nor an invite token — there is no neural voice available. */
 export class MissingOpenAiKeyError extends Error {
   constructor() {
-    super('No OpenAI API key saved.')
+    super('No OpenAI API key or invite token available.')
     this.name = 'MissingOpenAiKeyError'
   }
 }
 
+/** Shared proxy for invited users; the key stays on the server (§2 amendment). */
+const PROXY_PATH = '/api/tts'
+
+async function fetchViaProxy(text: string, token: string): Promise<Blob> {
+  const response = await fetch(PROXY_PATH, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ input: text, token }),
+  })
+
+  if (!response.ok) {
+    throw new Error(`Shared voice unavailable (${response.status}).`)
+  }
+  return response.blob()
+}
+
 async function fetchFromProvider(text: string): Promise<Blob> {
   const apiKey = await getOpenAiApiKey()
-  if (!apiKey) throw new MissingOpenAiKeyError()
+
+  // A personal key wins: it is the owner's own account, costs them nothing
+  // extra, and works even if the proxy is down or the invite was revoked.
+  if (!apiKey) {
+    const token = await getAccessToken()
+    if (token) return fetchViaProxy(text, token)
+    throw new MissingOpenAiKeyError()
+  }
 
   const response = await fetch('https://api.openai.com/v1/audio/speech', {
     method: 'POST',

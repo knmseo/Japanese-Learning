@@ -101,6 +101,44 @@ the key in the app, where it lives in IndexedDB on your phone only.
 A gated site is still useful while you're testing in a desktop browser; just
 turn the protection off before expecting install or offline to work.
 
+## Sharing with friends (the shared voice)
+
+Friends can use the app with no key at all — it falls back to the device's
+built-in Japanese voice. If you want them to get OpenAI's voice instead,
+`netlify/functions/tts.mts` proxies TTS using **your** key, held server-side.
+
+**Setup** — in Netlify → Site configuration → Environment variables:
+
+| Variable | Value | Notes |
+|---|---|---|
+| `OPENAI_API_KEY` | your key | **No `VITE_` prefix.** That prefix is what puts it in the public bundle. |
+| `ACCESS_TOKENS` | `alice-7fq2,bob-p4xd,carol-9mz1` | Comma-separated, one per person. Make them long and unguessable. |
+
+Then redeploy (env var changes alone don't trigger a build).
+
+**Inviting someone** — send them their own link:
+
+```
+https://learnihon.netlify.app/?k=alice-7fq2
+```
+
+Opening it once stores the token and strips it from the URL. No code to
+type, no login. They add it to their home screen and it just works.
+
+**Revoking someone** — delete their token from `ACCESS_TOKENS` and redeploy.
+Their app keeps working; it falls back to the built-in voice.
+
+**Cost control.** The token allowlist is the main guard, plus a pinned model
+and a 200-character input cap, and the browser caches every clip so a
+sentence is fetched once ever. There is deliberately **no per-user rate
+limit** — that needs persistent storage the function doesn't have. The real
+backstop is a hard monthly spend limit on your OpenAI account; set one. If a
+token leaks, remove it and redeploy.
+
+**Your own device** doesn't use the proxy: a key saved in Settings wins, so
+you spend against your account directly and keep working if the proxy is
+down.
+
 ## Updating
 
 `registerType: 'autoUpdate'` — the service worker fetches a new version in the
