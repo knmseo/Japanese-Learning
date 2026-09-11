@@ -8,7 +8,9 @@ type Props = {
   visible: boolean
 }
 
-const STROKE = '#312F2A'
+/** Outline + heavy bottom edge share one token, so dark mode shifts both
+ * off near-black together (#312F2A light, #4F6260 dark). */
+const STROKE = 'var(--color-shadow)'
 
 /** Set at build time; when present it wins over anything saved in the browser. */
 const ENV_KEY = import.meta.env.VITE_OPENAI_API_KEY?.trim()

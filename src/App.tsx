@@ -199,7 +199,7 @@ function App() {
           className="btn btn-secondary"
           restDepthPx={3}
           shadowColor="var(--color-shadow)"
-          style={{ borderColor: '#312F2A', background: 'var(--color-bg)' }}
+          style={{ borderColor: 'var(--color-shadow)', background: 'var(--color-bg)' }}
         >
           Study ahead anyway
         </PressableButton>
@@ -229,7 +229,7 @@ function App() {
           type="button"
           onClick={() => void startSession(studySource)}
           className="btn btn-secondary"
-          style={{ borderColor: '#312F2A' }}
+          style={{ borderColor: 'var(--color-shadow)' }}
         >
           Start another session
         </button>

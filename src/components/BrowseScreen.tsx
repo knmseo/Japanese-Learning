@@ -14,7 +14,9 @@ type Props = {
   onSelectSource: (source: StudySource) => void
 }
 
-const STROKE = '#312F2A'
+/** Outline + heavy bottom edge share one token, so dark mode shifts both
+ * off near-black together (#312F2A light, #4F6260 dark). */
+const STROKE = 'var(--color-shadow)'
 const CARD_WIDTH = 168
 const RAIL_GAP = 12
 /** The second rail starts half a card further along, so the two rows never line
@@ -23,6 +25,11 @@ const ROW_OFFSET = 74
 /** Vertical room a deck card needs below its box for the thick bottom edge and the
  * press animation's travel — the deepest rest shadow is 4px (an active deck). */
 const CARD_PRESS_ROOM = 6
+/** Resting depth of every deck card — selected ones sink to 0 from here. */
+const DECK_PRESS_DEPTH = 4
+/** Fill for a pressed/selected deck. Softer than the default solid accent, which
+ * as a persistent state would turn the selected card into a solid block. */
+const DECK_SELECTED_TINT = 'color-mix(in srgb, var(--color-accent-500) 24%, transparent)'
 
 type TabId = 'library' | 'stats' | 'settings'
 const TABS: TabId[] = ['library', 'stats', 'settings']
@@ -97,16 +104,20 @@ export function BrowseScreen({ visible, activeSource, onSelectSource }: Props) {
         type="button"
         onClick={() => onSelectSource(source)}
         className="card shrink-0 text-left"
-        restDepthPx={active ? 4 : 1}
+        // Every deck rests raised on the same depth; the selected one is held
+        // in the pressed state, so the rail reads as a row of toggle buttons
+        // with one pushed in. (It used to be inverted — only the selected deck
+        // looked raised, so the whole rail read as "pressed" by default.)
+        restDepthPx={DECK_PRESS_DEPTH}
+        depressed={active}
         shadowColor="var(--color-shadow)"
+        pressedBackground={DECK_SELECTED_TINT}
         style={{
           width: CARD_WIDTH,
           minHeight: 92,
           padding: '12px 13px 11px',
           borderColor: STROKE,
-          background: active
-            ? 'color-mix(in srgb, var(--color-accent-500) 12%, transparent)'
-            : 'transparent',
+          background: 'transparent',
           justifyContent: 'space-between',
         }}
         aria-pressed={active}
@@ -232,7 +243,7 @@ export function BrowseScreen({ visible, activeSource, onSelectSource }: Props) {
 
       <div className="pt-12">
         <h2 className="text-[22px]" style={{ fontFamily: 'var(--font-heading)', fontWeight: 600 }}>
-          My Sentences
+          Saved
         </h2>
       </div>
 
@@ -247,15 +258,19 @@ export function BrowseScreen({ visible, activeSource, onSelectSource }: Props) {
               disabled={empty}
               onClick={() => onSelectSource(row.source)}
               className="card w-full flex-row items-center justify-between disabled:opacity-55"
-              restDepthPx={active ? 3 : 1}
+              // Same toggle behaviour as the deck cards above — selected stays
+              // pushed in — so the two halves of this screen don't read opposite.
+              restDepthPx={DECK_PRESS_DEPTH}
+              depressed={active}
               shadowColor="var(--color-shadow)"
+              pressedBackground={DECK_SELECTED_TINT}
               style={{
                 // `.card`'s column direction ties with Tailwind's `flex-row` on
                 // specificity and wins on source order — pin it here.
                 flexDirection: 'row',
                 padding: '14px 16px',
                 borderColor: STROKE,
-                background: active ? 'color-mix(in srgb, var(--color-accent-500) 12%, transparent)' : 'transparent',
+                background: 'transparent',
               }}
               aria-pressed={active}
             >

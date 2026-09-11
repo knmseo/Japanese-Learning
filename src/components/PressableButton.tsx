@@ -10,6 +10,12 @@ type Props = ButtonHTMLAttributes<HTMLButtonElement> & {
   /** The border/shadow color — same value passed as `borderColor` in `style`. */
   shadowColor: string
   pressedBackground?: string
+  /**
+   * Hold the button in its pressed state, for toggles where "selected" should
+   * read as "stays pushed in" — the selected deck, for instance. Distinct from
+   * the momentary `pressed` that tracks the pointer.
+   */
+  depressed?: boolean
   children: ReactNode
 }
 
@@ -22,7 +28,15 @@ type Props = ButtonHTMLAttributes<HTMLButtonElement> & {
  * border-bottom-width. Used everywhere that border language reads as a
  * button: rating buttons, deck cards, saved-set rows.
  */
-export function PressableButton({ restDepthPx, shadowColor, pressedBackground, style, children, ...rest }: Props) {
+export function PressableButton({
+  restDepthPx,
+  shadowColor,
+  pressedBackground,
+  depressed = false,
+  style,
+  children,
+  ...rest
+}: Props) {
   const { pressed, handlers } = usePressed()
 
   return (
@@ -36,7 +50,9 @@ export function PressableButton({ restDepthPx, shadowColor, pressedBackground, s
         handlers.onPointerDown()
         rest.onPointerDown?.(e)
       }}
-      style={{ ...style, ...pressStyle(pressed, restDepthPx, shadowColor, pressedBackground) } as CSSProperties}
+      style={
+        { ...style, ...pressStyle(pressed || depressed, restDepthPx, shadowColor, pressedBackground) } as CSSProperties
+      }
     >
       {children}
     </button>

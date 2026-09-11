@@ -17,7 +17,9 @@ type Props = {
   onSwipe: (direction: 'next' | 'previous') => void
 }
 
-const STROKE = '#312F2A'
+/** Outline + heavy bottom edge share one token, so dark mode shifts both
+ * off near-black together (#312F2A light, #4F6260 dark). */
+const STROKE = 'var(--color-shadow)'
 const SAVED_COLOR = '#E4572E'
 const SWIPE_THRESHOLD_PX = 50
 
