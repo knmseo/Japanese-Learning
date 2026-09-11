@@ -1,6 +1,7 @@
 import { BookMarked, ChevronRight, Tag } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { PressableButton } from '@/components/PressableButton'
+import { SettingsScreen } from '@/components/SettingsScreen'
 import { StatsScreen } from '@/components/StatsScreen'
 import { getDecks } from '@/lib/deckStore'
 import { db } from '@/lib/db'
@@ -23,8 +24,8 @@ const ROW_OFFSET = 74
  * press animation's travel — the deepest rest shadow is 4px (an active deck). */
 const CARD_PRESS_ROOM = 6
 
-type TabId = 'library' | 'stats'
-const TABS: TabId[] = ['library', 'stats']
+type TabId = 'library' | 'stats' | 'settings'
+const TABS: TabId[] = ['library', 'stats', 'settings']
 
 function isActive(active: StudySource | null, candidate: StudySource): boolean {
   if (!active) return false
@@ -41,7 +42,7 @@ function isActive(active: StudySource | null, candidate: StudySource): boolean {
  */
 export function BrowseScreen({ visible, activeSource, onSelectSource }: Props) {
   const [tab, setTab] = useState<TabId>('library')
-  const tabRefs = useRef<Record<TabId, HTMLButtonElement | null>>({ library: null, stats: null })
+  const tabRefs = useRef<Record<TabId, HTMLButtonElement | null>>({ library: null, stats: null, settings: null })
   const [underline, setUnderline] = useState({ left: 0, width: 0 })
   const [decks, setDecks] = useState<Deck[]>([])
   const [savedSentenceCount, setSavedSentenceCount] = useState(0)
@@ -178,7 +179,9 @@ export function BrowseScreen({ visible, activeSource, onSelectSource }: Props) {
         />
       </div>
 
-      {tab === 'stats' ? (
+      {tab === 'settings' ? (
+        <SettingsScreen visible={visible && tab === 'settings'} />
+      ) : tab === 'stats' ? (
         <StatsScreen visible={visible && tab === 'stats'} />
       ) : (
         <>

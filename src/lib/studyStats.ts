@@ -1,6 +1,7 @@
 import type { HeatmapColumn } from '@/components/charts/heatmap'
 import { db } from './db'
 import { deriveMasteryStatus } from './conceptMastery'
+import { countCompletedSessions } from './sessionLog'
 
 /**
  * §10's progress tracking. Deliberately minimal and non-gamified — §10 and
@@ -84,13 +85,19 @@ export type StudyStats = {
   totalReviews: number
   conceptsEncountered: number
   conceptsKnown: number
+  /** §10's "sessions completed" — rows in `sessions` with a completedAt. */
+  sessionsCompleted: number
   /** Sum of response latencies — the only listening-time signal actually logged. */
   minutesStudied: number
 }
 
 /** Reads everything §10 reports out of the tables the study loop already writes. */
 export async function getStudyStats(now = new Date()): Promise<StudyStats> {
-  const [logs, masteries] = await Promise.all([db.reviewLogs.toArray(), db.conceptMastery.toArray()])
+  const [logs, masteries, sessionsCompleted] = await Promise.all([
+    db.reviewLogs.toArray(),
+    db.conceptMastery.toArray(),
+    countCompletedSessions(),
+  ])
 
   const reviewsByDay = new Map<string, number>()
   let totalLatencyMs = 0
@@ -122,6 +129,7 @@ export async function getStudyStats(now = new Date()): Promise<StudyStats> {
     totalReviews,
     conceptsEncountered: masteries.length,
     conceptsKnown: masteries.filter((m) => deriveMasteryStatus(m) === 'known').length,
+    sessionsCompleted,
     minutesStudied: Math.round(totalLatencyMs / 60000),
   }
 }

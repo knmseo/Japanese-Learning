@@ -181,6 +181,11 @@ export function StatsScreen({ visible }: Props) {
           />
           <StatFigure value={stats.conceptsEncountered} label="Concepts seen" delayMs={160} />
           <StatFigure value={stats.conceptsKnown} label="Concepts known" delayMs={240} />
+          <StatFigure
+            value={stats.sessionsCompleted}
+            label={stats.sessionsCompleted === 1 ? 'Session done' : 'Sessions done'}
+            delayMs={320}
+          />
         </div>
       </div>
 

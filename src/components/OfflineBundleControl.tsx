@@ -45,7 +45,7 @@ export function OfflineBundleControl({ sentences }: Props) {
     setStatus(await getBundleStatus(sentences))
 
     if (result.missingKey) {
-      setNote('Add an OpenAI key in settings to download audio.')
+      setNote('Add an OpenAI key under Browse → Settings to download audio.')
     } else if (result.failed > 0) {
       setNote(`${result.failed} couldn't be downloaded — the rest are ready.`)
     }

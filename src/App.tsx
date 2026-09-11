@@ -11,6 +11,7 @@ import { generateId } from '@/lib/id'
 import { comprehensionToFsrsRating, scheduleNext } from '@/lib/scheduler'
 import { getAllSentences } from '@/lib/sentenceStore'
 import { generateSession } from '@/lib/sessionGenerator'
+import { completeSessionRecord, recordSessionProgress, startSessionRecord } from '@/lib/sessionLog'
 import { describeStudySource, getStudySource, setStudySource } from '@/lib/studySource'
 import { getThemeVars } from '@/lib/theme'
 import type { Comprehension, RevealStage, Sentence, StudySource } from '@/lib/types'
@@ -32,6 +33,8 @@ function App() {
    * rating is the only way to advance the live frontier. */
   const [viewIndex, setViewIndex] = useState(0)
   const [completed, setCompleted] = useState(false)
+  /** Row id in `sessions` for the run in progress (§10), null for an empty session. */
+  const [sessionId, setSessionId] = useState<string | null>(null)
   const [dark, setDark] = useState(false)
   const [loadError, setLoadError] = useState<string | null>(null)
 
@@ -57,6 +60,10 @@ function App() {
       const deckName = source?.kind === 'deck' ? decks.find((d) => d.id === source.deckId)?.name : undefined
       setSourceLabel(source ? describeStudySource(source, deckName) : '')
       setSentenceIds(await generateSession(source))
+      // The `sessions` row is created lazily on the first answer, not here —
+      // otherwise merely browsing decks (or StrictMode's double-invoked effect
+      // in dev) would log sessions that were never studied.
+      setSessionId(null)
     } catch (e) {
       setLoadError(e instanceof Error ? e.message : String(e))
       setSentenceIds([])
@@ -96,10 +103,19 @@ function App() {
     await db.fsrsStates.put(nextState)
     if (sentence) await updateConceptsForReview(sentence.concepts, fsrsRating, now)
 
+    // First answer of this run — open its `sessions` row now (§10).
+    let activeSessionId = sessionId
+    if (!activeSessionId) {
+      activeSessionId = await startSessionRecord(sentenceIds)
+      setSessionId(activeSessionId)
+    }
+
     const next = answeredCount + 1
     setAnsweredCount(next)
+    void recordSessionProgress(activeSessionId, next)
     if (next >= sentenceIds.length) {
       setCompleted(true)
+      void completeSessionRecord(activeSessionId)
     } else {
       setViewIndex(next)
     }

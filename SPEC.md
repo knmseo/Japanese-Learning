@@ -206,6 +206,30 @@ Finite sessions, not an endless feed. A session =
 
 Session length configurable; default target ~10–15 minutes.
 
+**Built** in `src/lib/sessionGenerator.ts`. Until this, the generator ran the
+Phase 0 algorithm — FSRS due date only — and never read the concept rollup, so
+`conceptMastery` was written after every single review and used by nothing.
+
+Sentences are bucketed and taken in order:
+
+1. **due** — FSRS says due. Ordered most-overdue first. This outranks
+   everything: §11 puts scheduling in deterministic code, and a sentence the
+   scheduler says is due is due regardless of its concepts.
+2. **developing** — not due, but carries a concept at `developing` (§3).
+   Weakest concept first, so shaky material gets the attention.
+3. **new** — introduces a concept never encountered, capped by the novelty
+   ceiling. Fewest new concepts first, so novelty arrives gently rather than in
+   a clump.
+4. **known** — everything else, as filler.
+
+The novelty ceiling defaults to 20%, the top of §4's 5–20% band, and is a
+parameter rather than a constant (§4: "configurable, not a fixed constant").
+
+One deliberate exception: on a cold start every concept is `new`, so the
+ceiling would cap a first session at two sentences. The ceiling exists to keep
+new material a minority of *familiar* work; with no familiar work to be a
+minority of, it has nothing to limit, so the remainder is filled from `new`.
+
 ---
 
 ## 7. Travel-Topic Weighting
@@ -321,6 +345,31 @@ Minimal, non-gamified. Track: concepts encountered, concepts at "known"
 status, vocabulary/grammar familiarity aggregates, minutes listened,
 sessions completed, travel-topic coverage. No streaks, no leaderboards, no
 achievement badges.
+
+**Built** as the Stats tab under Browse (`StatsScreen`), reading from the
+tables the study loop already writes — `reviewLogs`, `conceptMastery`,
+`sessions`. Nothing new is logged just to feed it.
+
+- **Study heatmap**, 26 weeks, one cell per day, five levels by review
+  count. Bucketed relative to session size rather than raw count: the
+  chart component maps 4+ to its top level, which would put every study
+  day at maximum. Not a streak — it reports days, it does not reward
+  consecutive ones (§14).
+- **Figures**: sentences reviewed, days studied, concepts seen, concepts
+  known, sessions completed.
+- **`sessions` is written for the first time here.** The table was declared
+  in Phase 0 and never used, so "sessions completed" had nothing behind it.
+  A row opens on the first *answer* of a run — not when a session is
+  generated, or browsing decks and React StrictMode's double-invoked effect
+  would both log sessions that were never studied — and is stamped
+  `completedAt` when the last card is rated. Abandoned runs stay as rows
+  without a `completedAt`: they cost nothing and don't inflate the count.
+
+**Not built:** minutes listened and travel-topic coverage. Minutes was
+briefly shown as summed response latency, which measures thinking time, not
+listening — and with autoplay removed (§1) nothing tracks audio duration at
+all, so an honest figure has nothing to read from. Topic coverage needs
+`topic` to be set consistently across decks first.
 
 ---
 
