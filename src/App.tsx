@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { BrowseScreen } from '@/components/BrowseScreen'
+import { PressableButton } from '@/components/PressableButton'
 import { DarkModeToggle } from '@/components/DarkModeToggle'
 import { OfflineBundleControl } from '@/components/OfflineBundleControl'
 import { ScreenToggle } from '@/components/ScreenToggle'
@@ -35,6 +36,8 @@ function App() {
   const [completed, setCompleted] = useState(false)
   /** Row id in `sessions` for the run in progress (§10), null for an empty session. */
   const [sessionId, setSessionId] = useState<string | null>(null)
+  /** Earliest upcoming review in this source — shown when nothing is due yet. */
+  const [nextDueAt, setNextDueAt] = useState<string | null>(null)
   const [dark, setDark] = useState(false)
   const [loadError, setLoadError] = useState<string | null>(null)
 
@@ -48,7 +51,7 @@ function App() {
     })()
   }, [])
 
-  async function startSession(source: StudySource | null) {
+  async function startSession(source: StudySource | null, studyAhead = false) {
     setCompleted(false)
     setAnsweredCount(0)
     setViewIndex(0)
@@ -59,7 +62,9 @@ function App() {
       setSentenceById(new Map(sentences.map((s) => [s.id, s])))
       const deckName = source?.kind === 'deck' ? decks.find((d) => d.id === source.deckId)?.name : undefined
       setSourceLabel(source ? describeStudySource(source, deckName) : '')
-      setSentenceIds(await generateSession(source))
+      const plan = await generateSession(source, new Date(), undefined, undefined, studyAhead)
+      setSentenceIds(plan.sentenceIds)
+      setNextDueAt(plan.nextDueAt)
       // The `sessions` row is created lazily on the first answer, not here —
       // otherwise merely browsing decks (or StrictMode's double-invoked effect
       // in dev) would log sessions that were never studied.
@@ -152,7 +157,7 @@ function App() {
         <p className="text-[var(--color-neutral-500)]">Loading session…</p>
       </div>
     )
-  } else if (sentenceIds.length === 0) {
+  } else if (sentenceIds.length === 0 && !nextDueAt) {
     studyContent = (
       <div className="flex flex-1 items-center justify-center px-4 text-center">
         <p className="text-[var(--color-neutral-500)]">
@@ -162,6 +167,38 @@ function App() {
               ? "You haven't saved any words yet — tap one after revealing a translation."
               : 'No sentences available.'}
         </p>
+      </div>
+    )
+  } else if (sentenceIds.length === 0) {
+    // Nothing is due and there is no new material — the scheduler has genuinely
+    // deferred everything. Saying so beats silently re-drilling cards that FSRS
+    // put days out, which is what padding the session used to do.
+    const days = nextDueAt
+      ? Math.max(0, Math.ceil((new Date(nextDueAt).getTime() - Date.now()) / 86400000))
+      : null
+    studyContent = (
+      <div className="flex flex-1 flex-col items-center justify-center gap-4 px-4 text-center">
+        <h1 className="text-2xl" style={{ fontFamily: 'var(--font-heading)', fontWeight: 600 }}>
+          Nothing due yet
+        </h1>
+        <p className="max-w-xs text-[14px]" style={{ color: 'var(--color-neutral-500)' }}>
+          {days === null
+            ? 'This set is fully reviewed.'
+            : days === 0
+              ? 'The next review comes up later today.'
+              : `The next review is in ${days} ${days === 1 ? 'day' : 'days'}.`}{' '}
+          Spacing the gaps out is what makes it stick.
+        </p>
+        <PressableButton
+          type="button"
+          onClick={() => void startSession(studySource, true)}
+          className="btn btn-secondary"
+          restDepthPx={3}
+          shadowColor="var(--color-shadow)"
+          style={{ borderColor: '#312F2A', background: 'var(--color-bg)' }}
+        >
+          Study ahead anyway
+        </PressableButton>
       </div>
     )
   } else if (completed) {

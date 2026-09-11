@@ -123,7 +123,7 @@ export function SettingsScreen({ visible }: Props) {
               disabled={!value.trim()}
               className="btn btn-secondary flex-1 disabled:opacity-50"
               restDepthPx={3}
-              shadowColor={STROKE}
+              shadowColor="var(--color-shadow)"
               style={{ borderColor: STROKE, background: 'var(--color-bg)' }}
             >
               {saved ? 'Replace key' : 'Save key'}
@@ -134,7 +134,7 @@ export function SettingsScreen({ visible }: Props) {
                 onClick={() => void handleClear()}
                 className="btn btn-secondary"
                 restDepthPx={3}
-                shadowColor={STROKE}
+                shadowColor="var(--color-shadow)"
                 style={{ borderColor: STROKE, background: 'var(--color-bg)' }}
               >
                 Remove

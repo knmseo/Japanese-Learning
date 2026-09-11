@@ -106,6 +106,8 @@ export function SentenceCard({ sentence, viewOnly, onAnswer, onSwipe }: Props) {
           padding: '28px 20px 30px',
           textAlign: 'center',
           borderColor: STROKE,
+          // Same affordance as the pressable shadows, so it follows the theme too.
+          borderBottomColor: 'var(--color-shadow)',
           borderBottomWidth: 12,
           borderRadius: 24, // rounder than the sitewide --radius-md=4px — this card only
           minHeight: 190,
@@ -183,7 +185,7 @@ export function SentenceCard({ sentence, viewOnly, onAnswer, onSwipe }: Props) {
                 onClick={() => handleAnswer(r.comprehension)}
                 className={`btn btn-secondary col-span-2 ${i === 2 ? 'col-start-2' : ''}`}
                 restDepthPx={5}
-                shadowColor={STROKE}
+                shadowColor="var(--color-shadow)"
                 style={{ borderColor: STROKE, background: 'var(--color-bg)' }}
               >
                 {r.label}

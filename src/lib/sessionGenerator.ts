@@ -99,12 +99,21 @@ function classify(
  * Deterministic throughout, per §11 — no LLM involvement in choosing what to
  * study.
  */
+export type SessionPlan = {
+  sentenceIds: string[]
+  /** Earliest future due date in this source, for the "nothing due yet" screen. */
+  nextDueAt: string | null
+}
+
 export async function generateSession(
   source: StudySource | null = null,
   now: Date = new Date(),
   sessionSize: number = DEFAULT_SESSION_SIZE,
   noveltyCeiling: number = DEFAULT_NOVELTY_CEILING,
-): Promise<string[]> {
+  /** Ignore due dates and pad with already-known material. Only for the explicit
+   * "Study ahead" action — normal sessions must respect the schedule. */
+  studyAhead = false,
+): Promise<SessionPlan> {
   const [states, masteries, allSentences] = await Promise.all([
     db.fsrsStates.toArray(),
     db.conceptMastery.toArray(),
@@ -141,7 +150,6 @@ export async function generateSession(
   take(due, sessionSize)
   take(developing, sessionSize - picked.length)
   take(fresh, Math.ceil(sessionSize * noveltyCeiling))
-  take(known, sessionSize - picked.length)
 
   // Cold start: with no history every concept is "new", so the novelty ceiling
   // would cap a first session at two sentences. The ceiling exists to keep new
@@ -149,5 +157,18 @@ export async function generateSession(
   // be a minority of, it has nothing to limit, so fill the rest.
   take(fresh, sessionSize - picked.length)
 
-  return picked
+  // Known material the scheduler has deferred is deliberately NOT used as
+  // filler. Padding with it was making spaced repetition invisible: with decks
+  // smaller than a session, every sentence appeared every time no matter what
+  // FSRS had decided, so a "due in 8 days" card came back immediately. A short
+  // session is the correct outcome when little is due — that is the point of
+  // scheduling. Only an explicit "study ahead" reaches past it.
+  if (studyAhead) take(known, sessionSize - picked.length)
+
+  const futureDue = classified
+    .map((c) => dueAtBySentenceId.get(c.sentence.id))
+    .filter((d): d is number => d !== undefined && d > nowMs)
+  const nextDueAt = futureDue.length ? new Date(Math.min(...futureDue)).toISOString() : null
+
+  return { sentenceIds: picked, nextDueAt }
 }

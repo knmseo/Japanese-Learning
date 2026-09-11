@@ -220,7 +220,13 @@ Sentences are bucketed and taken in order:
 3. **new** — introduces a concept never encountered, capped by the novelty
    ceiling. Fewest new concepts first, so novelty arrives gently rather than in
    a clump.
-4. **known** — everything else, as filler.
+4. **known** — everything else. **Not used as filler in a normal session.**
+   Padding with material FSRS had deferred made spaced repetition invisible:
+   with decks smaller than a session every sentence appeared every time, so a
+   card scheduled 8 days out came straight back. A short — or empty — session
+   is the correct outcome when little is due; that is what scheduling is for.
+   Reached only by the explicit "Study ahead anyway" action on the
+   nothing-due screen.
 
 The novelty ceiling defaults to 20%, the top of §4's 5–20% band, and is a
 parameter rather than a constant (§4: "configurable, not a fixed constant").

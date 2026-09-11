@@ -6,6 +6,8 @@
  * exactly as the source file scoped its own dark-mode override.
  */
 const LIGHT_VARS: Record<string, string> = {
+  /** The heavy bottom edge under cards and pressable buttons (see lib/press.ts). */
+  '--color-shadow': '#312F2A',
   '--color-bg': '#FFF6E1',
   '--color-surface': '#FCEFCB',
   '--color-text': '#201f1d',
@@ -23,6 +25,9 @@ const LIGHT_VARS: Record<string, string> = {
 }
 
 const DARK_VARS: Record<string, string> = {
+  // Near-black reads as a hole punched in the dark ground; this sits just far
+  // enough below the surface to still register as a raised edge.
+  '--color-shadow': '#4F6260',
   '--color-bg': '#2D383F',
   '--color-surface': '#374349',
   '--color-text': '#EDF2EF',

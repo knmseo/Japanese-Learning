@@ -98,7 +98,7 @@ export function BrowseScreen({ visible, activeSource, onSelectSource }: Props) {
         onClick={() => onSelectSource(source)}
         className="card shrink-0 text-left"
         restDepthPx={active ? 4 : 1}
-        shadowColor={STROKE}
+        shadowColor="var(--color-shadow)"
         style={{
           width: CARD_WIDTH,
           minHeight: 92,
@@ -248,7 +248,7 @@ export function BrowseScreen({ visible, activeSource, onSelectSource }: Props) {
               onClick={() => onSelectSource(row.source)}
               className="card w-full flex-row items-center justify-between disabled:opacity-55"
               restDepthPx={active ? 3 : 1}
-              shadowColor={STROKE}
+              shadowColor="var(--color-shadow)"
               style={{
                 // `.card`'s column direction ties with Tailwind's `flex-row` on
                 // specificity and wins on source order — pin it here.
