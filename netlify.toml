@@ -1,0 +1,17 @@
+# Netlify build settings, pinned here rather than left to the dashboard so the
+# deploy is reproducible from the repo alone.
+
+[build]
+  command = "npm run build"
+  # Vite writes here. Publishing the repo root instead is the classic cause of
+  # "everything 404s including /" — there is no index.html at the root.
+  publish = "dist"
+
+[build.environment]
+  # Vite 8 requires Node ^20.19 || >=22.12. Netlify's default for older sites is
+  # Node 18, which fails the build outright.
+  NODE_VERSION = "22"
+
+# The SPA fallback lives in public/_redirects (and so ends up in dist/_redirects)
+# rather than here. Redirects declared in netlify.toml take precedence over the
+# _redirects file, so keeping it in one place avoids the two silently diverging.
