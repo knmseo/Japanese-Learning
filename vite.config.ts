@@ -105,6 +105,17 @@ function pwa(): Plugin[] {
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), tailwindcss(), serveKuromojiDict(), ...pwa()],
+  server: {
+    // Vite ignores $PORT on its own — it only honours --port or this field, and
+    // otherwise walks up from 5173 until it finds a free one. That silent walk
+    // breaks any launcher that assigns a port and then opens it: the launcher
+    // waits on the port it handed us while Vite quietly binds a different one.
+    // Reading PORT here makes the assignment authoritative; nothing is set in
+    // normal local use, so the default stays 5173.
+    port: process.env.PORT ? Number(process.env.PORT) : 5173,
+    // Fail loudly rather than drifting to another port behind the caller's back.
+    strictPort: !!process.env.PORT,
+  },
   resolve: {
     alias: {
       '@': path.resolve(import.meta.dirname, './src'),
