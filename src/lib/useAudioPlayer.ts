@@ -1,4 +1,5 @@
 import { useCallback, useRef, useState } from 'react'
+import { getAccessToken } from './accessToken'
 import { getOpenAiApiKey } from './apiKey'
 import { getAudioForSentence } from './tts'
 import { speakWithWebSpeech, stopWebSpeech } from './webSpeech'
@@ -68,22 +69,27 @@ export function useAudioPlayer() {
       stop()
       setIsLoading(true)
       try {
-        const hasKey = !!(await getOpenAiApiKey())
+        // An invite token is just as good as a personal key here: tts.ts routes
+        // it through the shared proxy. Gating this on the personal key alone is
+        // what used to drop every invited user straight to the browser voice —
+        // the proxy path existed and worked, but nothing ever reached it.
+        const [apiKey, token] = await Promise.all([getOpenAiApiKey(), getAccessToken()])
+        const hasNeuralVoice = !!apiKey || !!token
 
-        if (hasKey) {
+        if (hasNeuralVoice) {
           try {
             await playViaOpenAi(text, rate)
             setLastEngine('openai')
             setFallbackReason(null)
             return
           } catch {
-            // Falls through to the free voice below — a bad/uncredited key
-            // shouldn't block playback, just downgrade it.
+            // Falls through to the free voice below — a bad/uncredited key, or a
+            // revoked invite, shouldn't block playback, just downgrade it.
           }
         }
 
         setLastEngine('webspeech')
-        setFallbackReason(hasKey ? 'openai-failed' : 'no-key')
+        setFallbackReason(hasNeuralVoice ? 'openai-failed' : 'no-key')
         try {
           await playViaWebSpeech(text, rate)
         } catch {

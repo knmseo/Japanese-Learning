@@ -135,6 +135,18 @@ build:
 - **The stats numerals are `#444144`**, matching the tile outline, and the
   fifth figure (*Concepts Known*) is **not** shown — the mockup draws exactly
   four tiles. `conceptsKnown` is still computed in `studyStats`.
+- **The rating pills' outline matches their slab (`#312F2A`).** The frame
+  actually draws a `#020005` border over a `#312F2A` slab; the two reading as
+  one edge was preferred. Applied to every pill, not just the three rating
+  buttons. Cards, tiles and rows are unaffected — their outline and slab were
+  already the same `#020005`.
+- **The count-up is damped, not eased-out.** It runs on the same
+  `cubic-bezier(0.34, 1.56, 0.64, 1)` as `--ease-damped`, whose second control
+  point sits above 1, so a figure overshoots and settles: 41 counts past itself
+  to 45, then drops back. Verified in the DOM.
+- **The light/dark toggle is removed** pending a designed dark theme. The dark
+  palette and `getThemeVars()` are untouched and `DarkModeToggle.tsx` is kept
+  unreferenced, so restoring it is a one-line change in `App.tsx`.
 - **Cafe24 Moyamoya draws zero as a solid filled oval with a slash.** Verified
   at 80px that it is a real designed glyph with its own advance width, not a
   missing-character box. Accepted as-is, so a stat sitting at 0 reads as a dark

@@ -121,14 +121,23 @@ export function SegmentedTranslation({ japanese, naturalKorean, revealed }: Prop
             // Only swallow the tap once revealed — a saved-word tap shouldn't also
             // toggle the card. Before reveal it must bubble up to the card's own
             // handler, which is what turns a tap anywhere on the box into a reveal.
-            // (A plain `disabled` button here used to eat the tap outright: disabled
-            // elements don't dispatch pointer events at all in most browsers, so a
-            // touch landing on the Japanese text itself — most of the box — never
-            // reached the card. Only the padding around it worked.)
             onPointerDown={(e) => revealed && e.stopPropagation()}
             onPointerUp={(e) => revealed && e.stopPropagation()}
             className="flex select-none flex-col items-center rounded-sm"
             style={{
+              // Words are untouchable until the meaning is showing. `pointer-events`
+              // rather than `disabled`: a disabled button dispatches no pointer
+              // events at all, so a touch landing on the Japanese text — most of the
+              // box — never reached the card and only the padding revealed it.
+              // pointer-events:none instead makes the segment transparent to hit
+              // testing, so the card underneath receives the tap and reveals.
+              //
+              // This is also what stops one tap doing both. `click` is dispatched
+              // after `pointerup`, by which point the reveal has re-rendered this
+              // component, so React reads the NEW onClick closure — one that sees
+              // revealed===true and saved the word on the very tap that revealed it.
+              // With no hit target there is no click to mis-read.
+              pointerEvents: revealed ? 'auto' : 'none',
               paddingInline: revealed ? '5px' : '0px',
               paddingBlock: revealed ? '2px' : '0px',
               background: saved && revealed ? `color-mix(in srgb, ${SAVED_COLOR} 10%, transparent)` : 'transparent',

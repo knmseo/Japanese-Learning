@@ -219,7 +219,10 @@ export function SentenceCard({ sentence, viewOnly, onAnswer, onSwipe }: Props) {
                 style={{
                   height: 48,
                   background: 'var(--color-surface)',
-                  border: `1.5px solid ${INK}`,
+                  // Outline matches the slab. The frame actually draws a #020005
+                  // border over a #312F2A slab, but the two reading as one edge
+                  // is what the shape wants.
+                  border: '1.5px solid var(--color-shadow)',
                   borderRadius: 'var(--radius-pill)',
                   fontFamily: 'var(--font-body)',
                   fontWeight: 500,

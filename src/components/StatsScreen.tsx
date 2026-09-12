@@ -36,10 +36,60 @@ const AMBIENT = '0 2px 5px 1px rgba(0, 0, 0, 0.1)'
 
 const COUNT_UP_MS = 900
 
-/** easeOutCubic — quick off the mark, settles gently on the final value. */
-function easeOut(t: number): number {
-  return 1 - (1 - t) ** 3
+/* The count-up eases in and out: it starts slow, picks up through the middle,
+ * and slows into its final value. Deliberately NOT the app's `--ease-damped`
+ * token — that curve's second control point sits above 1, which makes the
+ * *number* overshoot (10 counting up to 11 and dropping back), which reads as a
+ * glitch rather than as motion. These are easeInOutCubic's control points, so
+ * the value only ever climbs. */
+const COUNT_EASE = [0.65, 0, 0.35, 1] as const
+
+/**
+ * Evaluates a CSS `cubic-bezier(x1, y1, x2, y2)` at a given progress, the way
+ * the browser does for a transition: solve the curve's x for t, then read y.
+ *
+ * The x axis is guaranteed monotonic (control points are clamped to 0..1), so
+ * Newton-Raphson converges quickly; bisection is the fallback for the flat
+ * stretches where the derivative approaches zero.
+ */
+function cubicBezier(x1: number, y1: number, x2: number, y2: number): (x: number) => number {
+  const cx = 3 * x1
+  const bx = 3 * (x2 - x1) - cx
+  const ax = 1 - cx - bx
+  const cy = 3 * y1
+  const by = 3 * (y2 - y1) - cy
+  const ay = 1 - cy - by
+
+  const sampleX = (t: number) => ((ax * t + bx) * t + cx) * t
+  const sampleY = (t: number) => ((ay * t + by) * t + cy) * t
+  const slopeX = (t: number) => (3 * ax * t + 2 * bx) * t + cx
+
+  return (x) => {
+    if (x <= 0) return 0
+    if (x >= 1) return 1
+
+    let t = x
+    for (let i = 0; i < 8; i++) {
+      const error = sampleX(t) - x
+      if (Math.abs(error) < 1e-6) return sampleY(t)
+      const slope = slopeX(t)
+      if (Math.abs(slope) < 1e-6) break
+      t -= error / slope
+    }
+
+    let low = 0
+    let high = 1
+    t = x
+    while (high - low > 1e-6) {
+      if (sampleX(t) > x) high = t
+      else low = t
+      t = (low + high) / 2
+    }
+    return sampleY(t)
+  }
 }
+
+const easeCount = cubicBezier(...COUNT_EASE)
 
 /**
  * One of the four coloured stat tiles: a 146×82 panel on a 2px #444144 outline
@@ -85,7 +135,7 @@ function StatTile({
       const step = (now: number) => {
         start ||= now
         const progress = Math.min(1, (now - start) / COUNT_UP_MS)
-        setShown(Math.round(easeOut(progress) * value))
+        setShown(Math.round(easeCount(progress) * value))
         if (progress < 1) frame = requestAnimationFrame(step)
       }
       frame = requestAnimationFrame(step)
@@ -112,9 +162,12 @@ function StatTile({
         <NumberFlow
           style={{ fontFamily: 'var(--font-numeral)', fontSize: 35, lineHeight: 1, color: 'var(--color-stat-figure)' }}
           value={shown}
-          // Short enough that each tweened step lands before the next frame —
-          // the counting comes from the tween, not from NumberFlow's own timing.
-          transformTiming={{ duration: 80, easing: 'linear' }}
+          // Each tweened step retargets this mid-flight, so a slightly longer
+          // eased step smooths the digit reel's travel between values instead of
+          // stepping it linearly. Same non-overshooting curve as the tween — a
+          // springy easing here would make the reel visibly jitter past each
+          // digit. The counting itself comes from the tween above.
+          transformTiming={{ duration: 140, easing: `cubic-bezier(${COUNT_EASE.join(',')})` }}
           willChange
         />
       </div>

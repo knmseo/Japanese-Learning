@@ -151,7 +151,7 @@ export function SettingsScreen({ visible }: Props) {
               shadowColor="var(--color-shadow)"
               style={{
                 height: 44,
-                border: `1.5px solid ${INK}`,
+                border: '1.5px solid var(--color-shadow)',
                 borderRadius: 'var(--radius-pill)',
                 background: 'var(--color-surface)',
                 fontFamily: 'var(--font-body)',
@@ -171,7 +171,7 @@ export function SettingsScreen({ visible }: Props) {
                 style={{
                   height: 44,
                   paddingInline: 20,
-                  border: `1.5px solid ${INK}`,
+                  border: '1.5px solid var(--color-shadow)',
                   borderRadius: 'var(--radius-pill)',
                   background: 'var(--color-surface)',
                   fontFamily: 'var(--font-body)',

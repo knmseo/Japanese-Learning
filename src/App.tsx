@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { BrowseScreen } from '@/components/BrowseScreen'
 import { PressableButton } from '@/components/PressableButton'
-import { DarkModeToggle } from '@/components/DarkModeToggle'
 import { OfflineBundleControl } from '@/components/OfflineBundleControl'
 import { ScreenToggle } from '@/components/ScreenToggle'
 import { SentenceCard } from '@/components/SentenceCard'
@@ -28,7 +27,7 @@ const PILL_STYLE: React.CSSProperties = {
   height: 48,
   paddingInline: 26,
   background: 'var(--color-surface)',
-  border: '1.5px solid var(--color-ink)',
+  border: '1.5px solid var(--color-shadow)',
   borderRadius: 'var(--radius-pill)',
   fontFamily: 'var(--font-body)',
   fontWeight: 500,
@@ -63,7 +62,12 @@ function App() {
   const [sessionId, setSessionId] = useState<string | null>(null)
   /** Earliest upcoming review in this source — shown when nothing is due yet. */
   const [nextDueAt, setNextDueAt] = useState<string | null>(null)
-  const [dark, setDark] = useState(false)
+  /** Light-only for now: the dark-mode toggle was pulled pending a designed dark
+   * theme (the Figma file has no dark frames). The palette and getThemeVars()
+   * still carry a full dark set, so re-adding the control is the only step
+   * needed to bring it back — see src/components/DarkModeToggle.tsx, which is
+   * kept for that purpose. */
+  const dark = false
   const [loadError, setLoadError] = useState<string | null>(null)
 
   useEffect(() => {
@@ -290,7 +294,6 @@ function App() {
             </p>
           </div>
           <div className="flex flex-col items-end gap-2">
-            <DarkModeToggle dark={dark} onToggle={() => setDark((d) => !d)} />
             <OfflineBundleControl sentences={sessionSentences} />
           </div>
         </div>
