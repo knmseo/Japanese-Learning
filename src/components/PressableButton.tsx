@@ -37,7 +37,7 @@ export function PressableButton({
   children,
   ...rest
 }: Props) {
-  const { pressed, handlers } = usePressed()
+  const { pressed, handlers, release } = usePressed()
 
   return (
     <button
@@ -49,6 +49,13 @@ export function PressableButton({
         if (!rest.disabled) playSound('press')
         handlers.onPointerDown()
         rest.onPointerDown?.(e)
+      }}
+      // The press releases here rather than on pointerup, so that for a toggle
+      // (a deck card) the release and the `depressed` it just turned on land in
+      // one render — no spring back up in between. See usePressed.
+      onClick={(e) => {
+        rest.onClick?.(e)
+        release()
       }}
       style={
         { ...style, ...pressStyle(pressed || depressed, restDepthPx, shadowColor, pressedBackground) } as CSSProperties

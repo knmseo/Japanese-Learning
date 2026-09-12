@@ -82,6 +82,11 @@ function App() {
   /** Browse picked a deck or saved set — persist it and rebuild the session in the background.
    * Stays on the Browse screen (item 3): the next Study visit just shows the new session. */
   async function handleSelectSource(source: StudySource) {
+    // Flip the selection synchronously, before any await: the deck card reads
+    // its pressed state off this, and awaiting the IndexedDB write first left
+    // the card visibly un-pressed for a frame after the tap. Persisting and
+    // rebuilding the session then happen behind the already-updated UI.
+    setStudySourceState(source)
     await setStudySource(source)
     await startSession(source)
   }
