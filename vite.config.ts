@@ -62,8 +62,8 @@ function pwa(): Plugin[] {
       scope: '/',
       display: 'standalone',
       orientation: 'portrait',
-      background_color: '#f3f2f2',
-      theme_color: '#f3f2f2',
+      background_color: '#F5EDE7',
+      theme_color: '#F5EDE7',
       icons: [
         { src: 'icons/icon-192.png', sizes: '192x192', type: 'image/png' },
         { src: 'icons/icon-512.png', sizes: '512x512', type: 'image/png' },
@@ -73,16 +73,22 @@ function pwa(): Plugin[] {
     workbox: {
       // The app shell plus the decks — decks are small (~40KB total) and are
       // what a cold offline start needs (§16).
-      globPatterns: ['**/*.{js,css,html,svg,png,json}'],
+      globPatterns: ['**/*.{js,css,html,svg,png,json,woff,woff2}'],
+      // woff/woff2 are in the patterns because the two Korean faces are
+      // self-hosted from public/fonts/ — without them the glosses and the stat
+      // numerals fall back to a system face the moment the app is offline.
+      // (The .otf/.ttf originals live in fonts-src/, outside public/, so they
+      // are neither served nor precached.)
+      //
       // The kuromoji dictionary is ~17MB and is NOT used at runtime: decks ship
       // pre-segmented (§16) and getSegmentationForDisplay only reads the cache.
       // Precaching it would bloat the install by 17× for no benefit.
-      globIgnores: ['**/kuromoji-dict/**'],
+      globIgnores: ['**/kuromoji-dict/**', '**/.DS_Store'],
       navigateFallback: 'index.html',
       runtimeCaching: [
         {
-          // Lora and Cormorant Garamond come from Google Fonts; without this the
-          // app falls back to system faces the moment it's offline.
+          // Kaisei Tokumin, Lora and Zen Maru Gothic come from Google Fonts;
+          // without this the app falls back to system faces when offline.
           urlPattern: /^https:\/\/fonts\.(googleapis|gstatic)\.com\//,
           handler: 'CacheFirst',
           options: {

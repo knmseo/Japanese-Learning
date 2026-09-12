@@ -2,53 +2,107 @@
  * Listen Claude Design import. Scoped to `.classical` (not :root/body) so it
  * can't collide with shadcn's own token names (e.g. --color-accent) or leak
  * resets onto screens that haven't adopted this theme yet. */
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Lora:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kaisei+Tokumin:wght@400;500;700&family=Lora:wght@400;500;600&family=Zen+Maru+Gothic:wght@400;500&display=swap');
+
+/* The two Korean faces the mockup specifies are foundry fonts with no CDN, so
+ * they are self-hosted from public/fonts/. `font-display: swap` keeps text
+ * visible while they load; if a file ever goes missing the stacks below fall
+ * through to Noto Sans KR rather than breaking.
+ *
+ * Cafe24 Moyamoya ships a woff2, so that is listed first and woff is the
+ * fallback for anything that can't take it. PyeongChang was supplied as woff
+ * only — see public/fonts/README.md if you ever want to convert it. */
+@font-face {
+  font-family: 'PyeongChang';
+  src: url('/fonts/PyeongChang-Regular.woff') format('woff');
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Cafe24 Moyamoya';
+  src:
+    url('/fonts/Cafe24Moyamoya-Face-v1.0.woff2') format('woff2'),
+    url('/fonts/Cafe24Moyamoya-Face-v1.0.woff') format('woff');
+  font-weight: 400;
+  font-display: swap;
+}
 
 .classical {
-  --color-bg: #f3f2f2;
-  --color-surface: #eae9e9;
-  --color-text: #201f1d;
-  --color-accent: #b68235;
-  --color-accent-2: #ac803e;
-  --color-divider: color-mix(in srgb, #201f1d 16%, transparent);
+  /* ── Palette, from the Figma file (see DESIGN.md). Warm off-white ground,
+     white surfaces, near-black 2px outlines, one teal accent. ───────────── */
+  --color-bg: #F5EDE7;
+  --color-surface: #FFFFFF;
+  --color-text: #020005;
+  --color-divider: color-mix(in srgb, #020005 16%, transparent);
+  --color-accent: #99C2C4;
+  --color-accent-2: #99C2C4;
 
-  /* Tonal ramps — generated in OKLCH on one shared lightness scale, so the
-     same step of any role matches the others in visual value. */
-  --color-neutral-100: #f8f4f4;
-  --color-neutral-200: #eae7e7;
-  --color-neutral-300: #d7d3d3;
-  --color-neutral-400: #bab6b6;
-  --color-neutral-500: #9b9797;
-  --color-neutral-600: #7d7979;
-  --color-neutral-700: #605d5d;
-  --color-neutral-800: #444141;
-  --color-neutral-900: #2d2b2b;
+  /* The two slab-shadow colours are genuinely different in the mockup:
+     cards, deck tiles and saved rows drop #020005, the rating pills #312F2A.
+     --color-ink is also every 2px outline. */
+  --color-ink: #020005;
+  --color-shadow: #312F2A;
+  /* Iconsax glyphs stroke in their own lighter teal, not the accent fill. */
+  --color-icon: #82C8CC;
+  /* Pressed fill for a momentary button press (rating pills). */
+  --color-press: #FFE500;
 
-  --color-accent-100: #fff3e4;
-  --color-accent-200: #ffe3bf;
-  --color-accent-300: #facb8d;
-  --color-accent-400: #e1ad66;
-  --color-accent-500: #c28d41;
-  --color-accent-600: #a06f24;
-  --color-accent-700: #7d5411;
-  --color-accent-800: #5a3b0a;
-  --color-accent-900: #3a270d;
+  /* Stat tiles — the four palette hues at 60% over the ground, on a #444144
+     outline and slab. */
+  --color-stat-teal: rgba(153, 194, 196, 0.6);
+  --color-stat-salmon: rgba(246, 150, 135, 0.6);
+  --color-stat-green: rgba(178, 217, 131, 0.6);
+  --color-stat-yellow: rgba(255, 229, 0, 0.6);
+  --color-stat-edge: #444144;
+  /* Error text. The palette's salmon is a tile fill, far too light to read as
+     type on the paper ground, so this is that hue darkened to carry text. */
+  --color-error: #A43D2C;
+  --color-stat-figure: #444144;
 
-  --color-accent-2-100: #fff3e4;
-  --color-accent-2-200: #ffe3be;
-  --color-accent-2-300: #f5cd96;
-  --color-accent-2-400: #dbaf70;
-  --color-accent-2-500: #bc8f4e;
-  --color-accent-2-600: #9b7232;
-  --color-accent-2-700: #79561f;
-  --color-accent-2-800: #573d14;
-  --color-accent-2-900: #382810;
+  /* The screen toggle's own two values: a light-grey track edge (it floats over
+     the page rather than sitting on it, so it isn't outlined in ink) and the
+     near-black glyph that rides on the teal knob. */
+  --color-toggle-edge: #EBEBED;
+  --color-toggle-glyph: #171717;
 
-  --font-heading: "Cormorant Garamond", system-ui, sans-serif;
-  --font-heading-weight: 600; /* review round 3: bold retired — semibold is the
-     interface headings' ceiling (they need the weight at small sizes); display
-     text goes lighter still, to the normal cut (see the deck) */
-  --font-body: "Lora", system-ui, sans-serif;
+  /* Neutral ramp rebuilt so each step is a value the mockup actually uses:
+     700 the Japanese text, 600 the counter, 500 muted labels, 400 the deck
+     meta, 300 the Korean glosses. */
+  --color-neutral-100: #F5EDE7;
+  --color-neutral-200: #E4DED8;
+  --color-neutral-300: #C2C2C2;
+  --color-neutral-400: #AAAAAA;
+  --color-neutral-500: #797979;
+  --color-neutral-600: #646464;
+  --color-neutral-700: #474747;
+  --color-neutral-800: #312F2A;
+  --color-neutral-900: #020005;
+
+  /* Mono scheme — the accent ramp is one teal voice, stepped around #99C2C4. */
+  --color-accent-100: #EEF6F6;
+  --color-accent-200: #D6E8E9;
+  --color-accent-300: #BBD9DA;
+  --color-accent-400: #A9CDCF;
+  --color-accent-500: #99C2C4;
+  --color-accent-600: #7FAEB0;
+  --color-accent-700: #5E8E90;
+  --color-accent-800: #406668;
+  --color-accent-900: #294142;
+
+  /* Kaisei Tokumin carries the eyebrows, deck names, tab labels and Settings
+     headings; Lora carries section headings, buttons and captions. The mockup
+     uses Kaisei at Bold for anything that reads as a title. */
+  --font-heading: "Kaisei Tokumin", Georgia, serif;
+  --font-heading-weight: 700;
+  --font-body: "Lora", Georgia, serif;
+  /* Japanese: the mockup specifies Hiragino Maru Gothic ProN, an Apple system
+     font with no web licence. Zen Maru Gothic is the closest rounded gothic
+     that can actually be served, and renders the same on every device. */
+  --font-jp: "Zen Maru Gothic", "Hiragino Maru Gothic ProN", "Noto Sans JP", sans-serif;
+  /* Korean glosses and the stat numerals — self-hosted, see the @font-face
+     block above; both fall through to Noto Sans KR until the files exist. */
+  --font-kr: "PyeongChang", "Noto Sans KR", sans-serif;
+  --font-numeral: "Cafe24 Moyamoya", "Noto Sans KR", sans-serif;
 
   --space-1: 4.6px;
   --space-2: 9.2px;
@@ -60,6 +114,20 @@
   --radius-sm: 2px;
   --radius-md: 4px;
   --radius-lg: 7px;
+  /* Per-component radii, straight from the frames — the sentence card and
+     saved rows are 20, deck tiles 12, rating buttons a full 24px pill, the
+     stats panel and tiles 10. */
+  --radius-card: 20px;
+  --radius-tile: 12px;
+  --radius-pill: 24px;
+  --radius-panel: 10px;
+
+  /* How deep each component's slab shadow sits at rest. Pressing collapses
+     the slab to 0 and drops the element by the same amount — see lib/press.ts. */
+  --depth-card: 8px;
+  --depth-row: 5px;
+  --depth-tile: 4px;
+  --depth-pill: 4px;
 
   /* A damped-spring feel (slight overshoot past the target, then settle) for
      every transition in the app — toggles, the study/browse slide, the
@@ -163,9 +231,14 @@ textarea.input { min-height: 90px; resize: vertical; }
 .seg-opt:has(input:focus-visible) { outline: 2px solid var(--color-accent); outline-offset: -2px; }
 
 /* — cards — */
+/* Cards are filled in this system, not outlined — the mockup draws every card,
+   deck tile and saved row as a white surface on the paper ground, carrying a
+   2px ink outline and a slab shadow. (The previous editorial system left them
+   transparent; that rule is gone.) */
 .card {
   display: flex; flex-direction: column; gap: var(--space-2);
-  padding: var(--space-3); border-radius: var(--radius-md); background: transparent; border: 1px solid var(--color-divider);
+  padding: var(--space-3); border-radius: var(--radius-md);
+  background: var(--color-surface); border: 1px solid var(--color-divider);
 }
 .card-kicker { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-accent); }
 .card-title {
@@ -188,7 +261,8 @@ textarea.input { min-height: 90px; resize: vertical; }
   border-radius: calc(var(--radius-md) * 0.75);
 }
 .tag-accent { background: var(--color-accent-100); color: var(--color-accent-800); }
-.tag-accent-2 { background: var(--color-accent-2-100); color: var(--color-accent-2-800); }
+/* Mono scheme — accent-2 is the same voice as accent, so it reads off that ramp. */
+.tag-accent-2 { background: var(--color-accent-100); color: var(--color-accent-800); }
 .tag-neutral { background: var(--color-neutral-100); color: var(--color-neutral-800); }
 .tag-outline { border: 1px solid var(--color-accent); color: var(--color-accent); }
 

@@ -20,6 +20,30 @@ import type { Comprehension, RevealStage, Sentence, StudySource } from '@/lib/ty
 
 type Screen = 'study' | 'browse'
 
+/** The mockup draws no empty, complete or error screen, so these reuse the one
+ * button shape it does specify — the rating pill from `StudyTab - Translation`
+ * (1.5px ink outline, 24px radius, 4px slab) — rather than inventing a
+ * second button language. */
+const PILL_STYLE: React.CSSProperties = {
+  height: 48,
+  paddingInline: 26,
+  background: 'var(--color-surface)',
+  border: '1.5px solid var(--color-ink)',
+  borderRadius: 'var(--radius-pill)',
+  fontFamily: 'var(--font-body)',
+  fontWeight: 500,
+  fontSize: 18,
+  color: 'var(--color-text)',
+}
+
+/** Kaisei Tokumin Bold, matching the STUDY/BROWSE eyebrows and Settings headings. */
+const SCREEN_TITLE: React.CSSProperties = {
+  fontFamily: 'var(--font-heading)',
+  fontWeight: 'var(--font-heading-weight)' as unknown as number,
+  fontSize: 22,
+  color: 'var(--color-text)',
+}
+
 function App() {
   const [screen, setScreen] = useState<Screen>('study')
   const [sentenceIds, setSentenceIds] = useState<string[] | null>(null)
@@ -157,7 +181,9 @@ function App() {
   if (loadError) {
     studyContent = (
       <div className="flex flex-1 items-center justify-center px-4 text-center">
-        <p className="text-destructive text-sm">Couldn't load decks: {loadError}</p>
+        <p className="text-sm" style={{ color: 'var(--color-error)', fontFamily: 'var(--font-body)' }}>
+          Couldn't load decks: {loadError}
+        </p>
       </div>
     )
   } else if (!sentenceIds) {
@@ -187,9 +213,7 @@ function App() {
       : null
     studyContent = (
       <div className="flex flex-1 flex-col items-center justify-center gap-4 px-4 text-center">
-        <h1 className="text-2xl" style={{ fontFamily: 'var(--font-heading)', fontWeight: 600 }}>
-          Nothing due yet
-        </h1>
+        <h1 style={SCREEN_TITLE}>Nothing due yet</h1>
         <p className="max-w-xs text-[14px]" style={{ color: 'var(--color-neutral-500)' }}>
           {days === null
             ? 'This set is fully reviewed.'
@@ -201,10 +225,10 @@ function App() {
         <PressableButton
           type="button"
           onClick={() => void startSession(studySource, true)}
-          className="btn btn-secondary"
-          restDepthPx={3}
+          className="flex items-center justify-center"
+          restDepthPx={4}
           shadowColor="var(--color-shadow)"
-          style={{ borderColor: 'var(--color-shadow)', background: 'var(--color-bg)' }}
+          style={PILL_STYLE}
         >
           Study ahead anyway
         </PressableButton>
@@ -214,7 +238,7 @@ function App() {
     studyContent = (
       <div className="flex flex-1 flex-col items-center justify-center gap-4 px-4 text-center">
         <svg width="46" height="46" viewBox="0 0 24 24" fill="none">
-          <circle cx="12" cy="12" r="10" stroke="var(--color-accent-500)" strokeWidth="1.4" />
+          <circle cx="12" cy="12" r="10" stroke="var(--color-accent-500)" strokeWidth="1.6" />
           <path
             d="M8 12.5l2.7 2.7L16 9.5"
             stroke="var(--color-accent-700)"
@@ -223,35 +247,44 @@ function App() {
             strokeLinejoin="round"
           />
         </svg>
-        <h1
-          className="text-2xl"
-          style={{ fontFamily: 'var(--font-heading)', fontWeight: 'var(--font-heading-weight)' as unknown as number }}
-        >
-          Session complete
-        </h1>
-        <p className="text-[var(--color-neutral-500)] text-sm">You reviewed {sentenceIds.length} sentences.</p>
-        <button
+        <h1 style={SCREEN_TITLE}>Session complete</h1>
+        <p className="text-sm" style={{ color: 'var(--color-neutral-500)' }}>
+          You reviewed {sentenceIds.length} sentences.
+        </p>
+        <PressableButton
           type="button"
           onClick={() => void startSession(studySource)}
-          className="btn btn-secondary"
-          style={{ borderColor: 'var(--color-shadow)' }}
+          className="flex items-center justify-center"
+          restDepthPx={4}
+          shadowColor="var(--color-shadow)"
+          style={PILL_STYLE}
         >
           Start another session
-        </button>
+        </PressableButton>
       </div>
     )
   } else if (sentence) {
     studyContent = (
+      // The mockup's frame is 402 wide with the header inset 24 and the card 41,
+      // so the column caps at 402 and the card sets its own narrower width.
       <div className="flex flex-1 flex-col items-center px-4 pt-6">
-        <div className="flex w-full max-w-md items-start justify-between">
+        <div className="flex w-full max-w-[402px] items-start justify-between px-5">
           <div>
             <p
-              className="text-[11px] uppercase"
-              style={{ fontFamily: 'var(--font-heading)', fontWeight: 600, letterSpacing: '0.08em' }}
+              className="uppercase"
+              style={{
+                fontFamily: 'var(--font-heading)',
+                fontWeight: 'var(--font-heading-weight)' as unknown as number,
+                fontSize: 18,
+                color: 'var(--color-text)',
+              }}
             >
               Study
             </p>
-            <p className="mt-0.5 text-[12px] text-[var(--color-neutral-500)] tabular-nums">
+            <p
+              className="tabular-nums"
+              style={{ fontFamily: 'var(--font-body)', fontSize: 15, color: 'var(--color-neutral-600)' }}
+            >
               {viewIndex + 1} / {sentenceIds.length}
               {viewOnly && ' · reviewing'}
             </p>
@@ -263,9 +296,17 @@ function App() {
         </div>
 
         {sourceLabel && (
+          // Deck name — Kaisei Tokumin Medium 18, centred, ~51px below the
+          // counter and ~18px above the card (frame positions 119 → 189 → 233).
           <p
-            className="mt-5 mb-3 text-[17px]"
-            style={{ fontFamily: 'var(--font-heading)', fontWeight: 600, color: 'var(--color-text)' }}
+            style={{
+              fontFamily: 'var(--font-heading)',
+              fontWeight: 500,
+              fontSize: 18,
+              color: 'var(--color-text)',
+              marginTop: 44,
+              marginBottom: 18,
+            }}
           >
             {sourceLabel}
           </p>

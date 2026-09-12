@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react'
 import {
   HeatmapCells,
   HeatmapChart,
-  HeatmapLegend,
   HeatmapXAxis,
   HeatmapYAxis,
 } from '@/components/charts/heatmap'
@@ -23,6 +22,18 @@ const LEVEL_COLORS: readonly [string, string, string, string, string] = [
   'var(--color-accent-700)',
 ]
 
+/* Geometry from the `BrowseTab - Stats` frame (DESIGN.md → Screens). */
+const PANEL_INSET = 26
+const PANEL_HEIGHT = 214
+const TILE_HEIGHT = 82
+const TILE_INSET = 38
+const TILE_COLUMN_GAP = 34
+const TILE_ROW_GAP = 43
+const TILE_DEPTH = 4
+/** The soft ambient shadow both the panel and the tiles carry, under the tiles'
+ * own hard slab. */
+const AMBIENT = '0 2px 5px 1px rgba(0, 0, 0, 0.1)'
+
 const COUNT_UP_MS = 900
 
 /** easeOutCubic — quick off the mark, settles gently on the final value. */
@@ -31,9 +42,13 @@ function easeOut(t: number): number {
 }
 
 /**
- * A stat figure that counts up on first paint. Motion UI's own stats-counters
- * component is behind a Motion+ membership, so this is the same idea built from
- * what's already in the project.
+ * One of the four coloured stat tiles: a 146×82 panel on a 2px #444144 outline
+ * and a matching 4px slab, with the figure centred in Cafe24 Moyamoya at 35px
+ * and the caption in Lora beneath it.
+ *
+ * The figure counts up on first paint. Motion UI's own stats-counters component
+ * is behind a Motion+ membership, so this is the same idea built from what's
+ * already in the project.
  *
  * The value is tweened through real intermediate numbers rather than handed to
  * NumberFlow as a single 0 → N jump. NumberFlow animates each digit column
@@ -42,7 +57,17 @@ function easeOut(t: number): number {
  * in-between values makes the digits actually count, and NumberFlow's own short
  * transition smooths the steps.
  */
-function StatFigure({ value, label, delayMs }: { value: number; label: string; delayMs: number }) {
+function StatTile({
+  value,
+  label,
+  delayMs,
+  fill,
+}: {
+  value: number
+  label: string
+  delayMs: number
+  fill: string
+}) {
   const [shown, setShown] = useState(0)
 
   useEffect(() => {
@@ -73,26 +98,46 @@ function StatFigure({ value, label, delayMs }: { value: number; label: string; d
   }, [value, delayMs])
 
   return (
-    <div className="flex flex-col gap-0.5">
-      <NumberFlow
-        className="text-[22px]"
-        style={{ fontFamily: 'var(--font-body)', fontWeight: 600, lineHeight: 1.1 }}
-        value={shown}
-        // Short enough that each tweened step lands before the next frame —
-        // the counting comes from the tween, not from NumberFlow's own timing.
-        transformTiming={{ duration: 80, easing: 'linear' }}
-        willChange
-      />
-      <span className="text-[11px]" style={{ color: 'var(--color-neutral-500)' }}>
+    <div>
+      <div
+        className="flex items-center justify-center"
+        style={{
+          height: TILE_HEIGHT,
+          background: fill,
+          border: '2px solid var(--color-stat-edge)',
+          borderRadius: 'var(--radius-panel)',
+          boxShadow: `0 ${TILE_DEPTH}px 0 0 var(--color-stat-edge), ${AMBIENT}`,
+        }}
+      >
+        <NumberFlow
+          style={{ fontFamily: 'var(--font-numeral)', fontSize: 35, lineHeight: 1, color: 'var(--color-stat-figure)' }}
+          value={shown}
+          // Short enough that each tweened step lands before the next frame —
+          // the counting comes from the tween, not from NumberFlow's own timing.
+          transformTiming={{ duration: 80, easing: 'linear' }}
+          willChange
+        />
+      </div>
+      <p
+        className="text-center"
+        style={{
+          // 10px below the tile, clearing its 4px slab first.
+          marginTop: TILE_DEPTH + 10,
+          fontFamily: 'var(--font-body)',
+          fontWeight: 500,
+          fontSize: 12,
+          color: 'var(--color-text)',
+        }}
+      >
         {label}
-      </span>
+      </p>
     </div>
   )
 }
 
 /**
- * §10's progress view: a study heatmap over the last 26 weeks plus the handful
- * of aggregates §10 asks for. Non-gamified by spec — no streaks, no badges.
+ * §10's progress view: a study heatmap over the last 26 weeks plus the
+ * aggregates §10 asks for. Non-gamified by spec — no streaks, no badges.
  */
 export function StatsScreen({ visible }: Props) {
   const [stats, setStats] = useState<StudyStats | null>(null)
@@ -110,7 +155,7 @@ export function StatsScreen({ visible }: Props) {
 
   if (!stats) {
     return (
-      <p className="mt-4 text-[13px]" style={{ color: 'var(--color-neutral-500)' }}>
+      <p style={{ marginTop: 28, paddingInline: PANEL_INSET, fontSize: 13, color: 'var(--color-neutral-500)' }}>
         Loading stats…
       </p>
     )
@@ -119,77 +164,95 @@ export function StatsScreen({ visible }: Props) {
   const { heatmap } = stats
 
   return (
-    // Lora (--font-body) across the whole tab, including the heatmap's axis
-    // labels and legend, which otherwise inherit the app's default face.
     <div className="flex flex-col" style={{ fontFamily: 'var(--font-body)' }}>
-      <div className="pt-2 pb-3">
-        <h2 className="text-[22px]" style={{ fontFamily: 'var(--font-body)', fontWeight: 600 }}>
-          Study Activity
-        </h2>
+      {/* The heatmap's container: a plain white panel with no outline and only the
+          soft ambient shadow — the one surface in the app that isn't slabbed. The
+          mockup draws it empty, so what goes inside it is not specified. */}
+      <div
+        style={{
+          marginTop: 28,
+          marginInline: PANEL_INSET,
+          minHeight: PANEL_HEIGHT,
+          background: 'var(--color-surface)',
+          borderRadius: 'var(--radius-panel)',
+          boxShadow: AMBIENT,
+          padding: '14px 12px 12px',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+        }}
+      >
+        {stats.totalReviews === 0 ? (
+          <p className="text-center" style={{ fontSize: 13, color: 'var(--color-neutral-500)' }}>
+            No reviews yet — finish a session and it'll show up here.
+          </p>
+        ) : (
+          // Phone-only: `fluid` sizes the cells to whatever width is available, so
+          // all 26 weeks fit on screen with no horizontal scroll. No tooltip and no
+          // interactive cells — there's no hover on a phone, and this is meant to be
+          // a glance at the past, not something to poke.
+          <HeatmapChart
+            data={heatmap.columns}
+            layout="fluid"
+            gap={2}
+            margin={{ top: 22, right: 2, bottom: 0, left: 20 }}
+            levelColors={LEVEL_COLORS}
+            weekStartDay={0}
+            animate={false}
+          >
+            <HeatmapCells cornerRadius={1.5} interactive={false} />
+            <HeatmapXAxis />
+            <HeatmapYAxis tickFilter="odd" labelFormat="initial" />
+          </HeatmapChart>
+        )}
       </div>
 
-      {stats.totalReviews === 0 ? (
-        <p className="text-[13px]" style={{ color: 'var(--color-neutral-500)' }}>
-          No reviews yet — finish a session and it'll show up here.
-        </p>
-      ) : (
-        <>
-          {/* Phone-only: `fluid` sizes the cells to whatever width is available, so
-              all 26 weeks fit on screen with no horizontal scroll. Tight margins
-              (vs. the component's 40/16 default) buy back pixels for the cells.
-              No tooltip and no interactive cells — there's no hover on a phone,
-              and this is meant to be a glance at the past, not something to poke. */}
-          <div className="w-full">
-            <HeatmapChart
-              data={heatmap.columns}
-              layout="fluid"
-              gap={2}
-              margin={{ top: 22, right: 2, bottom: 0, left: 20 }}
-              levelColors={LEVEL_COLORS}
-              weekStartDay={0}
-              animate={false}
-            >
-              <HeatmapCells cornerRadius={1.5} interactive={false} />
-              <HeatmapXAxis />
-              <HeatmapYAxis tickFilter="odd" labelFormat="initial" />
-            </HeatmapChart>
-          </div>
-
-          <div className="mt-2 flex justify-end">
-            {/* Same ramp as the cells — without this the legend falls back to the
-                shadcn chart tokens and reads grey against the accent-coloured grid. */}
-            <HeatmapLegend
-              lessLabel="Less"
-              moreLabel="More"
-              colorScale={(level) => LEVEL_COLORS[Math.min(4, Math.max(0, Math.round(level ?? 0)))]}
-            />
-          </div>
-        </>
-      )}
-
-      <div className="mt-7 border-t pt-5" style={{ borderColor: 'var(--color-divider)' }}>
-        <div className="grid grid-cols-2 gap-y-5">
-          <StatFigure
-            value={stats.totalReviews}
-            label={stats.totalReviews === 1 ? 'Sentence reviewed' : 'Sentences reviewed'}
-            delayMs={0}
-          />
-          <StatFigure
-            value={stats.activeDays}
-            label={stats.activeDays === 1 ? 'Day studied' : 'Days studied'}
-            delayMs={80}
-          />
-          <StatFigure value={stats.conceptsEncountered} label="Concepts seen" delayMs={160} />
-          <StatFigure value={stats.conceptsKnown} label="Concepts known" delayMs={240} />
-          <StatFigure
-            value={stats.sessionsCompleted}
-            label={stats.sessionsCompleted === 1 ? 'Session done' : 'Sessions done'}
-            delayMs={320}
-          />
-        </div>
+      {/* Four tiles, 2×2, each hue mapped to the figure the mockup pairs it with. */}
+      <div
+        className="grid grid-cols-2"
+        style={{
+          marginTop: 43,
+          paddingInline: TILE_INSET,
+          columnGap: TILE_COLUMN_GAP,
+          rowGap: TILE_ROW_GAP,
+        }}
+      >
+        <StatTile
+          value={stats.totalReviews}
+          label={stats.totalReviews === 1 ? 'Sentence Reviewed' : 'Sentences Reviewed'}
+          delayMs={0}
+          fill="var(--color-stat-teal)"
+        />
+        <StatTile
+          value={stats.activeDays}
+          label={stats.activeDays === 1 ? 'Day Studied' : 'Days Studied'}
+          delayMs={80}
+          fill="var(--color-stat-salmon)"
+        />
+        <StatTile
+          value={stats.conceptsEncountered}
+          label="Concepts Seen"
+          delayMs={160}
+          fill="var(--color-stat-green)"
+        />
+        <StatTile
+          value={stats.sessionsCompleted}
+          label={stats.sessionsCompleted === 1 ? 'Session Done' : 'Sessions Done'}
+          delayMs={240}
+          fill="var(--color-stat-yellow)"
+        />
+        {/* Four tiles, exactly as drawn. `conceptsKnown` is still computed in
+            studyStats — it just isn't surfaced here. */}
       </div>
 
-      <p className="mt-6 text-[11px]" style={{ color: 'var(--color-neutral-400)' }}>
+      <p
+        style={{
+          marginTop: 28,
+          paddingInline: TILE_INSET,
+          fontSize: 11,
+          color: 'var(--color-neutral-400)',
+        }}
+      >
         Last {HEATMAP_WEEKS} weeks. A darker square means more sentences reviewed that day.
       </p>
     </div>

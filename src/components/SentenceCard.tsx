@@ -1,5 +1,6 @@
-import { Loader2, Star, Volume2 } from 'lucide-react'
+import { Loader2 } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
+import { ArchiveAdd, VolumeHigh } from '@/components/icons'
 import { PressableButton } from '@/components/PressableButton'
 import { SegmentedTranslation } from '@/components/SegmentedTranslation'
 import { isSentenceSaved, saveSentence, unsaveSentence } from '@/lib/savedSentences'
@@ -17,18 +18,27 @@ type Props = {
   onSwipe: (direction: 'next' | 'previous') => void
 }
 
-/** Outline + heavy bottom edge share one token, so dark mode shifts both
- * off near-black together (#312F2A light, #4F6260 dark). */
-const STROKE = 'var(--color-shadow)'
-const SAVED_COLOR = '#E4572E'
+/** Every 2px outline and the slab under the card (DESIGN.md → Tokens). */
+const INK = 'var(--color-ink)'
+/**
+ * The saved state isn't drawn in the mockup, so it takes the palette's salmon
+ * — a colour the design already owns — rather than inventing one.
+ */
+const SAVED_COLOR = '#F69687'
 const SWIPE_THRESHOLD_PX = 50
+
+/** Card width and the two heights it moves between, straight from the frames:
+ * 321 wide, 176 closed (`StudyTab - No Translation`) → 235 revealed. */
+const CARD_WIDTH = 321
+const CARD_HEIGHT_CLOSED = 176
+const CARD_HEIGHT_REVEALED = 235
 
 /** §1's three comprehension responses. Laid out as an upside-down triangle —
  * the third button sits centered beneath the first two, same width as each. */
 const RATINGS: { comprehension: Comprehension; label: string }[] = [
   { comprehension: 1, label: 'Easy' },
   { comprehension: 2, label: 'Needed Text' },
-  { comprehension: 3, label: "Don't Know" },
+  { comprehension: 3, label: "Don't know" },
 ]
 
 export function SentenceCard({ sentence, viewOnly, onAnswer, onSwipe }: Props) {
@@ -96,24 +106,32 @@ export function SentenceCard({ sentence, viewOnly, onAnswer, onSwipe }: Props) {
   }
 
   return (
-    <div className="flex w-full max-w-md flex-col gap-3">
+    <div className="flex w-full flex-col items-center">
       <div
         onPointerDown={handlePointerDown}
         onPointerUp={handlePointerUp}
         onPointerCancel={() => {
           swipeStart.current = null
         }}
-        className="card relative touch-pan-y select-none"
+        className="relative w-full touch-pan-y select-none"
         style={{
-          padding: '28px 20px 30px',
-          textAlign: 'center',
-          borderColor: STROKE,
-          // Same affordance as the pressable shadows, so it follows the theme too.
-          borderBottomColor: 'var(--color-shadow)',
-          borderBottomWidth: 12,
-          borderRadius: 24, // rounder than the sitewide --radius-md=4px — this card only
-          minHeight: 190,
+          maxWidth: CARD_WIDTH,
+          // The card grows as the glosses appear rather than jumping — the two
+          // heights are what the mockup draws for closed and revealed.
+          minHeight: revealed ? CARD_HEIGHT_REVEALED : CARD_HEIGHT_CLOSED,
+          transition: 'min-height 320ms var(--ease-damped)',
+          display: 'flex',
+          flexDirection: 'column',
           justifyContent: 'center',
+          background: 'var(--color-surface)',
+          border: `2px solid ${INK}`,
+          borderRadius: 'var(--radius-card)',
+          // Paint-only slab, never a border-bottom-width — see lib/press.ts for
+          // why that distinction matters here.
+          boxShadow: `0 var(--depth-card) 0 0 ${INK}`,
+          // Clears the two corner controls (24px glyphs inset 11-14px).
+          padding: '46px 18px 30px',
+          textAlign: 'center',
         }}
       >
         <button
@@ -123,12 +141,15 @@ export function SentenceCard({ sentence, viewOnly, onAnswer, onSwipe }: Props) {
           onPointerUp={(e) => e.stopPropagation()}
           aria-label={starred ? 'Remove from saved sentences' : 'Save this sentence'}
           aria-pressed={starred}
-          className="absolute top-3.5 left-3.5 flex size-7 items-center justify-center rounded-full"
+          className="absolute flex items-center justify-center"
+          style={{ left: 12, top: 9, width: 24, height: 24 }}
         >
-          <Star
-            className="size-[18px]"
-            style={{ color: starred ? SAVED_COLOR : 'var(--color-neutral-400)' }}
-            fill={starred ? SAVED_COLOR : 'none'}
+          <ArchiveAdd
+            size={24}
+            style={{
+              color: starred ? SAVED_COLOR : 'var(--color-icon)',
+              transition: 'color 200ms var(--ease-damped)',
+            }}
           />
         </button>
 
@@ -139,25 +160,27 @@ export function SentenceCard({ sentence, viewOnly, onAnswer, onSwipe }: Props) {
           onPointerUp={(e) => e.stopPropagation()}
           disabled={isLoading}
           aria-label="Replay audio"
-          className="absolute top-3.5 right-3.5 flex size-7 items-center justify-center rounded-full disabled:opacity-60"
+          className="absolute flex items-center justify-center disabled:opacity-60"
+          style={{ right: 11, top: 9, width: 24, height: 24 }}
         >
           {isLoading ? (
-            <Loader2 className="size-[18px] animate-spin" style={{ color: 'var(--color-accent-500)' }} />
+            <Loader2 className="size-[22px] animate-spin" style={{ color: 'var(--color-icon)' }} />
           ) : isPlaying ? (
-            <span className="flex h-[13px] items-center gap-[2px]">
+            <span className="flex h-[14px] items-center gap-[2.5px]">
               {[0, 0.15, 0.3, 0.45].map((delay) => (
                 <span
                   key={delay}
-                  className="h-full w-[2.5px] rounded-sm"
+                  className="w-[2.5px] rounded-sm"
                   style={{
-                    background: 'var(--color-accent-500)',
+                    height: '100%',
+                    background: 'var(--color-icon)',
                     animation: `eqbar 0.55s ease-in-out infinite ${delay}s`,
                   }}
                 />
               ))}
             </span>
           ) : (
-            <Volume2 className="size-[18px]" style={{ color: 'var(--color-accent-500)' }} />
+            <VolumeHigh size={24} style={{ color: 'var(--color-icon)' }} />
           )}
         </button>
 
@@ -171,24 +194,38 @@ export function SentenceCard({ sentence, viewOnly, onAnswer, onSwipe }: Props) {
       {revealed && !viewOnly && (
         // Pinned to the bottom of the viewport, not the card — thumb-reachable
         // one-handed regardless of where the card itself sits on the page.
-        // Cleared well above the ScreenToggle (bottom-5, 56px tall — its top
-        // edge sits ~76px up) so the two never overlap.
+        // 128px clears the screen toggle (56px tall, sitting 60px up in the
+        // mockup) with the ~12px breathing room the frames show.
         <div
           className="fixed inset-x-0 bottom-0 z-10 flex justify-center px-4"
-          style={{ paddingBottom: 'calc(92px + env(safe-area-inset-bottom))' }}
+          style={{ paddingBottom: 'calc(128px + env(safe-area-inset-bottom))' }}
         >
           {/* 4 columns so the bottom button can span the middle 2 — exactly the
-              width of either top button — and land centered beneath them. */}
-          <div className="grid w-full max-w-md grid-cols-4 gap-2.5">
+              width of either top button — and land centered beneath them. At the
+              design's 352px content width each span-2 measures 171px, which is
+              the mockup's 170. */}
+          <div
+            className="grid w-full grid-cols-4"
+            style={{ maxWidth: 352, columnGap: 10, rowGap: 23 }}
+          >
             {RATINGS.map((r, i) => (
               <PressableButton
                 key={r.comprehension}
                 type="button"
                 onClick={() => handleAnswer(r.comprehension)}
-                className={`btn btn-secondary col-span-2 ${i === 2 ? 'col-start-2' : ''}`}
-                restDepthPx={5}
+                className={`col-span-2 flex items-center justify-center ${i === 2 ? 'col-start-2' : ''}`}
+                restDepthPx={4}
                 shadowColor="var(--color-shadow)"
-                style={{ borderColor: STROKE, background: 'var(--color-bg)' }}
+                style={{
+                  height: 48,
+                  background: 'var(--color-surface)',
+                  border: `1.5px solid ${INK}`,
+                  borderRadius: 'var(--radius-pill)',
+                  fontFamily: 'var(--font-body)',
+                  fontWeight: 500,
+                  fontSize: 18,
+                  color: 'var(--color-text)',
+                }}
               >
                 {r.label}
               </PressableButton>

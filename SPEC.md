@@ -467,6 +467,7 @@ expresses what the scheduler already decided is needed.
 | 7 (v2) | True PWA offline-first — **service worker + installability built** (see §9); background sync deliberately not built, there is nothing to sync |
 | — | Browse tab (§16): deck library, deck selection scoping the session, saved sentences + saved words as study sets |
 | — (future) | Browse: stats, manual segmentation correction, per-deck due counts |
+| — | Second UI pass: the whole interface rebuilt 1:1 against a finished Figma mockup — new palette (warm paper ground, near-black 2px outlines, one teal accent), new type (Kaisei Tokumin / Lora / Zen Maru Gothic / PyeongChang / Cafe24 Moyamoya), Iconsax glyphs, and the stats screen restructured into four coloured tiles. **DESIGN.md is the extracted spec** and carries the figures, the substitutions and everything the mockup left unspecified |
 
 Phases 0–3 are strictly sequential (each depends on the prior phase's
 schema/interfaces). Phases 4 and 6 can often run in parallel with each

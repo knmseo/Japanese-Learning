@@ -8,9 +8,30 @@ type Props = {
   visible: boolean
 }
 
-/** Outline + heavy bottom edge share one token, so dark mode shifts both
- * off near-black together (#312F2A light, #4F6260 dark). */
-const STROKE = 'var(--color-shadow)'
+/** Every 2px outline and the slab under a pressable (DESIGN.md → Tokens). */
+const INK = 'var(--color-ink)'
+/** The frame insets both headings 33px and puts the first at y 202. */
+const INSET = 33
+
+/** The mockup draws only the two section headings — Kaisei Tokumin Bold 18 —
+ * and no fields at all, so everything beneath each one is restyled from what
+ * was already there rather than specified. */
+function SectionHeading({ children, first }: { children: React.ReactNode; first?: boolean }) {
+  return (
+    <h2
+      style={{
+        marginTop: first ? 28 : 44,
+        marginBottom: 10,
+        fontFamily: 'var(--font-heading)',
+        fontWeight: 'var(--font-heading-weight)' as unknown as number,
+        fontSize: 18,
+        color: 'var(--color-text)',
+      }}
+    >
+      {children}
+    </h2>
+  )
+}
 
 /** Set at build time; when present it wins over anything saved in the browser. */
 const ENV_KEY = import.meta.env.VITE_OPENAI_API_KEY?.trim()
@@ -61,38 +82,14 @@ export function SettingsScreen({ visible }: Props) {
   }
 
   return (
-    <div className="flex flex-col" style={{ fontFamily: 'var(--font-body)' }}>
-      <div className="pt-2 pb-3">
-        <h2 className="text-[22px]" style={{ fontFamily: 'var(--font-body)', fontWeight: 600 }}>
-          Voice
-        </h2>
-      </div>
+    <div className="flex flex-col" style={{ fontFamily: 'var(--font-body)', paddingInline: INSET }}>
+      <SectionHeading first>OpenAI Voice</SectionHeading>
 
       <p className="text-[13px] leading-relaxed" style={{ color: 'var(--color-neutral-600)' }}>
         Sentence audio uses OpenAI's voice when a key is saved, and your device's built-in
         Japanese voice otherwise. The built-in voice is free and works offline — a key
         mainly buys better pronunciation, and is what "Prepare for offline" downloads.
       </p>
-
-      {invited && (
-        <div
-          className="mt-4 rounded-md px-3 py-2.5"
-          style={{ border: '1px solid var(--color-divider)' }}
-        >
-          <p className="flex items-center gap-2 text-[13px]">
-            <Check className="size-4 flex-none" style={{ color: 'var(--color-accent-700)' }} />
-            Shared voice active — you were invited, so audio works with no key of your own.
-          </p>
-          <button
-            type="button"
-            onClick={() => void clearAccessToken().then(() => setInvited(false))}
-            className="mt-2 text-[12px] underline"
-            style={{ color: 'var(--color-neutral-500)' }}
-          >
-            Stop using the shared voice
-          </button>
-        </div>
-      )}
 
       {ENV_KEY ? (
         <p
@@ -135,10 +132,11 @@ export function SettingsScreen({ visible }: Props) {
             }}
             placeholder={saved ? 'Replace key (sk-…)' : 'sk-…'}
             aria-label="OpenAI API key"
-            className="w-full rounded-md px-3 py-2.5 text-[14px]"
+            className="w-full px-3 py-2.5 text-[14px]"
             style={{
-              border: `1px solid ${STROKE}`,
-              background: 'var(--color-bg)',
+              border: `2px solid ${INK}`,
+              borderRadius: 'var(--radius-panel)',
+              background: 'var(--color-surface)',
               fontFamily: 'var(--font-body)',
             }}
           />
@@ -148,10 +146,18 @@ export function SettingsScreen({ visible }: Props) {
               type="button"
               onClick={() => void handleSave()}
               disabled={!value.trim()}
-              className="btn btn-secondary flex-1 disabled:opacity-50"
-              restDepthPx={3}
+              className="flex flex-1 items-center justify-center disabled:opacity-50"
+              restDepthPx={4}
               shadowColor="var(--color-shadow)"
-              style={{ borderColor: STROKE, background: 'var(--color-bg)' }}
+              style={{
+                height: 44,
+                border: `1.5px solid ${INK}`,
+                borderRadius: 'var(--radius-pill)',
+                background: 'var(--color-surface)',
+                fontFamily: 'var(--font-body)',
+                fontWeight: 500,
+                fontSize: 16,
+              }}
             >
               {saved ? 'Replace key' : 'Save key'}
             </PressableButton>
@@ -159,10 +165,19 @@ export function SettingsScreen({ visible }: Props) {
               <PressableButton
                 type="button"
                 onClick={() => void handleClear()}
-                className="btn btn-secondary"
-                restDepthPx={3}
+                className="flex items-center justify-center"
+                restDepthPx={4}
                 shadowColor="var(--color-shadow)"
-                style={{ borderColor: STROKE, background: 'var(--color-bg)' }}
+                style={{
+                  height: 44,
+                  paddingInline: 20,
+                  border: `1.5px solid ${INK}`,
+                  borderRadius: 'var(--radius-pill)',
+                  background: 'var(--color-surface)',
+                  fontFamily: 'var(--font-body)',
+                  fontWeight: 500,
+                  fontSize: 16,
+                }}
               >
                 Remove
               </PressableButton>
@@ -181,6 +196,34 @@ export function SettingsScreen({ visible }: Props) {
         Stored in this browser's local database only — never uploaded, never in the app bundle,
         and not shared with your other devices.
       </p>
+
+      <SectionHeading>Activation Token</SectionHeading>
+
+      {invited ? (
+        <div
+          className="rounded-md px-3 py-2.5"
+          style={{ border: `2px solid ${INK}`, borderRadius: 'var(--radius-panel)' }}
+        >
+          <p className="flex items-center gap-2 text-[13px]">
+            <Check className="size-4 flex-none" style={{ color: 'var(--color-accent-700)' }} />
+            Shared voice active — you were invited, so audio works with no key of your own.
+          </p>
+          <button
+            type="button"
+            onClick={() => void clearAccessToken().then(() => setInvited(false))}
+            className="mt-2 text-[12px] underline"
+            style={{ color: 'var(--color-neutral-500)' }}
+          >
+            Stop using the shared voice
+          </button>
+        </div>
+      ) : (
+        <p className="text-[13px] leading-relaxed" style={{ color: 'var(--color-neutral-600)' }}>
+          No token on this device. An invite link ending in <code>?k=…</code> activates the shared
+          voice without needing a key of your own.
+        </p>
+      )}
+
     </div>
   )
 }

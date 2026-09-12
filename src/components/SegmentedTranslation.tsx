@@ -11,7 +11,21 @@ type Props = {
   revealed: boolean
 }
 
-const SAVED_COLOR = '#E4572E'
+/** Matches the sentence card's saved state — the palette's salmon. */
+const SAVED_COLOR = '#F69687'
+
+/** The mockup sets the Japanese at 25px and each Korean gloss at 18px; 22px is
+ * the gloss box height the frames draw.
+ *
+ * The gloss row used to reserve that height from first paint, so that revealing
+ * only faded it in and nothing reflowed. That is no longer what the design
+ * wants: the card itself now grows 176 → 235 on reveal, so the layout moves
+ * regardless, and holding the empty row open left the closed card's sentence
+ * sitting ~11px above centre instead of dead centre as the frames draw it. The
+ * row now opens with the card, on the same easing. */
+const JP_SIZE = 25
+const KR_SIZE = 18
+const KR_ROW_HEIGHT = 22
 
 /**
  * §15/§16: the single Japanese renderer for the card. Segments are rendered
@@ -81,10 +95,10 @@ export function SegmentedTranslation({ japanese, naturalKorean, revealed }: Prop
     return (
       <p
         style={{
-          fontFamily: '"Noto Sans JP", var(--font-body), sans-serif',
-          fontSize: 26,
+          fontFamily: 'var(--font-jp)',
+          fontSize: JP_SIZE,
           lineHeight: 1.45,
-          color: 'var(--color-text)',
+          color: 'var(--color-neutral-700)',
         }}
       >
         {japanese}
@@ -127,24 +141,28 @@ export function SegmentedTranslation({ japanese, naturalKorean, revealed }: Prop
           >
             <span
               style={{
-                fontFamily: '"Noto Sans JP", var(--font-body), sans-serif',
-                fontSize: 26,
+                fontFamily: 'var(--font-jp)',
+                fontSize: JP_SIZE,
                 lineHeight: 1.45,
-                color: saved && revealed ? SAVED_COLOR : 'var(--color-text)',
+                color: saved && revealed ? SAVED_COLOR : 'var(--color-neutral-700)',
                 transition: 'color 200ms var(--ease-damped)',
               }}
             >
               {segment.japanese}
             </span>
-            {/* Height is always reserved so revealing never reflows the card — only opacity animates. */}
+            {/* Opens with the card rather than sitting reserved — see KR_ROW_HEIGHT. */}
             <span
-              className="text-[12px] leading-[18px]"
               style={{
-                height: 18,
+                fontFamily: 'var(--font-kr)',
+                fontSize: KR_SIZE,
+                lineHeight: `${KR_ROW_HEIGHT}px`,
+                height: revealed ? KR_ROW_HEIGHT : 0,
+                overflow: 'hidden',
                 whiteSpace: 'nowrap',
                 opacity: revealed ? 1 : 0,
-                color: saved ? SAVED_COLOR : 'var(--color-neutral-500)',
-                transition: 'opacity 260ms var(--ease-damped), color 200ms var(--ease-damped)',
+                color: saved ? SAVED_COLOR : 'var(--color-neutral-300)',
+                transition:
+                  'height 320ms var(--ease-damped), opacity 260ms var(--ease-damped), color 200ms var(--ease-damped)',
               }}
             >
               {segment.korean}

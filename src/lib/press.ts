@@ -15,6 +15,12 @@ const PRESS_TRANSITION =
  * the pressed button itself moved by the transform *and* the reflow,
  * overshooting past where its bottom edge should have stayed.
  *
+ * The default pressed fill is `--color-press` (#FFE500). That comes straight
+ * from the mockup's `Resources` frame, which draws rest and pressed side by
+ * side against a baseline rule: white/4px-slab at y, then yellow/no-slab at
+ * y+4. Toggles that stay held in (a selected deck) pass their own fill
+ * instead, since a persistent yellow would read as a permanent button press.
+ *
  * `restDepthPx` is the shadow's resting depth — how far the "thick" bottom
  * extends past the normal 1px border. Pressing collapses the shadow to 0
  * and translates the button down by exactly that amount, so the visible
@@ -26,7 +32,7 @@ export function pressStyle(
   pressed: boolean,
   restDepthPx: number,
   shadowColor: string,
-  pressedBackground = 'var(--color-accent-500)',
+  pressedBackground = 'var(--color-press)',
 ): CSSProperties {
   if (!pressed) {
     return {
