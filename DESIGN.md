@@ -128,10 +128,16 @@ words are for reviewing and hearing, not for rating.
 
 Selecting a word also speaks it through the normal TTS path.
 
-**Deviation:** the frames put the stack on the left, cut off at the left edge,
-and the selected state slides it *further* left. The request described the
-cards coming in "from the right"; the resting layout follows the frames, and
-the entrance animates in from the left to match.
+The stack slides in from off the left edge on open, and a tap anywhere on the
+darkened area closes the overlay outright — `Okay!` is the way back to just the
+stack. The picked-out card carries a remove control at its top right; it is on
+that card only, because in the stack the top-right corner is covered by the next
+card down.
+
+**Deviations from the frames:** the word is set in `--font-jp` (Zen Maru Gothic)
+and the meaning in `--font-kr` (PyeongChang), matching the study card, where the
+frames set both in Kaisei Tokumin — a word should read identically wherever it
+appears. The remove control is not drawn in either frame.
 
 ### Screen toggle (Toggle_1 36:638 / Toggle_2 36:659)
 

@@ -1,6 +1,7 @@
+import { X } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { PressableButton } from '@/components/PressableButton'
-import { listSavedWords, type SavedWord } from '@/lib/savedSegments'
+import { deleteSavedSegmentById, listSavedWords, type SavedWord } from '@/lib/savedSegments'
 import { playSound } from '@/lib/sounds'
 import { useAudioPlayer } from '@/lib/useAudioPlayer'
 
@@ -21,6 +22,9 @@ const CARD_TILT_DEG = 5
 const STACK_LEFT = -90
 /** How much further left the stack slides when a card is picked out of it. */
 const STACK_RETREAT = 140
+/** How far off the left edge the stack starts before sliding in. Enough to
+ * clear the card's full width plus its shadow, so nothing peeks in early. */
+const ENTRY_OFFSET = CARD_W + 40
 /** Where the chosen card lands, straightened. */
 const SELECTED_LEFT = 96
 const SELECTED_TOP = 395
@@ -55,8 +59,26 @@ const TEXT_SELECTED = { word: 44, meaning: 79 }
 export function SavedWordsOverlay({ open, onClose }: Props) {
   const [words, setWords] = useState<SavedWord[] | null>(null)
   const [selectedId, setSelectedId] = useState<string | null>(null)
+  /** Drives the slide-in. Starts false on every open so the stack animates in
+   * from off the left edge rather than being there already; flipped on the
+   * frame after mount, which is what gives the transition something to run. */
+  const [entered, setEntered] = useState(false)
   const { play } = useAudioPlayer()
   const scrollRef = useRef<HTMLDivElement | null>(null)
+
+  // Waits for the words, not just for `open`. The cards don't exist until the
+  // IndexedDB read returns, so flipping this on open alone let them mount at
+  // their resting position with the transition already finished — no slide at
+  // all. Flipping it the frame after the data lands is what gives them a
+  // start position to travel from.
+  useEffect(() => {
+    if (!open || !words) {
+      setEntered(false)
+      return
+    }
+    const frame = requestAnimationFrame(() => setEntered(true))
+    return () => cancelAnimationFrame(frame)
+  }, [open, words])
 
   useEffect(() => {
     if (!open) return
@@ -91,6 +113,16 @@ export function SavedWordsOverlay({ open, onClose }: Props) {
 
   const selected = words?.find((w) => w.id === selectedId) ?? null
 
+  /** Drops the bookmark. The card is the only place it can be removed from, so
+   * this also clears the selection and refreshes the list rather than leaving a
+   * card on screen that no longer exists. */
+  async function removeBookmark(word: SavedWord) {
+    playSound('wordUnsave')
+    setSelectedId(null)
+    await deleteSavedSegmentById(word.id)
+    setWords(await listSavedWords())
+  }
+
   function select(word: SavedWord) {
     playSound('reveal')
     setSelectedId(word.id)
@@ -110,18 +142,22 @@ export function SavedWordsOverlay({ open, onClose }: Props) {
         backdropFilter: 'blur(2.5px)',
         WebkitBackdropFilter: 'blur(2.5px)',
       }}
-      // A tap on the scrim backs out one level: first the selection, then the
-      // whole overlay.
+      // Any tap on the darkened area closes the overlay outright — including
+      // while a word is picked out. "Okay!" is the way back to just the stack.
       onPointerDown={(e) => {
-        if (e.target !== e.currentTarget) return
-        if (selectedId) setSelectedId(null)
-        else onClose()
+        if (e.target === e.currentTarget) onClose()
       }}
       role="dialog"
       aria-modal
       aria-label="Saved words"
     >
-      <div className="relative h-full w-full overflow-hidden" style={{ maxWidth: FRAME_WIDTH }}>
+      <div
+        className="relative h-full w-full overflow-hidden"
+        style={{ maxWidth: FRAME_WIDTH }}
+        onPointerDown={(e) => {
+          if (e.target === e.currentTarget) onClose()
+        }}
+      >
         {/* Title plate — flush to the left edge, so it is outlined and rounded
             on three sides only, as though it slid in from off-screen. */}
         <div
@@ -176,10 +212,16 @@ export function SavedWordsOverlay({ open, onClose }: Props) {
           ref={scrollRef}
           className="absolute inset-0 overflow-y-auto overflow-x-hidden"
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' } as React.CSSProperties}
+          onPointerDown={(e) => {
+            if (e.target === e.currentTarget) onClose()
+          }}
         >
           <div
             className="relative"
             style={{ height: STACK_TOP + (words?.length ?? 0) * CARD_STEP + CARD_H + 80 }}
+            onPointerDown={(e) => {
+              if (e.target === e.currentTarget) onClose()
+            }}
           >
             {words?.map((word, i) => {
               const isSelected = word.id === selectedId
@@ -195,7 +237,9 @@ export function SavedWordsOverlay({ open, onClose }: Props) {
                     // Selected: straightened, tinted, floated out to the right.
                     // Otherwise: tilted in the stack, retreating further left
                     // while any card is out.
-                    left: isSelected ? SELECTED_LEFT : STACK_LEFT - (selectedId ? STACK_RETREAT : 0),
+                    left:
+                      (isSelected ? SELECTED_LEFT : STACK_LEFT - (selectedId ? STACK_RETREAT : 0)) -
+                      (entered ? 0 : ENTRY_OFFSET),
                     top: isSelected ? SELECTED_TOP : STACK_TOP + i * CARD_STEP,
                     transform: `rotate(${isSelected ? 0 : CARD_TILT_DEG}deg)`,
                     background: isSelected ? 'var(--color-accent-500)' : 'var(--color-surface)',
@@ -210,12 +254,41 @@ export function SavedWordsOverlay({ open, onClose }: Props) {
                   }}
                   aria-pressed={isSelected}
                 >
+                  {isSelected && (
+                    // Only on the picked-out card: in the stack the top-right
+                    // corner is covered by the next card down, so there is
+                    // nowhere for this to live and nothing to aim at.
+                    <span
+                      role="button"
+                      tabIndex={0}
+                      aria-label={`Remove ${word.japanese} from saved words`}
+                      onPointerDown={(e) => e.stopPropagation()}
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        void removeBookmark(word)
+                      }}
+                      onKeyDown={(e) => {
+                        if (e.key !== 'Enter' && e.key !== ' ') return
+                        e.preventDefault()
+                        e.stopPropagation()
+                        void removeBookmark(word)
+                      }}
+                      className="absolute flex cursor-pointer items-center justify-center rounded-full"
+                      style={{ right: 8, top: 8, width: 26, height: 26 }}
+                    >
+                      <X className="size-[18px]" style={{ color: 'var(--color-neutral-700)' }} />
+                    </span>
+                  )}
                   <span
                     className="absolute inset-x-0 text-center"
                     style={{
                       top: (isSelected ? TEXT_SELECTED : TEXT_STACKED).word,
                       transform: 'translateY(-50%)',
-                      fontFamily: 'var(--font-heading)',
+                      // Same faces the study card uses, so a word reads
+                      // identically wherever it appears (the frames set both in
+                      // Kaisei Tokumin, which is the app's heading face, not its
+                      // Japanese one).
+                      fontFamily: 'var(--font-jp)',
                       fontWeight: 500,
                       fontSize: 20,
                       color: 'var(--color-text)',
@@ -229,7 +302,7 @@ export function SavedWordsOverlay({ open, onClose }: Props) {
                     style={{
                       top: (isSelected ? TEXT_SELECTED : TEXT_STACKED).meaning,
                       transform: 'translateY(-50%)',
-                      fontFamily: 'var(--font-heading)',
+                      fontFamily: 'var(--font-kr)',
                       fontWeight: 500,
                       fontSize: 15,
                       color: 'var(--color-neutral-600)',
