@@ -142,6 +142,28 @@ and the meaning in `--font-kr` (PyeongChang), matching the study card, where the
 frames set both in Kaisei Tokumin — a word should read identically wherever it
 appears. The remove control is not drawn in either frame.
 
+### Saved Sentences overlay (`SavedSenetences` 72:2241 stack, 73:2346 selected)
+
+Opened by the Saved Sentences row. The same interaction as Saved Words, with
+different values — both are driven by `StackOverlay`, which owns the shared
+behaviour while each caller supplies geometry, card styling and content.
+
+- Title plate `0,17`, 217×50; label inset 31
+- Stack cards 335×129, **not tilted**, **flush to the left edge** — so outlined
+  and rounded on the right three sides only (`0 12px 12px 0`, no left border),
+  on a plain `0 4px 0 0 #020005` slab with no ambient shadow
+  - first at y 130, each next **+100**, so 100 of each 129 stays exposed —
+    far more than the word stack's 51, because a card holds a whole sentence
+  - the Japanese sits 63px from the card top, inside that exposed strip
+- **Selected** — closes up to a full 12px radius with a left border, fills
+  `#99c2c4`, moves to `50,329`, and the stack retreats **190px** left. The
+  card turns over: the translation replaces the Japanese rather than joining it
+- `Okay!` at `181,478`
+
+No audio, by request — these are for reading. There is also **no remove
+control**: neither frame draws one and it wasn't asked for, so a sentence is
+still unsaved from the bookmark on the study card.
+
 ### Screen toggle (Toggle_1 36:638 / Toggle_2 36:659)
 
 - Track 112×56, drawn as a vector outline (not a plain rounded rect)

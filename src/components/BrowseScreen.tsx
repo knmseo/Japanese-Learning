@@ -1,6 +1,7 @@
 import { BookMarked, Tag } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { PressableButton } from '@/components/PressableButton'
+import { SavedSentencesOverlay } from '@/components/SavedSentencesOverlay'
 import { SavedWordsOverlay } from '@/components/SavedWordsOverlay'
 import { SettingsScreen } from '@/components/SettingsScreen'
 import { StatsScreen } from '@/components/StatsScreen'
@@ -70,18 +71,19 @@ export function BrowseScreen({ visible, activeSource, onSelectSource }: Props) {
   const [decks, setDecks] = useState<Deck[]>([])
   const [savedSentenceCount, setSavedSentenceCount] = useState(0)
   const [savedWordCount, setSavedWordCount] = useState(0)
-  /** Saved Words opens a review overlay rather than scoping a study session —
-   * the words are for looking over and hearing, not for rating. */
+  /** Both saved sets open a review overlay rather than scoping a study session
+   * — they are for looking over, not for rating. */
   const [savedWordsOpen, setSavedWordsOpen] = useState(false)
+  const [savedSentencesOpen, setSavedSentencesOpen] = useState(false)
 
   useEffect(() => {
-    if (!visible || savedWordsOpen) return
+    if (!visible || savedWordsOpen || savedSentencesOpen) return
     void (async () => {
       setDecks(await getDecks())
       setSavedSentenceCount(await db.savedSentences.count())
       setSavedWordCount(await db.savedSegments.count())
     })()
-  }, [visible, savedWordsOpen])
+  }, [visible, savedWordsOpen, savedSentencesOpen])
 
   /** Track the active tab button's position so the shared underline can slide to it.
    * Re-measured when the tab changes or the pane becomes visible (widths are 0
@@ -107,7 +109,7 @@ export function BrowseScreen({ visible, activeSource, onSelectSource }: Props) {
     label: string
     count: number
     icon: React.ReactNode
-    /** Saved Sentences scopes a session; Saved Words opens the review overlay. */
+    /** Both open their review overlay; neither scopes a study session. */
     onPress: () => void
   }[] = [
     {
@@ -115,7 +117,7 @@ export function BrowseScreen({ visible, activeSource, onSelectSource }: Props) {
       label: 'Saved Sentences',
       count: savedSentenceCount,
       icon: <BookMarked className="size-[18px]" style={{ color: 'var(--color-icon)' }} />,
-      onPress: () => onSelectSource({ kind: 'saved-sentences' }),
+      onPress: () => setSavedSentencesOpen(true),
     },
     {
       source: { kind: 'saved-words' },
@@ -312,9 +314,9 @@ export function BrowseScreen({ visible, activeSource, onSelectSource }: Props) {
 
             <div className="flex flex-col" style={{ marginInline: ROW_INSET, gap: 20 - ROW_DEPTH }}>
               {savedRows.map((row) => {
-                // Saved Words never reads as "currently studying" — it isn't a
-                // study source any more, it opens the overlay.
-                const active = row.source.kind === 'saved-words' ? false : isActive(activeSource, row.source)
+                // Neither saved set reads as "currently studying" any more —
+                // both open an overlay rather than becoming the study source.
+                const active = false
                 const empty = row.count === 0
                 return (
                   <PressableButton
@@ -395,6 +397,7 @@ export function BrowseScreen({ visible, activeSource, onSelectSource }: Props) {
       </div>
 
       <SavedWordsOverlay open={savedWordsOpen} onClose={() => setSavedWordsOpen(false)} />
+      <SavedSentencesOverlay open={savedSentencesOpen} onClose={() => setSavedSentencesOpen(false)} />
     </div>
   )
 }
