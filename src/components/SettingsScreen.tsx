@@ -137,6 +137,7 @@ export function SettingsScreen({ visible }: Props) {
               border: `2px solid ${INK}`,
               borderRadius: 'var(--radius-panel)',
               background: 'var(--color-surface)',
+              color: 'var(--color-on-surface)',
               fontFamily: 'var(--font-body)',
             }}
           />
@@ -157,6 +158,7 @@ export function SettingsScreen({ visible }: Props) {
                 fontFamily: 'var(--font-body)',
                 fontWeight: 500,
                 fontSize: 16,
+                color: 'var(--color-on-surface)',
               }}
             >
               {saved ? 'Replace key' : 'Save key'}
@@ -177,6 +179,7 @@ export function SettingsScreen({ visible }: Props) {
                   fontFamily: 'var(--font-body)',
                   fontWeight: 500,
                   fontSize: 16,
+                  color: 'var(--color-on-surface)',
                 }}
               >
                 Remove

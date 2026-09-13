@@ -42,6 +42,18 @@
      --color-ink is also every 2px outline. */
   --color-ink: #020005;
   --color-shadow: #312F2A;
+  /* The sentence card is the one outline that shifts between themes — every
+     other outline stays --color-ink in both. */
+  --color-card-edge: #020005;
+
+  /* Text sits on one of two grounds, and in dark mode they pull apart:
+     --color-text is type on the paper itself (eyebrows, section headings, tab
+     labels), which goes light; --color-on-surface is type on a card, tile, row
+     or pill, which stays dark in both themes because those surfaces go mid-grey
+     rather than dark. --color-text-muted is the paper's quiet voice (inactive
+     tabs); the neutral ramp below is the surface's, and never changes. */
+  --color-on-surface: #020005;
+  --color-text-muted: #797979;
   /* Iconsax glyphs stroke in their own lighter teal, not the accent fill. */
   --color-icon: #82C8CC;
   /* Pressed fill for a momentary button press (rating pills). */

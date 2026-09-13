@@ -33,7 +33,7 @@ const PILL_STYLE: React.CSSProperties = {
   fontFamily: 'var(--font-body)',
   fontWeight: 500,
   fontSize: 18,
-  color: 'var(--color-text)',
+  color: 'var(--color-on-surface)',
 }
 
 /** Kaisei Tokumin Bold, matching the STUDY/BROWSE eyebrows and Settings headings. */

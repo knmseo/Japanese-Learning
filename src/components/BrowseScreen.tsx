@@ -165,7 +165,7 @@ export function BrowseScreen({ visible, activeSource, onSelectSource }: Props) {
             fontWeight: 500,
             fontSize: 15,
             lineHeight: 1.25,
-            color: 'var(--color-text)',
+            color: 'var(--color-on-surface)',
           }}
         >
           {deck.name}
@@ -232,7 +232,7 @@ export function BrowseScreen({ visible, activeSource, onSelectSource }: Props) {
                   // Active is the Bold cut in black, inactive the Regular in grey.
                   fontWeight: active ? 700 : 400,
                   fontSize: 12,
-                  color: active ? 'var(--color-text)' : 'var(--color-neutral-500)',
+                  color: active ? 'var(--color-text)' : 'var(--color-text-muted)',
                   transition: 'color 320ms var(--ease-damped), font-weight 320ms var(--ease-damped)',
                 }}
               >
@@ -245,7 +245,7 @@ export function BrowseScreen({ visible, activeSource, onSelectSource }: Props) {
             className="absolute bottom-0 block"
             style={{
               height: 2,
-              background: INK,
+              background: 'var(--color-text)',
               width: underline.width,
               transform: `translateX(${underline.left}px)`,
               marginBottom: -1,
@@ -352,7 +352,14 @@ export function BrowseScreen({ visible, activeSource, onSelectSource }: Props) {
                       style={{ gap: 10, opacity: empty ? 0.45 : 1 }}
                     >
                       {row.icon}
-                      <span style={{ fontFamily: 'var(--font-body)', fontWeight: 500, fontSize: 18 }}>
+                      <span
+                        style={{
+                          fontFamily: 'var(--font-body)',
+                          fontWeight: 500,
+                          fontSize: 18,
+                          color: 'var(--color-on-surface)',
+                        }}
+                      >
                         {row.label}
                       </span>
                     </span>

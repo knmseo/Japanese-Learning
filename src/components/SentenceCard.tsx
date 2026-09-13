@@ -124,7 +124,7 @@ export function SentenceCard({ sentence, viewOnly, onAnswer, onSwipe }: Props) {
           flexDirection: 'column',
           justifyContent: 'center',
           background: 'var(--color-surface)',
-          border: `2px solid ${INK}`,
+          border: '2px solid var(--color-card-edge)',
           borderRadius: 'var(--radius-card)',
           // Paint-only slab, never a border-bottom-width — see lib/press.ts for
           // why that distinction matters here.
@@ -227,7 +227,7 @@ export function SentenceCard({ sentence, viewOnly, onAnswer, onSwipe }: Props) {
                   fontFamily: 'var(--font-body)',
                   fontWeight: 500,
                   fontSize: 18,
-                  color: 'var(--color-text)',
+                  color: 'var(--color-on-surface)',
                 }}
               >
                 {r.label}

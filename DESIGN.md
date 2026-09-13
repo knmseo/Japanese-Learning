@@ -192,12 +192,41 @@ build:
 2. **Korean glosses and stat numerals keep PyeongChang and Cafe24 Moyamoya**,
    self-hosted from `public/fonts/` and precached for offline. Both confirmed
    loading and applied.
-3. **Dark mode stays.** The mockup is light-only, so the dark palette is
-   derived from these tokens rather than designed — flagged as judgement, not
-   specification.
+3. **Dark mode is designed.** `/ Dark` frames were added later and the palette
+   is now taken from them, not derived. See "Dark" below.
 4. **Nothing gets deleted.** Features the mockup doesn't draw (offline
    pre-download, session-complete, loading/error/empty states, study-ahead)
    are restyled into the new system rather than removed.
+
+## Dark
+
+From the `/ Dark` frames. The dark theme does not darken the app: it darkens
+the **paper** and turns every **surface** mid-grey, which is why so little else
+moves.
+
+| Token | Light | Dark |
+| --- | --- | --- |
+| `--color-bg` | `#F5EDE7` | `#2A3840` |
+| `--color-surface` | `#FFFFFF` | `#909EA6` |
+| `--color-text` (type on the paper) | `#020005` | `#ECF2EF` |
+| `--color-text-muted` (inactive tabs) | `#797979` | `#7D9587` |
+| `--color-card-edge` (sentence card only) | `#020005` | `#4A6460` |
+| `--color-divider` | ink 16% | `rgba(236,242,239,.35)` |
+
+Everything else is **unchanged between themes** — outlines (`--color-ink`),
+both slab colours, the accent, the press yellow, the stat tiles and their
+`#444144` trim, the toggle's `#EBEBED` edge and `#171717` glyph, and the whole
+neutral ramp. Those are all type and trim sitting *on* a surface, and they read
+the same against a grey card as a white one.
+
+The split between `--color-text` and `--color-on-surface` is what makes this
+work: in light they are the same value, and in dark they pull apart.
+
+**Deviation:** the dark Stats frame leaves the four tile captions `text-black`,
+which is unreadable on the dark paper they actually sit on (every other black
+caption in that frame is on a tile). They follow `--color-text` instead. The
+`3 / 35` counter is left at the frame's `#646464`, which is dim on the dark
+paper but is a deliberate value present in both frames.
 
 ## Still unspecified
 

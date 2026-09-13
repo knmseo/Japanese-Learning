@@ -181,7 +181,7 @@ export function SavedWordsOverlay({ open, onClose }: Props) {
               fontFamily: 'var(--font-heading)',
               fontWeight: 500,
               fontSize: 20,
-              color: 'var(--color-text)',
+              color: 'var(--color-on-surface)',
             }}
           >
             Saved Words
@@ -291,7 +291,7 @@ export function SavedWordsOverlay({ open, onClose }: Props) {
                       fontFamily: 'var(--font-jp)',
                       fontWeight: 500,
                       fontSize: 20,
-                      color: 'var(--color-text)',
+                      color: 'var(--color-on-surface)',
                       transition: 'top 420ms var(--ease-damped)',
                     }}
                   >
@@ -337,7 +337,7 @@ export function SavedWordsOverlay({ open, onClose }: Props) {
               fontFamily: 'var(--font-body)',
               fontWeight: 500,
               fontSize: 18,
-              color: 'var(--color-text)',
+              color: 'var(--color-on-surface)',
             }}
           >
             Okay!

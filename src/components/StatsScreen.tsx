@@ -179,6 +179,9 @@ function StatTile({
           fontFamily: 'var(--font-body)',
           fontWeight: 500,
           fontSize: 12,
+          // The dark frame leaves these black, which is unreadable on the dark
+          // paper they actually sit on — every other caption in that frame is on
+          // a tile. Following the intent rather than the value.
           color: 'var(--color-text)',
         }}
       >
