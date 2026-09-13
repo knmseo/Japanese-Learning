@@ -77,7 +77,11 @@ function App() {
       // Fall back to the first deck the very first time, before anything has been picked.
       const decks = await getDecks().catch(() => [])
       const stored = await getStudySource()
-      const source = stored ?? (decks[0] ? ({ kind: 'deck', deckId: decks[0].id } as StudySource) : null)
+      // Saved sets are no longer study sources — both rows open a review
+      // overlay instead. A source persisted before that change would otherwise
+      // leave Study stuck on a set nothing can now select or change.
+      const usable = stored?.kind === 'deck' ? stored : null
+      const source = usable ?? (decks[0] ? ({ kind: 'deck', deckId: decks[0].id } as StudySource) : null)
       await startSession(source)
     })()
   }, [])

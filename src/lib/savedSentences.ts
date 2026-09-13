@@ -28,3 +28,9 @@ export async function unsaveSentence(sentenceId: string): Promise<void> {
 export async function listSavedSentences(): Promise<SavedSentence[]> {
   return db.savedSentences.orderBy('savedAt').reverse().toArray()
 }
+
+/** Removing one from the Saved Sentences overlay, where the row is addressed by
+ * its own id rather than by the sentence it came from. */
+export async function deleteSavedSentenceById(id: string): Promise<void> {
+  await db.savedSentences.delete(id)
+}

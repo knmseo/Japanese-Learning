@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { StackOverlay, type StackGeometry } from '@/components/StackOverlay'
-import { listSavedSentences } from '@/lib/savedSentences'
+import { deleteSavedSentenceById, listSavedSentences } from '@/lib/savedSentences'
 import type { SavedSentence } from '@/lib/types'
 
 type Props = {
@@ -23,6 +23,9 @@ const GEOMETRY: StackGeometry = {
   stackTop: 130,
   /** Flush to the left edge rather than hanging off it. */
   restLeft: 0,
+  /** …which means the card needs to bleed past that edge, or the entrance's
+   * overshoot (~42px here) would expose its flat left side mid-screen. */
+  bleedLeft: 60,
   retreat: 190,
   selectedLeft: 50,
   selectedTop: 329,
@@ -64,6 +67,11 @@ export function SavedSentencesOverlay({ open, onClose }: Props) {
       items={sentences}
       geometry={GEOMETRY}
       emptyMessage="No saved sentences yet — tap the bookmark on a card while studying to collect it here."
+      onRemove={async (sentence) => {
+        await deleteSavedSentenceById(sentence.id)
+        setSentences(await listSavedSentences())
+      }}
+      removeLabel={(sentence) => `Remove ${sentence.japanese} from saved sentences`}
       cardStyle={({ isSelected }) => ({
         background: isSelected ? 'var(--color-accent-500)' : 'var(--color-surface)',
         // A stacked card is flush to the left edge, so it is outlined and
@@ -73,7 +81,7 @@ export function SavedSentencesOverlay({ open, onClose }: Props) {
         borderRadius: isSelected ? 'var(--radius-tile)' : '0 12px 12px 0',
         boxShadow: CARD_SHADOW,
       })}
-      renderCard={(sentence, { isSelected }) =>
+      renderCard={(sentence, { isSelected, bleed }) =>
         isSelected ? (
           // Pulled out, the card turns over: the translation replaces the
           // Japanese rather than sitting under it.
@@ -97,7 +105,9 @@ export function SavedSentencesOverlay({ open, onClose }: Props) {
           <span
             className="absolute text-center"
             style={{
-              left: 25,
+              // Inset past the off-screen bleed, so the text stays centred in
+              // the part of the card you can actually see.
+              left: 25 + bleed,
               right: 25,
               // Sits where the frame puts it — inside the 100px strip the next
               // card leaves exposed, not centred in the full card.

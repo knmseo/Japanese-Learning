@@ -14,8 +14,22 @@ export type StackGeometry = {
   step: number
   /** Top of the first card. */
   stackTop: number
-  /** Resting left edge of a stacked card. */
+  /** Resting left edge of a stacked card's *visible* box. */
   restLeft: number
+  /**
+   * How far a stacked card extends past that edge, off-screen.
+   *
+   * The damped easing overshoots — it peaks about 9.7% beyond its target before
+   * settling — so a card resting flush at x=0 briefly slides right of the screen
+   * edge and shows its flat, unrounded left side floating mid-screen. Bleeding
+   * the card past the edge by more than the overshoot keeps that cut hidden.
+   * The overshoot on the entrance is the worst case, at roughly a tenth of
+   * `cardW + bleedLeft + 40`, so this needs to comfortably exceed that.
+   *
+   * Omit it for a stack that already sits off-screen — the word stack rests at
+   * -90 and never comes close.
+   */
+  bleedLeft?: number
   /** Extra left shift applied to the stack while one card is pulled out of it. */
   retreat: number
   selectedLeft: number
@@ -27,7 +41,13 @@ export type StackGeometry = {
   titleInset: number
 }
 
-type State = { isSelected: boolean; index: number }
+type State = {
+  isSelected: boolean
+  index: number
+  /** How much of this card is off-screen left right now, so content can inset
+   * past it. Always 0 for the pulled-out card. */
+  bleed: number
+}
 
 type Props<T extends { id: string }> = {
   open: boolean
@@ -77,8 +97,9 @@ export function StackOverlay<T extends { id: string }>({
   /** Drives the slide-in. See the effect below for why it waits on `items`. */
   const [entered, setEntered] = useState(false)
 
+  const bleed = geometry.bleedLeft ?? 0
   /** How far off the left edge the stack starts, clearing the card and its shadow. */
-  const entryOffset = geometry.cardW + 40
+  const entryOffset = geometry.cardW + bleed + 40
 
   // Waits for the items, not just for `open`. The cards don't exist until the
   // IndexedDB read returns, so flipping this on open alone let them mount at
@@ -220,7 +241,7 @@ export function StackOverlay<T extends { id: string }>({
           >
             {items?.map((item, index) => {
               const isSelected = item.id === selectedId
-              const state: State = { isSelected, index }
+              const state: State = { isSelected, index, bleed: isSelected ? 0 : bleed }
               return (
                 <button
                   key={item.id}
@@ -228,7 +249,9 @@ export function StackOverlay<T extends { id: string }>({
                   onClick={() => (isSelected ? setSelectedId(null) : pick(item))}
                   className="absolute"
                   style={{
-                    width: geometry.cardW,
+                    // A stacked card carries its bleed; pulled out, it closes up
+                    // to the designed width.
+                    width: isSelected ? geometry.cardW : geometry.cardW + bleed,
                     height: geometry.cardH,
                     // Selected: floated out to the right. Otherwise: in the
                     // stack, retreating further left while any card is out, and
@@ -236,14 +259,14 @@ export function StackOverlay<T extends { id: string }>({
                     left:
                       (isSelected
                         ? geometry.selectedLeft
-                        : geometry.restLeft - (selectedId ? geometry.retreat : 0)) -
+                        : geometry.restLeft - bleed - (selectedId ? geometry.retreat : 0)) -
                       (entered ? 0 : entryOffset),
                     top: isSelected ? geometry.selectedTop : geometry.stackTop + index * geometry.step,
                     // The chosen card has to clear every card below it in the
                     // stack, not just its immediate neighbour.
                     zIndex: isSelected ? 500 : index,
                     transition:
-                      'left 420ms var(--ease-damped), top 420ms var(--ease-damped), transform 420ms var(--ease-damped), background-color 320ms var(--ease-damped)',
+                      'left 420ms var(--ease-damped), top 420ms var(--ease-damped), width 420ms var(--ease-damped), transform 420ms var(--ease-damped), background-color 320ms var(--ease-damped)',
                     ...cardStyle(state),
                   }}
                   aria-pressed={isSelected}

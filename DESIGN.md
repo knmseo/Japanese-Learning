@@ -160,9 +160,19 @@ behaviour while each caller supplies geometry, card styling and content.
   card turns over: the translation replaces the Japanese rather than joining it
 - `Okay!` at `181,478`
 
-No audio, by request — these are for reading. There is also **no remove
-control**: neither frame draws one and it wasn't asked for, so a sentence is
-still unsaved from the bookmark on the study card.
+No audio, by request — these are for reading. The pulled-out card carries a
+remove control, same as Saved Words, though neither frame draws one.
+
+A stacked card is **wider than it looks**: 335 visible plus a 60px bleed off the
+left edge. The damped easing overshoots its target by about a tenth of the
+travel, so a card resting flush at x=0 would briefly slide right of the screen
+edge and show its flat, unrounded left side mid-screen. Bleeding it past the
+edge keeps that cut hidden — measured, the left edge peaks at −18 on the way in.
+Pulled out, the card closes up to the designed 335.
+
+Neither saved set is a study source any longer; both only open their overlay. A
+source persisted before that change is ignored at startup and falls back to the
+first deck, so Study can't get stuck on a set nothing can select.
 
 ### Screen toggle (Toggle_1 36:638 / Toggle_2 36:659)
 
