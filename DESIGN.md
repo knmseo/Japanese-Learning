@@ -105,6 +105,34 @@ Only two headings are drawn — `OpenAI Voice` (`33,~202`) and
 `Activation Token` (`33,249`), both Kaisei Tokumin Bold 18. No fields,
 helper text, or states are specified.
 
+### Saved Words overlay (`SavedWords Tab` 59:1702 stack, 59:1824 selected)
+
+Opened by the Saved Words row, which no longer scopes a study session — these
+words are for reviewing and hearing, not for rating.
+
+- Scrim over the whole app: `rgba(0,0,0,.4)` with `backdrop-filter: blur(2.5px)`
+- Title plate `0,17`, 177×50 — flush to the left edge, so it carries a 2px
+  `#020005` border on top/right/bottom only and radius 12 on the right corners;
+  shadow `0 4px 4px 4px rgba(0,0,0,.25), 0 4px 0 0 #020005`. Label Kaisei
+  Tokumin Medium 20 at x 24
+- Stack cards 287×129, radius 12, white, `2px #444144`, shadow
+  `0 4px 4px 4px rgba(0,0,0,.25), 0 4px 0 0 #444144`, **rotated 5°**
+  - resting left −90, first at y 119, each next **+51** — so only a 51px strip
+    of each shows and the word has to sit high inside it (word centre 28px from
+    the card top, meaning 81px, visible only on the bottom card)
+- **Selected** — straightens to 0°, fills `#99c2c4`, moves to `96,395`, and the
+  rest of the stack retreats a further **140px** left (−94.8 → −234.8). Text
+  moves down to 44 / 79
+- `Okay!` button `181,546`, 116×48 — dismisses the selection back into the
+  stack, not the whole overlay
+
+Selecting a word also speaks it through the normal TTS path.
+
+**Deviation:** the frames put the stack on the left, cut off at the left edge,
+and the selected state slides it *further* left. The request described the
+cards coming in "from the right"; the resting layout follows the frames, and
+the entrance animates in from the left to match.
+
 ### Screen toggle (Toggle_1 36:638 / Toggle_2 36:659)
 
 - Track 112×56, drawn as a vector outline (not a plain rounded rect)

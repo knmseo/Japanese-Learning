@@ -1,6 +1,7 @@
 import { BookMarked, Tag } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { PressableButton } from '@/components/PressableButton'
+import { SavedWordsOverlay } from '@/components/SavedWordsOverlay'
 import { SettingsScreen } from '@/components/SettingsScreen'
 import { StatsScreen } from '@/components/StatsScreen'
 import { getDecks } from '@/lib/deckStore'
@@ -69,15 +70,18 @@ export function BrowseScreen({ visible, activeSource, onSelectSource }: Props) {
   const [decks, setDecks] = useState<Deck[]>([])
   const [savedSentenceCount, setSavedSentenceCount] = useState(0)
   const [savedWordCount, setSavedWordCount] = useState(0)
+  /** Saved Words opens a review overlay rather than scoping a study session —
+   * the words are for looking over and hearing, not for rating. */
+  const [savedWordsOpen, setSavedWordsOpen] = useState(false)
 
   useEffect(() => {
-    if (!visible) return
+    if (!visible || savedWordsOpen) return
     void (async () => {
       setDecks(await getDecks())
       setSavedSentenceCount(await db.savedSentences.count())
       setSavedWordCount(await db.savedSegments.count())
     })()
-  }, [visible])
+  }, [visible, savedWordsOpen])
 
   /** Track the active tab button's position so the shared underline can slide to it.
    * Re-measured when the tab changes or the pane becomes visible (widths are 0
@@ -98,18 +102,27 @@ export function BrowseScreen({ visible, activeSource, onSelectSource }: Props) {
   // The mockup draws these rows as label + count only, but the icons earn their
   // place as the row's quickest identifier, so they stay — tinted with the same
   // --color-icon the card's own glyphs use.
-  const savedRows: { source: StudySource; label: string; count: number; icon: React.ReactNode }[] = [
+  const savedRows: {
+    source: StudySource
+    label: string
+    count: number
+    icon: React.ReactNode
+    /** Saved Sentences scopes a session; Saved Words opens the review overlay. */
+    onPress: () => void
+  }[] = [
     {
       source: { kind: 'saved-sentences' },
       label: 'Saved Sentences',
       count: savedSentenceCount,
       icon: <BookMarked className="size-[18px]" style={{ color: 'var(--color-icon)' }} />,
+      onPress: () => onSelectSource({ kind: 'saved-sentences' }),
     },
     {
       source: { kind: 'saved-words' },
       label: 'Saved Words',
       count: savedWordCount,
       icon: <Tag className="size-[18px]" style={{ color: 'var(--color-icon)' }} />,
+      onPress: () => setSavedWordsOpen(true),
     },
   ]
 
@@ -299,14 +312,16 @@ export function BrowseScreen({ visible, activeSource, onSelectSource }: Props) {
 
             <div className="flex flex-col" style={{ marginInline: ROW_INSET, gap: 20 - ROW_DEPTH }}>
               {savedRows.map((row) => {
-                const active = isActive(activeSource, row.source)
+                // Saved Words never reads as "currently studying" — it isn't a
+                // study source any more, it opens the overlay.
+                const active = row.source.kind === 'saved-words' ? false : isActive(activeSource, row.source)
                 const empty = row.count === 0
                 return (
                   <PressableButton
                     key={row.label}
                     type="button"
                     disabled={empty}
-                    onClick={() => onSelectSource(row.source)}
+                    onClick={row.onPress}
                     className="w-full"
                     // Same toggle behaviour as the deck tiles above — selected stays
                     // pushed in — so the two halves of this screen don't read opposite.
@@ -371,6 +386,8 @@ export function BrowseScreen({ visible, activeSource, onSelectSource }: Props) {
           </>
         )}
       </div>
+
+      <SavedWordsOverlay open={savedWordsOpen} onClose={() => setSavedWordsOpen(false)} />
     </div>
   )
 }

@@ -40,6 +40,38 @@ export async function listSavedSegments(): Promise<SavedSegment[]> {
   return db.savedSegments.orderBy('savedAt').reverse().toArray()
 }
 
+/** A saved word with the Korean gloss it was saved alongside. */
+export type SavedWord = SavedSegment & { korean: string }
+
+/**
+ * Saved words for the Saved Words overlay, newest first.
+ *
+ * A SavedSegment deliberately stores no Korean: the gloss belongs to the
+ * segmentation, not the bookmark, so correcting a segmentation corrects every
+ * saved word that came from it rather than leaving stale copies behind. That
+ * means the meaning has to be joined back on read, via the sourceSentenceHash
+ * the bookmark keeps for exactly this purpose.
+ *
+ * Segmentations are fetched once per distinct hash rather than once per word —
+ * several saved words usually come from the same sentence. A word whose
+ * segmentation has since been evicted falls back to its own base form, so it
+ * still shows something rather than an empty card.
+ */
+export async function listSavedWords(): Promise<SavedWord[]> {
+  const saved = await listSavedSegments()
+  if (saved.length === 0) return []
+
+  const hashes = [...new Set(saved.map((s) => s.sourceSentenceHash))]
+  const segmentations = await db.segmentations.bulkGet(hashes)
+  const byHash = new Map(hashes.map((h, i) => [h, segmentations[i]]))
+
+  return saved.map((word) => ({
+    ...word,
+    korean: byHash.get(word.sourceSentenceHash)?.segments.find((s) => s.japanese === word.japanese)?.korean
+      ?? word.baseForm,
+  }))
+}
+
 export async function deleteSavedSegmentById(id: string): Promise<void> {
   await db.savedSegments.delete(id)
 }
