@@ -42,40 +42,53 @@ export async function getBundleStatus(sentences: Sentence[]): Promise<BundleStat
 }
 
 /**
- * Pre-fetch audio for every sentence in the session that doesn't have it yet.
+ * Pre-fetch audio for every piece of spoken text that doesn't have it yet.
  *
  * Sequential on purpose: this is a paid API (§8) and a burst of parallel
  * requests is the fastest way to hit a provider rate limit, which would fail
- * the very sentences we're trying to guarantee. One sentence at a time also
- * makes the progress count honest.
+ * the very clips we're trying to guarantee. One at a time also makes the
+ * progress count honest.
+ *
+ * Takes plain strings rather than sentences so the same path serves the
+ * commute bundle and the saved-word list — both are "make these speakable
+ * offline", and they must share a cache keyed the same way or one would
+ * re-download what the other already has.
  */
-export async function prepareBundle(
-  sentences: Sentence[],
+export async function prepareSpeech(
+  texts: string[],
   onProgress?: (done: number, total: number) => void,
 ): Promise<PrepareResult> {
   const result: PrepareResult = { fetched: 0, alreadyCached: 0, failed: 0, missingKey: false }
 
-  for (const [i, sentence] of sentences.entries()) {
-    const hash = await hashText(speechTextFor(sentence))
+  for (const [i, text] of texts.entries()) {
+    const hash = await hashText(text)
     if (await db.audioCache.get(hash)) {
       result.alreadyCached++
     } else {
       try {
-        await getAudioForSentence(speechTextFor(sentence))
+        await getAudioForSentence(text)
         result.fetched++
       } catch (e) {
         result.failed++
         if (e instanceof MissingOpenAiKeyError) {
-          // No key means every remaining sentence fails the same way. Stop
-          // rather than walking the whole session to prove it.
+          // No key means every remaining item fails the same way. Stop rather
+          // than walking the whole list to prove it.
           result.missingKey = true
-          onProgress?.(sentences.length, sentences.length)
+          onProgress?.(texts.length, texts.length)
           return result
         }
       }
     }
-    onProgress?.(i + 1, sentences.length)
+    onProgress?.(i + 1, texts.length)
   }
 
   return result
+}
+
+/** Pre-fetch audio for every sentence in the session that doesn't have it yet. */
+export async function prepareBundle(
+  sentences: Sentence[],
+  onProgress?: (done: number, total: number) => void,
+): Promise<PrepareResult> {
+  return prepareSpeech(sentences.map(speechTextFor), onProgress)
 }

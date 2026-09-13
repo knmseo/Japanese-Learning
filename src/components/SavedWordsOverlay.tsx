@@ -1,6 +1,7 @@
 import { X } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { PressableButton } from '@/components/PressableButton'
+import { prepareSpeech } from '@/lib/commuteBundle'
 import { deleteSavedSegmentById, listSavedWords, type SavedWord } from '@/lib/savedSegments'
 import { playSound } from '@/lib/sounds'
 import { useAudioPlayer } from '@/lib/useAudioPlayer'
@@ -63,8 +64,12 @@ export function SavedWordsOverlay({ open, onClose }: Props) {
    * from off the left edge rather than being there already; flipped on the
    * frame after mount, which is what gives the transition something to run. */
   const [entered, setEntered] = useState(false)
+  /** Non-null only while the pre-fetch is actually fetching something. */
+  const [downloading, setDownloading] = useState<{ done: number; total: number } | null>(null)
   const { play } = useAudioPlayer()
   const scrollRef = useRef<HTMLDivElement | null>(null)
+  /** Guards the pre-fetch so reopening the overlay doesn't restart it. */
+  const prefetched = useRef(false)
 
   // Waits for the words, not just for `open`. The cards don't exist until the
   // IndexedDB read returns, so flipping this on open alone let them mount at
@@ -96,6 +101,38 @@ export function SavedWordsOverlay({ open, onClose }: Props) {
   useEffect(() => {
     if (!open) setSelectedId(null)
   }, [open])
+
+  /**
+   * Download every saved word's audio up front, so tapping one plays instantly
+   * and keeps working offline.
+   *
+   * Only ever fetches what isn't already cached — prepareSpeech checks first —
+   * so this costs nothing on a second open, and because the cache is keyed on
+   * the spoken text a word already fetched by a tap is not fetched again. It
+   * runs once per mount: reopening does not restart it.
+   *
+   * Failures are silent. With no key and no invite token this does nothing at
+   * all and taps fall back to the browser voice, exactly as before.
+   */
+  useEffect(() => {
+    if (!open || !words || words.length === 0 || prefetched.current) return
+    prefetched.current = true
+
+    let cancelled = false
+    void (async () => {
+      await prepareSpeech(
+        words.map((w) => w.japanese),
+        (done, total) => {
+          if (!cancelled && done < total) setDownloading({ done, total })
+        },
+      ).catch(() => null)
+      if (!cancelled) setDownloading(null)
+    })()
+
+    return () => {
+      cancelled = true
+    }
+  }, [open, words])
 
   /** Esc closes — the overlay covers the whole app, so it needs a keyboard way out. */
   useEffect(() => {
@@ -187,6 +224,22 @@ export function SavedWordsOverlay({ open, onClose }: Props) {
             Saved Words
           </span>
         </div>
+
+        {downloading && (
+          <p
+            className="absolute tabular-nums"
+            style={{
+              left: 24,
+              top: 74,
+              fontFamily: 'var(--font-body)',
+              fontSize: 11,
+              color: 'var(--color-surface)',
+              opacity: 0.75,
+            }}
+          >
+            Downloading audio {downloading.done} / {downloading.total}
+          </p>
+        )}
 
         {words && words.length === 0 && (
           <p

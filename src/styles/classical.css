@@ -71,9 +71,11 @@
   --color-error: #A43D2C;
   --color-stat-figure: #444144;
 
-  /* The screen toggle's own two values: a light-grey track edge (it floats over
-     the page rather than sitting on it, so it isn't outlined in ink) and the
-     near-black glyph that rides on the teal knob. */
+  /* The screen toggle keeps its own palette: it floats over the page rather
+     than sitting on it, so it is neither a surface nor outlined in ink. The
+     edge colour doubles as the dot marking the empty end — the frames draw
+     both in the same value in both themes. */
+  --color-toggle-track: #FFFFFF;
   --color-toggle-edge: #EBEBED;
   --color-toggle-glyph: #171717;
 

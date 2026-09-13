@@ -51,7 +51,7 @@ export function ScreenToggle({ screen, onChange }: Props) {
         padding: KNOB_PAD,
         borderRadius: TRACK_H / 2,
         border: `${TRACK_BORDER}px solid var(--color-toggle-edge)`,
-        background: 'var(--color-surface)',
+        background: 'var(--color-toggle-track)',
         boxShadow: '0 4px 6px rgba(0, 0, 0, 0.25)',
       }}
     >
@@ -63,7 +63,7 @@ export function ScreenToggle({ screen, onChange }: Props) {
         style={{
           width: DOT,
           height: DOT,
-          background: 'var(--color-neutral-300)',
+          background: 'var(--color-toggle-edge)',
           left: isBrowse ? KNOB_PAD + KNOB / 2 - DOT / 2 : KNOB_PAD + KNOB_TRAVEL + KNOB / 2 - DOT / 2,
           transition: 'left 420ms var(--ease-damped)',
         }}

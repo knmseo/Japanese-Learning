@@ -15,7 +15,7 @@ import { getAllSentences } from '@/lib/sentenceStore'
 import { generateSession } from '@/lib/sessionGenerator'
 import { completeSessionRecord, recordSessionProgress, startSessionRecord } from '@/lib/sessionLog'
 import { describeStudySource, getStudySource, setStudySource } from '@/lib/studySource'
-import { getThemeVars } from '@/lib/theme'
+import { getDarkMode, getThemeVars, setDarkMode } from '@/lib/theme'
 import type { Comprehension, RevealStage, Sentence, StudySource } from '@/lib/types'
 
 type Screen = 'study' | 'browse'
@@ -71,6 +71,9 @@ function App() {
       // Before anything can ask for audio, so a fresh invite link works on the
       // very first sentence rather than only after a reload.
       await consumeInviteFromUrl()
+      // Ahead of the first session load, so the theme is settled before there is
+      // anything on screen to flash.
+      setDark(await getDarkMode())
       // Fall back to the first deck the very first time, before anything has been picked.
       const decks = await getDecks().catch(() => [])
       const stored = await getStudySource()
@@ -290,7 +293,14 @@ function App() {
             </p>
           </div>
           <div className="flex flex-col items-end gap-2">
-            <DarkModeToggle dark={dark} onToggle={() => setDark((d) => !d)} />
+            <DarkModeToggle
+              dark={dark}
+              onToggle={() => {
+                const next = !dark
+                setDark(next)
+                void setDarkMode(next)
+              }}
+            />
             <OfflineBundleControl sentences={sessionSentences} />
           </div>
         </div>

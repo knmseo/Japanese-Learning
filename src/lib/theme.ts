@@ -1,3 +1,5 @@
+import { db } from './db'
+
 /**
  * Light/dark palette overrides for the `.classical` design system. The base
  * token set (fonts, spacing, radius, per-component depths, the full light
@@ -30,6 +32,7 @@ const LIGHT_VARS: Record<string, string> = {
   '--color-press': '#FFE500',
   '--color-accent': '#99C2C4',
   '--color-accent-500': '#99C2C4',
+  '--color-toggle-track': '#FFFFFF',
   '--color-toggle-edge': '#EBEBED',
   '--color-toggle-glyph': '#171717',
   '--color-stat-teal': 'rgba(153, 194, 196, 0.6)',
@@ -55,6 +58,10 @@ const DARK_VARS: Record<string, string> = {
   '--color-divider': 'rgba(236, 242, 239, 0.35)',
   /** The sentence card alone lifts its outline off near-black. */
   '--color-card-edge': '#4A6460',
+  /** The toggle darkens with the paper rather than tracking --color-surface;
+   * its edge and dot lift to the same value the sentence card's outline takes. */
+  '--color-toggle-track': '#35434B',
+  '--color-toggle-edge': '#4A6460',
   /** Salmon darkened for light type goes muddy on the dark paper; the tile hue
    * itself reads correctly there. */
   '--color-error': '#F69687',
@@ -62,4 +69,16 @@ const DARK_VARS: Record<string, string> = {
 
 export function getThemeVars(dark: boolean): React.CSSProperties {
   return (dark ? { ...LIGHT_VARS, ...DARK_VARS } : LIGHT_VARS) as React.CSSProperties
+}
+
+const DARK_SETTING_KEY = 'darkMode'
+
+/** The chosen theme, persisted in the same `settings` table as the study source
+ * and the API key, so it survives a reload. Absent means light. */
+export async function getDarkMode(): Promise<boolean> {
+  return (await db.settings.get(DARK_SETTING_KEY))?.value === 'true'
+}
+
+export async function setDarkMode(dark: boolean): Promise<void> {
+  await db.settings.put({ key: DARK_SETTING_KEY, value: String(dark) })
 }

@@ -126,7 +126,10 @@ words are for reviewing and hearing, not for rating.
 - `Okay!` button `181,546`, 116×48 — dismisses the selection back into the
   stack, not the whole overlay
 
-Selecting a word also speaks it through the normal TTS path.
+Selecting a word speaks it. Opening the overlay also pre-fetches audio for
+every saved word that doesn't have it yet, so taps play instantly and keep
+working offline; it only fetches what is missing, runs once per mount, and does
+nothing at all without a key or invite token.
 
 The stack slides in from off the left edge on open, and a tap anywhere on the
 darkened area closes the overlay outright — `Okay!` is the way back to just the
@@ -213,9 +216,12 @@ moves.
 | `--color-card-edge` (sentence card only) | `#020005` | `#4A6460` |
 | `--color-divider` | ink 16% | `rgba(236,242,239,.35)` |
 
+| `--color-toggle-track` | `#FFFFFF` | `#35434B` |
+| `--color-toggle-edge` (also the dot) | `#EBEBED` | `#4A6460` |
+
 Everything else is **unchanged between themes** — outlines (`--color-ink`),
 both slab colours, the accent, the press yellow, the stat tiles and their
-`#444144` trim, the toggle's `#EBEBED` edge and `#171717` glyph, and the whole
+`#444144` trim, the toggle's `#171717` glyph and `#99C2C4` knob, and the whole
 neutral ramp. Those are all type and trim sitting *on* a surface, and they read
 the same against a grey card as a white one.
 
