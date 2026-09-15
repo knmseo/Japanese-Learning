@@ -115,7 +115,7 @@ type DeckCacheEntry = {
 Storage: **Dexie.js** over IndexedDB, client-side only for v1. No backend,
 no cross-device sync in v1.
 
-**Amended — one server-side function exists (`netlify/functions/tts.mts`).**
+**Amended — one server-side function exists (`api/tts.ts`, a Vercel edge function).**
 "No backend" was about *learning data*: history, mastery, scheduling and
 audio cache all still live only on the device, and there is still nothing
 to sync. What the function does is hold the OpenAI key so invited users get

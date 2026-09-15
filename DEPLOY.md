@@ -25,22 +25,26 @@ npm run build      # outputs dist/ (~1.1 MB)
 
 Then either:
 
-**Netlify / Vercel (recommended).** Push the repo to GitHub and connect it.
-Build command `npm run build`, publish directory `dist`. Both give HTTPS and a
-URL automatically, and redeploy on every push. Free tier is plenty.
+**Vercel (what this repo is set up for).** Push to GitHub and import the repo
+at vercel.com/new. `vercel.json` already pins the build command (`npm run
+build`) and output directory (`dist`), and routes `/api/tts` to the edge
+function in `api/tts.ts` — no dashboard configuration needed beyond the env
+vars below. Every push to `main` redeploys; every PR gets its own preview URL.
+Free tier is plenty for this.
 
 **Anything static.** `dist/` is plain files — any static host works, as long as
 it serves HTTPS and rewrites unknown paths to `index.html` (single-page app).
 
 ### One required setting
 
-Add an SPA fallback so a reload on any path serves `index.html`:
+The SPA fallback — so a reload on any path serves `index.html` instead of
+404ing — is already in `vercel.json`: a rewrite of everything except `/api/*`
+to `/index.html`. The `/api/*` exclusion matters: without it, a rewrite would
+intercept the TTS proxy's own requests before Vercel's function router ever
+sees them.
 
-- **Netlify** — create `public/_redirects` containing `/*  /index.html  200`
-- **Vercel** — add `vercel.json` with a rewrite of `/(.*)` → `/index.html`
-
-Without it the service worker handles navigation once installed, but a hard
-reload before install 404s.
+Without the fallback, the service worker handles navigation once installed,
+but a hard reload before install 404s.
 
 ## Installing on the phone
 
@@ -83,7 +87,7 @@ for — see below.
 
 ## Site access control breaks the PWA
 
-Netlify's site protection (and Vercel's equivalent) gates *every* request behind
+Vercel's Deployment Protection (password or SSO) gates *every* request behind
 a login redirect, including `/sw.js`, which then comes back as `401
 text/html` instead of JavaScript. Service worker registration requires a 2xx
 response with a JS MIME type, so it fails outright:
@@ -105,21 +109,24 @@ turn the protection off before expecting install or offline to work.
 
 Friends can use the app with no key at all — it falls back to the device's
 built-in Japanese voice. If you want them to get OpenAI's voice instead,
-`netlify/functions/tts.mts` proxies TTS using **your** key, held server-side.
+`api/tts.ts` proxies TTS using **your** key, held server-side.
 
-**Setup** — in Netlify → Site configuration → Environment variables:
+**Setup** — in Vercel → Project → Settings → Environment Variables:
 
 | Variable | Value | Notes |
 |---|---|---|
 | `OPENAI_API_KEY` | your key | **No `VITE_` prefix.** That prefix is what puts it in the public bundle. |
 | `ACCESS_TOKENS` | `alice-7fq2,bob-p4xd,carol-9mz1` | Comma-separated, one per person. Make them long and unguessable. |
 
-Then redeploy (env var changes alone don't trigger a build).
+Set both for the **Production** environment at minimum (add Preview too if you
+want invite links to work on preview deploys). Then redeploy — unlike Netlify,
+Vercel does **not** apply an env var change to the live deployment until you
+trigger a new one (Deployments → ⋯ → Redeploy).
 
 **Inviting someone** — send them their own link:
 
 ```
-https://learnihon.netlify.app/?k=alice-7fq2
+https://your-project.vercel.app/?k=alice-7fq2
 ```
 
 Opening it once stores the token and strips it from the URL. No code to
@@ -144,6 +151,15 @@ down.
 `registerType: 'autoUpdate'` — the service worker fetches a new version in the
 background and swaps it in on the next launch. No update prompt, no versioning
 UI. Redeploy and the phone picks it up.
+
+## Migrating from Netlify
+
+This repo used to deploy to Netlify (`netlify/functions/tts.mts`,
+`netlify.toml`); both are gone, replaced by `api/tts.ts` and `vercel.json`. The
+only behavior difference: env var changes need an explicit redeploy on Vercel
+(Netlify picked them up on the next build regardless). If a Netlify site for
+this project is still live, its `?k=` invite links point at a different origin
+than the new Vercel one — reissue invites once you've cut over.
 
 ## What is deliberately not shipped
 

@@ -1,7 +1,13 @@
-import type { Config, Context } from '@netlify/functions'
+export const config = { runtime: 'edge' }
 
 /**
  * Server-side TTS proxy (§2 amendment — see SPEC.md).
+ *
+ * Vercel Edge Function port of the original Netlify function. The Web-standard
+ * Request/Response signature is what Netlify Functions also use, so this file
+ * is nearly identical to netlify/functions/tts.mts — only env var access
+ * changed (`Netlify.env.get(...)` -> `process.env`) and routing moved out of
+ * the function into vercel.json (Vercel has no in-file `path` config).
  *
  * Exists so invited users get neural audio without holding an OpenAI key. The
  * key lives in this function's environment, which is never shipped to a
@@ -35,17 +41,17 @@ function json(body: unknown, status: number): Response {
 
 function allowedTokens(): Set<string> {
   return new Set(
-    (Netlify.env.get('ACCESS_TOKENS') ?? '')
+    (process.env.ACCESS_TOKENS ?? '')
       .split(',')
       .map((t) => t.trim())
       .filter(Boolean),
   )
 }
 
-export default async (req: Request, _context: Context): Promise<Response> => {
+export default async function handler(req: Request): Promise<Response> {
   if (req.method !== 'POST') return json({ error: 'Use POST.' }, 405)
 
-  const apiKey = Netlify.env.get('OPENAI_API_KEY')
+  const apiKey = process.env.OPENAI_API_KEY
   if (!apiKey) return json({ error: 'Server has no OPENAI_API_KEY configured.' }, 503)
 
   const tokens = allowedTokens()
@@ -95,8 +101,4 @@ export default async (req: Request, _context: Context): Promise<Response> => {
       'cache-control': 'private, max-age=86400',
     },
   })
-}
-
-export const config: Config = {
-  path: '/api/tts',
 }

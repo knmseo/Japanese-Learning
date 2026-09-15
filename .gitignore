@@ -30,3 +30,6 @@ dist-ssr
 
 # kuromoji dictionary, copied from node_modules by scripts/copy-dict.mjs
 .kuromoji-dict/
+
+# Vercel CLI project link (contains project/org ids, machine-specific)
+.vercel
