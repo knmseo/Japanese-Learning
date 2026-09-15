@@ -6,159 +6,2123 @@
       "id": "ex-1",
       "japanese": "京都に行きたいです。",
       "translation": "교토에 가고 싶어요.",
-      "concepts": ["京都", "に", "行く", "〜たい"],
+      "concepts": [
+        "京都",
+        "に",
+        "行く",
+        "〜たい"
+      ],
       "topic": "trains",
       "segments": [
-        { "japanese": "京都", "korean": "교토", "type": "vocabulary", "baseForm": "京都", "concepts": ["京都"] },
-        { "japanese": "に", "korean": "에", "type": "particle", "baseForm": "に", "concepts": ["に"] },
-        { "japanese": "行きたいです。", "korean": "가고 싶어요", "type": "construction", "baseForm": "行く", "concepts": ["行く", "〜たい"] }
+        {
+          "japanese": "京都",
+          "korean": "교토",
+          "type": "vocabulary",
+          "baseForm": "京都",
+          "concepts": [
+            "京都"
+          ]
+        },
+        {
+          "japanese": "に",
+          "korean": "에",
+          "type": "particle",
+          "baseForm": "に",
+          "concepts": [
+            "に"
+          ]
+        },
+        {
+          "japanese": "行きたいです。",
+          "korean": "가고 싶어요",
+          "type": "construction",
+          "baseForm": "行く",
+          "concepts": [
+            "行く",
+            "〜たい"
+          ]
+        }
       ]
     },
     {
       "id": "ex-2",
       "japanese": "このコーヒーはおいしいです。",
       "translation": "이 커피는 맛있어요.",
-      "concepts": ["この", "コーヒー", "は", "おいしい"],
+      "concepts": [
+        "この",
+        "コーヒー",
+        "は",
+        "おいしい"
+      ],
       "topic": "restaurants",
       "segments": [
-        { "japanese": "この", "korean": "이", "type": "vocabulary", "baseForm": "この", "concepts": ["この"] },
-        { "japanese": "コーヒー", "korean": "커피", "type": "vocabulary", "baseForm": "コーヒー", "concepts": ["コーヒー"] },
-        { "japanese": "は", "korean": "는", "type": "particle", "baseForm": "は", "concepts": ["は"] },
-        { "japanese": "おいしいです。", "korean": "맛있어요", "type": "construction", "baseForm": "おいしい", "concepts": ["おいしい", "です"] }
+        {
+          "japanese": "この",
+          "korean": "이",
+          "type": "vocabulary",
+          "baseForm": "この",
+          "concepts": [
+            "この"
+          ]
+        },
+        {
+          "japanese": "コーヒー",
+          "korean": "커피",
+          "type": "vocabulary",
+          "baseForm": "コーヒー",
+          "concepts": [
+            "コーヒー"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "는",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "おいしいです。",
+          "korean": "맛있어요",
+          "type": "construction",
+          "baseForm": "おいしい",
+          "concepts": [
+            "おいしい",
+            "です"
+          ]
+        }
       ]
     },
     {
       "id": "ex-3",
       "japanese": "駅はどこですか。",
       "translation": "역은 어디예요?",
-      "concepts": ["駅", "は", "どこ", "ですか"],
+      "concepts": [
+        "駅",
+        "は",
+        "どこ",
+        "ですか"
+      ],
       "topic": "directions",
       "segments": [
-        { "japanese": "駅", "korean": "역", "type": "vocabulary", "baseForm": "駅", "concepts": ["駅"] },
-        { "japanese": "は", "korean": "은", "type": "particle", "baseForm": "は", "concepts": ["は"] },
-        { "japanese": "どこ", "korean": "어디", "type": "vocabulary", "baseForm": "どこ", "concepts": ["どこ"] },
-        { "japanese": "ですか。", "korean": "예요?", "type": "construction", "baseForm": "です", "concepts": ["ですか"] }
+        {
+          "japanese": "駅",
+          "korean": "역",
+          "type": "vocabulary",
+          "baseForm": "駅",
+          "concepts": [
+            "駅"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "은",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "どこ",
+          "korean": "어디",
+          "type": "vocabulary",
+          "baseForm": "どこ",
+          "concepts": [
+            "どこ"
+          ]
+        },
+        {
+          "japanese": "ですか。",
+          "korean": "예요?",
+          "type": "construction",
+          "baseForm": "です",
+          "concepts": [
+            "ですか"
+          ]
+        }
       ]
     },
     {
       "id": "ex-4",
       "japanese": "今日は天気がいいですね。",
       "translation": "오늘은 날씨가 좋네요.",
-      "concepts": ["今日", "は", "天気", "いい", "ですね"],
+      "concepts": [
+        "今日",
+        "は",
+        "天気",
+        "いい",
+        "ですね"
+      ],
       "topic": "small talk",
       "segments": [
-        { "japanese": "今日", "korean": "오늘", "type": "vocabulary", "baseForm": "今日", "concepts": ["今日"] },
-        { "japanese": "は", "korean": "은", "type": "particle", "baseForm": "は", "concepts": ["は"] },
-        { "japanese": "天気", "korean": "날씨", "type": "vocabulary", "baseForm": "天気", "concepts": ["天気"] },
-        { "japanese": "が", "korean": "가", "type": "particle", "baseForm": "が", "concepts": ["が"] },
-        { "japanese": "いいですね。", "korean": "좋네요", "type": "construction", "baseForm": "いい", "concepts": ["いい", "ですね"] }
+        {
+          "japanese": "今日",
+          "korean": "오늘",
+          "type": "vocabulary",
+          "baseForm": "今日",
+          "concepts": [
+            "今日"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "은",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "天気",
+          "korean": "날씨",
+          "type": "vocabulary",
+          "baseForm": "天気",
+          "concepts": [
+            "天気"
+          ]
+        },
+        {
+          "japanese": "が",
+          "korean": "가",
+          "type": "particle",
+          "baseForm": "が",
+          "concepts": [
+            "が"
+          ]
+        },
+        {
+          "japanese": "いいですね。",
+          "korean": "좋네요",
+          "type": "construction",
+          "baseForm": "いい",
+          "concepts": [
+            "いい",
+            "ですね"
+          ]
+        }
       ]
     },
     {
       "id": "ex-5",
       "japanese": "すみません、もう一度言ってください。",
       "translation": "죄송합니다, 다시 한번 말씀해 주세요.",
-      "concepts": ["すみません", "もう一度", "言う", "〜てください"],
+      "concepts": [
+        "すみません",
+        "もう一度",
+        "言う",
+        "〜てください"
+      ],
       "topic": "asking for clarification",
       "segments": [
-        { "japanese": "すみません、", "korean": "죄송합니다,", "type": "vocabulary", "baseForm": "すみません", "concepts": ["すみません"] },
-        { "japanese": "もう一度", "korean": "다시 한번", "type": "vocabulary", "baseForm": "もう一度", "concepts": ["もう一度"] },
-        { "japanese": "言ってください。", "korean": "말씀해 주세요", "type": "construction", "baseForm": "言う", "concepts": ["言う", "〜てください"] }
+        {
+          "japanese": "すみません、",
+          "korean": "죄송합니다,",
+          "type": "vocabulary",
+          "baseForm": "すみません",
+          "concepts": [
+            "すみません"
+          ]
+        },
+        {
+          "japanese": "もう一度",
+          "korean": "다시 한번",
+          "type": "vocabulary",
+          "baseForm": "もう一度",
+          "concepts": [
+            "もう一度"
+          ]
+        },
+        {
+          "japanese": "言ってください。",
+          "korean": "말씀해 주세요",
+          "type": "construction",
+          "baseForm": "言う",
+          "concepts": [
+            "言う",
+            "〜てください"
+          ]
+        }
       ]
     },
     {
       "id": "ex-6",
       "japanese": "ホテルの予約をしたいです。",
       "translation": "호텔 예약을 하고 싶어요.",
-      "concepts": ["ホテル", "予約", "する", "〜たい"],
+      "concepts": [
+        "ホテル",
+        "予約",
+        "する",
+        "〜たい"
+      ],
       "topic": "hotels",
       "segments": [
-        { "japanese": "ホテル", "korean": "호텔", "type": "vocabulary", "baseForm": "ホテル", "concepts": ["ホテル"] },
-        { "japanese": "の", "korean": "의", "type": "particle", "baseForm": "の", "concepts": ["の"] },
-        { "japanese": "予約", "korean": "예약", "type": "vocabulary", "baseForm": "予約", "concepts": ["予約"] },
-        { "japanese": "を", "korean": "을", "type": "particle", "baseForm": "を", "concepts": ["を"] },
-        { "japanese": "したいです。", "korean": "하고 싶어요", "type": "construction", "baseForm": "する", "concepts": ["する", "〜たい"] }
+        {
+          "japanese": "ホテル",
+          "korean": "호텔",
+          "type": "vocabulary",
+          "baseForm": "ホテル",
+          "concepts": [
+            "ホテル"
+          ]
+        },
+        {
+          "japanese": "の",
+          "korean": "의",
+          "type": "particle",
+          "baseForm": "の",
+          "concepts": [
+            "の"
+          ]
+        },
+        {
+          "japanese": "予約",
+          "korean": "예약",
+          "type": "vocabulary",
+          "baseForm": "予約",
+          "concepts": [
+            "予約"
+          ]
+        },
+        {
+          "japanese": "を",
+          "korean": "을",
+          "type": "particle",
+          "baseForm": "を",
+          "concepts": [
+            "を"
+          ]
+        },
+        {
+          "japanese": "したいです。",
+          "korean": "하고 싶어요",
+          "type": "construction",
+          "baseForm": "する",
+          "concepts": [
+            "する",
+            "〜たい"
+          ]
+        }
       ]
     },
     {
       "id": "ex-7",
       "japanese": "これはいくらですか。",
       "translation": "이것은 얼마예요?",
-      "concepts": ["これ", "は", "いくら", "ですか"],
+      "concepts": [
+        "これ",
+        "は",
+        "いくら",
+        "ですか"
+      ],
       "topic": "convenience stores",
       "segments": [
-        { "japanese": "これ", "korean": "이것", "type": "vocabulary", "baseForm": "これ", "concepts": ["これ"] },
-        { "japanese": "は", "korean": "은", "type": "particle", "baseForm": "は", "concepts": ["は"] },
-        { "japanese": "いくら", "korean": "얼마", "type": "vocabulary", "baseForm": "いくら", "concepts": ["いくら"] },
-        { "japanese": "ですか。", "korean": "예요?", "type": "construction", "baseForm": "です", "concepts": ["ですか"] }
+        {
+          "japanese": "これ",
+          "korean": "이것",
+          "type": "vocabulary",
+          "baseForm": "これ",
+          "concepts": [
+            "これ"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "은",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "いくら",
+          "korean": "얼마",
+          "type": "vocabulary",
+          "baseForm": "いくら",
+          "concepts": [
+            "いくら"
+          ]
+        },
+        {
+          "japanese": "ですか。",
+          "korean": "예요?",
+          "type": "construction",
+          "baseForm": "です",
+          "concepts": [
+            "ですか"
+          ]
+        }
       ]
     },
     {
       "id": "ex-8",
       "japanese": "明日、友達に会います。",
       "translation": "내일 친구를 만나요.",
-      "concepts": ["明日", "友達", "に", "会う"],
+      "concepts": [
+        "明日",
+        "友達",
+        "に",
+        "会う"
+      ],
       "topic": "meeting people",
       "segments": [
-        { "japanese": "明日、", "korean": "내일", "type": "vocabulary", "baseForm": "明日", "concepts": ["明日"] },
-        { "japanese": "友達", "korean": "친구", "type": "vocabulary", "baseForm": "友達", "concepts": ["友達"] },
-        { "japanese": "に", "korean": "를", "type": "particle", "baseForm": "に", "concepts": ["に"] },
-        { "japanese": "会います。", "korean": "만나요", "type": "construction", "baseForm": "会う", "concepts": ["会う"] }
+        {
+          "japanese": "明日、",
+          "korean": "내일",
+          "type": "vocabulary",
+          "baseForm": "明日",
+          "concepts": [
+            "明日"
+          ]
+        },
+        {
+          "japanese": "友達",
+          "korean": "친구",
+          "type": "vocabulary",
+          "baseForm": "友達",
+          "concepts": [
+            "友達"
+          ]
+        },
+        {
+          "japanese": "に",
+          "korean": "를",
+          "type": "particle",
+          "baseForm": "に",
+          "concepts": [
+            "に"
+          ]
+        },
+        {
+          "japanese": "会います。",
+          "korean": "만나요",
+          "type": "construction",
+          "baseForm": "会う",
+          "concepts": [
+            "会う"
+          ]
+        }
       ]
     },
     {
       "id": "ex-9",
       "japanese": "電車は何時に出発しますか。",
       "translation": "전철은 몇 시에 출발해요?",
-      "concepts": ["電車", "何時", "に", "出発する"],
+      "concepts": [
+        "電車",
+        "何時",
+        "に",
+        "出発する"
+      ],
       "topic": "trains",
       "segments": [
-        { "japanese": "電車", "korean": "전철", "type": "vocabulary", "baseForm": "電車", "concepts": ["電車"] },
-        { "japanese": "は", "korean": "은", "type": "particle", "baseForm": "は", "concepts": ["は"] },
-        { "japanese": "何時", "korean": "몇 시", "type": "vocabulary", "baseForm": "何時", "concepts": ["何時"] },
-        { "japanese": "に", "korean": "에", "type": "particle", "baseForm": "に", "concepts": ["に"] },
-        { "japanese": "出発しますか。", "korean": "출발해요?", "type": "construction", "baseForm": "出発する", "concepts": ["出発する"] }
+        {
+          "japanese": "電車",
+          "korean": "전철",
+          "type": "vocabulary",
+          "baseForm": "電車",
+          "concepts": [
+            "電車"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "은",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "何時",
+          "korean": "몇 시",
+          "type": "vocabulary",
+          "baseForm": "何時",
+          "concepts": [
+            "何時"
+          ]
+        },
+        {
+          "japanese": "に",
+          "korean": "에",
+          "type": "particle",
+          "baseForm": "に",
+          "concepts": [
+            "に"
+          ]
+        },
+        {
+          "japanese": "出発しますか。",
+          "korean": "출발해요?",
+          "type": "construction",
+          "baseForm": "出発する",
+          "concepts": [
+            "出発する"
+          ]
+        }
       ]
     },
     {
       "id": "ex-10",
       "japanese": "このレストランはとても人気です。",
       "translation": "이 레스토랑은 아주 인기가 많아요.",
-      "concepts": ["この", "レストラン", "とても", "人気"],
+      "concepts": [
+        "この",
+        "レストラン",
+        "とても",
+        "人気"
+      ],
       "topic": "restaurants",
       "segments": [
-        { "japanese": "この", "korean": "이", "type": "vocabulary", "baseForm": "この", "concepts": ["この"] },
-        { "japanese": "レストラン", "korean": "레스토랑", "type": "vocabulary", "baseForm": "レストラン", "concepts": ["レストラン"] },
-        { "japanese": "は", "korean": "은", "type": "particle", "baseForm": "は", "concepts": ["は"] },
-        { "japanese": "とても", "korean": "아주", "type": "vocabulary", "baseForm": "とても", "concepts": ["とても"] },
-        { "japanese": "人気です。", "korean": "인기가 많아요", "type": "construction", "baseForm": "人気", "concepts": ["人気"] }
+        {
+          "japanese": "この",
+          "korean": "이",
+          "type": "vocabulary",
+          "baseForm": "この",
+          "concepts": [
+            "この"
+          ]
+        },
+        {
+          "japanese": "レストラン",
+          "korean": "레스토랑",
+          "type": "vocabulary",
+          "baseForm": "レストラン",
+          "concepts": [
+            "レストラン"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "은",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "とても",
+          "korean": "아주",
+          "type": "vocabulary",
+          "baseForm": "とても",
+          "concepts": [
+            "とても"
+          ]
+        },
+        {
+          "japanese": "人気です。",
+          "korean": "인기가 많아요",
+          "type": "construction",
+          "baseForm": "人気",
+          "concepts": [
+            "人気"
+          ]
+        }
       ]
     },
     {
       "id": "ex-11",
       "japanese": "道に迷いました。助けてください。",
       "translation": "길을 잃었어요. 도와주세요.",
-      "concepts": ["道", "迷う", "助ける", "〜てください"],
+      "concepts": [
+        "道",
+        "迷う",
+        "助ける",
+        "〜てください"
+      ],
       "topic": "directions",
       "segments": [
-        { "japanese": "道", "korean": "길", "type": "vocabulary", "baseForm": "道", "concepts": ["道"] },
-        { "japanese": "に", "korean": "을", "type": "particle", "baseForm": "に", "concepts": ["に"] },
-        { "japanese": "迷いました。", "korean": "잃었어요.", "type": "construction", "baseForm": "迷う", "concepts": ["迷う"] },
-        { "japanese": "助けてください。", "korean": "도와주세요", "type": "construction", "baseForm": "助ける", "concepts": ["助ける", "〜てください"] }
+        {
+          "japanese": "道",
+          "korean": "길",
+          "type": "vocabulary",
+          "baseForm": "道",
+          "concepts": [
+            "道"
+          ]
+        },
+        {
+          "japanese": "に",
+          "korean": "을",
+          "type": "particle",
+          "baseForm": "に",
+          "concepts": [
+            "に"
+          ]
+        },
+        {
+          "japanese": "迷いました。",
+          "korean": "잃었어요.",
+          "type": "construction",
+          "baseForm": "迷う",
+          "concepts": [
+            "迷う"
+          ]
+        },
+        {
+          "japanese": "助けてください。",
+          "korean": "도와주세요",
+          "type": "construction",
+          "baseForm": "助ける",
+          "concepts": [
+            "助ける",
+            "〜てください"
+          ]
+        }
       ]
     },
     {
       "id": "ex-12",
       "japanese": "チェックインは何時からですか。",
       "translation": "체크인은 몇 시부터예요?",
-      "concepts": ["チェックイン", "何時", "から", "ですか"],
+      "concepts": [
+        "チェックイン",
+        "何時",
+        "から",
+        "ですか"
+      ],
       "topic": "hotels",
       "segments": [
-        { "japanese": "チェックイン", "korean": "체크인", "type": "vocabulary", "baseForm": "チェックイン", "concepts": ["チェックイン"] },
-        { "japanese": "は", "korean": "은", "type": "particle", "baseForm": "は", "concepts": ["は"] },
-        { "japanese": "何時", "korean": "몇 시", "type": "vocabulary", "baseForm": "何時", "concepts": ["何時"] },
-        { "japanese": "から", "korean": "부터", "type": "particle", "baseForm": "から", "concepts": ["から"] },
-        { "japanese": "ですか。", "korean": "예요?", "type": "construction", "baseForm": "です", "concepts": ["ですか"] }
+        {
+          "japanese": "チェックイン",
+          "korean": "체크인",
+          "type": "vocabulary",
+          "baseForm": "チェックイン",
+          "concepts": [
+            "チェックイン"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "은",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "何時",
+          "korean": "몇 시",
+          "type": "vocabulary",
+          "baseForm": "何時",
+          "concepts": [
+            "何時"
+          ]
+        },
+        {
+          "japanese": "から",
+          "korean": "부터",
+          "type": "particle",
+          "baseForm": "から",
+          "concepts": [
+            "から"
+          ]
+        },
+        {
+          "japanese": "ですか。",
+          "korean": "예요?",
+          "type": "construction",
+          "baseForm": "です",
+          "concepts": [
+            "ですか"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ex-13",
+      "japanese": "毎朝コーヒーを飲みます。",
+      "translation": "매일 아침 커피를 마셔요.",
+      "concepts": [
+        "毎朝",
+        "コーヒー",
+        "を",
+        "飲む"
+      ],
+      "topic": "daily life",
+      "segments": [
+        {
+          "japanese": "毎朝",
+          "korean": "매일 아침",
+          "type": "vocabulary",
+          "baseForm": "毎朝",
+          "concepts": [
+            "毎朝"
+          ]
+        },
+        {
+          "japanese": "コーヒー",
+          "korean": "커피",
+          "type": "vocabulary",
+          "baseForm": "コーヒー",
+          "concepts": [
+            "コーヒー"
+          ]
+        },
+        {
+          "japanese": "を",
+          "korean": "를",
+          "type": "particle",
+          "baseForm": "を",
+          "concepts": [
+            "を"
+          ]
+        },
+        {
+          "japanese": "飲みます。",
+          "korean": "마셔요",
+          "type": "construction",
+          "baseForm": "飲む",
+          "concepts": [
+            "飲む"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ex-14",
+      "japanese": "毎日日本語を勉強します。",
+      "translation": "매일 일본어를 공부해요.",
+      "concepts": [
+        "毎日",
+        "日本語",
+        "を",
+        "勉強する"
+      ],
+      "topic": "daily life",
+      "segments": [
+        {
+          "japanese": "毎日",
+          "korean": "매일",
+          "type": "vocabulary",
+          "baseForm": "毎日",
+          "concepts": [
+            "毎日"
+          ]
+        },
+        {
+          "japanese": "日本語",
+          "korean": "일본어",
+          "type": "vocabulary",
+          "baseForm": "日本語",
+          "concepts": [
+            "日本語"
+          ]
+        },
+        {
+          "japanese": "を",
+          "korean": "를",
+          "type": "particle",
+          "baseForm": "を",
+          "concepts": [
+            "を"
+          ]
+        },
+        {
+          "japanese": "勉強します。",
+          "korean": "공부해요",
+          "type": "construction",
+          "baseForm": "勉強する",
+          "concepts": [
+            "勉強する"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ex-15",
+      "japanese": "今日は早く起きました。",
+      "translation": "오늘은 일찍 일어났어요.",
+      "concepts": [
+        "今日",
+        "は",
+        "早く",
+        "起きる"
+      ],
+      "topic": "daily life",
+      "segments": [
+        {
+          "japanese": "今日",
+          "korean": "오늘",
+          "type": "vocabulary",
+          "baseForm": "今日",
+          "concepts": [
+            "今日"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "은",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "早く",
+          "korean": "일찍",
+          "type": "vocabulary",
+          "baseForm": "早く",
+          "concepts": [
+            "早く"
+          ]
+        },
+        {
+          "japanese": "起きました。",
+          "korean": "일어났어요",
+          "type": "construction",
+          "baseForm": "起きる",
+          "concepts": [
+            "起きる"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ex-16",
+      "japanese": "夜は早く寝ます。",
+      "translation": "밤에는 일찍 자요.",
+      "concepts": [
+        "夜",
+        "は",
+        "早く",
+        "寝る"
+      ],
+      "topic": "daily life",
+      "segments": [
+        {
+          "japanese": "夜",
+          "korean": "밤",
+          "type": "vocabulary",
+          "baseForm": "夜",
+          "concepts": [
+            "夜"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "에는",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "早く",
+          "korean": "일찍",
+          "type": "vocabulary",
+          "baseForm": "早く",
+          "concepts": [
+            "早く"
+          ]
+        },
+        {
+          "japanese": "寝ます。",
+          "korean": "자요",
+          "type": "construction",
+          "baseForm": "寝る",
+          "concepts": [
+            "寝る"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ex-17",
+      "japanese": "週に三回運動します。",
+      "translation": "일주일에 세 번 운동해요.",
+      "concepts": [
+        "週",
+        "三回",
+        "運動する"
+      ],
+      "topic": "daily life",
+      "segments": [
+        {
+          "japanese": "週に三回",
+          "korean": "일주일에 세 번",
+          "type": "vocabulary",
+          "baseForm": "週に三回",
+          "concepts": [
+            "週",
+            "三回"
+          ]
+        },
+        {
+          "japanese": "運動します。",
+          "korean": "운동해요",
+          "type": "construction",
+          "baseForm": "運動する",
+          "concepts": [
+            "運動する"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ex-18",
+      "japanese": "この本はとても面白いです。",
+      "translation": "이 책은 아주 재미있어요.",
+      "concepts": [
+        "この本",
+        "は",
+        "とても",
+        "面白い"
+      ],
+      "topic": "daily life",
+      "segments": [
+        {
+          "japanese": "この本",
+          "korean": "이 책",
+          "type": "vocabulary",
+          "baseForm": "この本",
+          "concepts": [
+            "この本"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "은",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "とても",
+          "korean": "아주",
+          "type": "vocabulary",
+          "baseForm": "とても",
+          "concepts": [
+            "とても"
+          ]
+        },
+        {
+          "japanese": "面白いです。",
+          "korean": "재미있어요",
+          "type": "construction",
+          "baseForm": "面白い",
+          "concepts": [
+            "面白い",
+            "です"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ex-19",
+      "japanese": "この映画はあまり面白くなかったです。",
+      "translation": "이 영화는 별로 재미없었어요.",
+      "concepts": [
+        "この映画",
+        "は",
+        "あまり",
+        "面白い",
+        "〜なかった"
+      ],
+      "topic": "daily life",
+      "segments": [
+        {
+          "japanese": "この映画",
+          "korean": "이 영화",
+          "type": "vocabulary",
+          "baseForm": "この映画",
+          "concepts": [
+            "この映画"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "는",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "あまり",
+          "korean": "별로",
+          "type": "vocabulary",
+          "baseForm": "あまり",
+          "concepts": [
+            "あまり"
+          ]
+        },
+        {
+          "japanese": "面白くなかったです。",
+          "korean": "재미없었어요",
+          "type": "construction",
+          "baseForm": "面白い",
+          "concepts": [
+            "面白い",
+            "〜なかった"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ex-20",
+      "japanese": "この歌が好きです。",
+      "translation": "이 노래를 좋아해요.",
+      "concepts": [
+        "この歌",
+        "が",
+        "好き"
+      ],
+      "topic": "daily life",
+      "segments": [
+        {
+          "japanese": "この歌",
+          "korean": "이 노래",
+          "type": "vocabulary",
+          "baseForm": "この歌",
+          "concepts": [
+            "この歌"
+          ]
+        },
+        {
+          "japanese": "が",
+          "korean": "를",
+          "type": "particle",
+          "baseForm": "が",
+          "concepts": [
+            "が"
+          ]
+        },
+        {
+          "japanese": "好きです。",
+          "korean": "좋아해요",
+          "type": "construction",
+          "baseForm": "好き",
+          "concepts": [
+            "好き",
+            "です"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ex-21",
+      "japanese": "辛い食べ物は苦手です。",
+      "translation": "매운 음식은 잘 못 먹어요.",
+      "concepts": [
+        "辛い",
+        "食べ物",
+        "は",
+        "苦手"
+      ],
+      "topic": "daily life",
+      "segments": [
+        {
+          "japanese": "辛い食べ物",
+          "korean": "매운 음식",
+          "type": "vocabulary",
+          "baseForm": "辛い食べ物",
+          "concepts": [
+            "辛い",
+            "食べ物"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "은",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "苦手です。",
+          "korean": "잘 못 먹어요",
+          "type": "construction",
+          "baseForm": "苦手",
+          "concepts": [
+            "苦手",
+            "です"
+          ]
+        }
+      ],
+      "reading": "からいたべものはにがてです。"
+    },
+    {
+      "id": "ex-22",
+      "japanese": "甘いものが大好きです。",
+      "translation": "단 걸 정말 좋아해요.",
+      "concepts": [
+        "甘いもの",
+        "が",
+        "大好き"
+      ],
+      "topic": "daily life",
+      "segments": [
+        {
+          "japanese": "甘いもの",
+          "korean": "단 것",
+          "type": "vocabulary",
+          "baseForm": "甘いもの",
+          "concepts": [
+            "甘いもの"
+          ]
+        },
+        {
+          "japanese": "が",
+          "korean": "을",
+          "type": "particle",
+          "baseForm": "が",
+          "concepts": [
+            "が"
+          ]
+        },
+        {
+          "japanese": "大好きです。",
+          "korean": "정말 좋아해요",
+          "type": "construction",
+          "baseForm": "大好き",
+          "concepts": [
+            "大好き",
+            "です"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ex-23",
+      "japanese": "今日は暇です。",
+      "translation": "오늘은 한가해요.",
+      "concepts": [
+        "今日",
+        "は",
+        "暇"
+      ],
+      "topic": "daily life",
+      "segments": [
+        {
+          "japanese": "今日",
+          "korean": "오늘",
+          "type": "vocabulary",
+          "baseForm": "今日",
+          "concepts": [
+            "今日"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "은",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "暇です。",
+          "korean": "한가해요",
+          "type": "construction",
+          "baseForm": "暇",
+          "concepts": [
+            "暇",
+            "です"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ex-24",
+      "japanese": "今週はとても忙しいです。",
+      "translation": "이번 주는 아주 바빠요.",
+      "concepts": [
+        "今週",
+        "は",
+        "とても",
+        "忙しい"
+      ],
+      "topic": "daily life",
+      "segments": [
+        {
+          "japanese": "今週",
+          "korean": "이번 주",
+          "type": "vocabulary",
+          "baseForm": "今週",
+          "concepts": [
+            "今週"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "는",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "とても",
+          "korean": "아주",
+          "type": "vocabulary",
+          "baseForm": "とても",
+          "concepts": [
+            "とても"
+          ]
+        },
+        {
+          "japanese": "忙しいです。",
+          "korean": "바빠요",
+          "type": "construction",
+          "baseForm": "忙しい",
+          "concepts": [
+            "忙しい",
+            "です"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ex-25",
+      "japanese": "この問題は難しいです。",
+      "translation": "이 문제는 어려워요.",
+      "concepts": [
+        "この問題",
+        "は",
+        "難しい"
+      ],
+      "topic": "daily life",
+      "segments": [
+        {
+          "japanese": "この問題",
+          "korean": "이 문제",
+          "type": "vocabulary",
+          "baseForm": "この問題",
+          "concepts": [
+            "この問題"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "는",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "難しいです。",
+          "korean": "어려워요",
+          "type": "construction",
+          "baseForm": "難しい",
+          "concepts": [
+            "難しい",
+            "です"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ex-26",
+      "japanese": "このアプリは使いやすいです。",
+      "translation": "이 앱은 쓰기 편해요.",
+      "concepts": [
+        "このアプリ",
+        "は",
+        "使う",
+        "〜やすい"
+      ],
+      "topic": "daily life",
+      "segments": [
+        {
+          "japanese": "このアプリ",
+          "korean": "이 앱",
+          "type": "vocabulary",
+          "baseForm": "このアプリ",
+          "concepts": [
+            "このアプリ"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "은",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "使いやすいです。",
+          "korean": "쓰기 편해요",
+          "type": "construction",
+          "baseForm": "使う",
+          "concepts": [
+            "使う",
+            "〜やすい"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ex-27",
+      "japanese": "この靴は歩きにくいです。",
+      "translation": "이 신발은 걷기 불편해요.",
+      "concepts": [
+        "この靴",
+        "は",
+        "歩く",
+        "〜にくい"
+      ],
+      "topic": "daily life",
+      "segments": [
+        {
+          "japanese": "この靴",
+          "korean": "이 신발",
+          "type": "vocabulary",
+          "baseForm": "この靴",
+          "concepts": [
+            "この靴"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "은",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "歩きにくいです。",
+          "korean": "걷기 불편해요",
+          "type": "construction",
+          "baseForm": "歩く",
+          "concepts": [
+            "歩く",
+            "〜にくい"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ex-28",
+      "japanese": "明日は何をしますか。",
+      "translation": "내일 뭐 해요?",
+      "concepts": [
+        "明日",
+        "は",
+        "何",
+        "する"
+      ],
+      "topic": "daily life",
+      "segments": [
+        {
+          "japanese": "明日",
+          "korean": "내일",
+          "type": "vocabulary",
+          "baseForm": "明日",
+          "concepts": [
+            "明日"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "는",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "何をしますか。",
+          "korean": "뭐 해요?",
+          "type": "construction",
+          "baseForm": "する",
+          "concepts": [
+            "何",
+            "する"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ex-29",
+      "japanese": "来週、旅行に行きます。",
+      "translation": "다음 주에 여행 가요.",
+      "concepts": [
+        "来週",
+        "旅行",
+        "行く"
+      ],
+      "topic": "daily life",
+      "segments": [
+        {
+          "japanese": "来週、",
+          "korean": "다음 주에,",
+          "type": "vocabulary",
+          "baseForm": "来週",
+          "concepts": [
+            "来週"
+          ]
+        },
+        {
+          "japanese": "旅行に行きます。",
+          "korean": "여행 가요",
+          "type": "construction",
+          "baseForm": "行く",
+          "concepts": [
+            "旅行",
+            "行く"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ex-30",
+      "japanese": "先週、京都に行きました。",
+      "translation": "지난주에 교토에 갔어요.",
+      "concepts": [
+        "先週",
+        "京都",
+        "行く"
+      ],
+      "topic": "daily life",
+      "segments": [
+        {
+          "japanese": "先週、",
+          "korean": "지난주에,",
+          "type": "vocabulary",
+          "baseForm": "先週",
+          "concepts": [
+            "先週"
+          ]
+        },
+        {
+          "japanese": "京都に行きました。",
+          "korean": "교토에 갔어요",
+          "type": "construction",
+          "baseForm": "行く",
+          "concepts": [
+            "京都",
+            "行く"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ex-31",
+      "japanese": "もう昼ごはんを食べましたか。",
+      "translation": "벌써 점심 먹었어요?",
+      "concepts": [
+        "もう",
+        "昼ごはん",
+        "を",
+        "食べる"
+      ],
+      "topic": "daily life",
+      "segments": [
+        {
+          "japanese": "もう",
+          "korean": "벌써",
+          "type": "vocabulary",
+          "baseForm": "もう",
+          "concepts": [
+            "もう"
+          ]
+        },
+        {
+          "japanese": "昼ごはん",
+          "korean": "점심",
+          "type": "vocabulary",
+          "baseForm": "昼ごはん",
+          "concepts": [
+            "昼ごはん"
+          ]
+        },
+        {
+          "japanese": "を",
+          "korean": "를",
+          "type": "particle",
+          "baseForm": "を",
+          "concepts": [
+            "を"
+          ]
+        },
+        {
+          "japanese": "食べましたか。",
+          "korean": "먹었어요?",
+          "type": "construction",
+          "baseForm": "食べる",
+          "concepts": [
+            "食べる"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ex-32",
+      "japanese": "まだ晩ごはんを食べていません。",
+      "translation": "아직 저녁 안 먹었어요.",
+      "concepts": [
+        "まだ",
+        "晩ごはん",
+        "を",
+        "食べる",
+        "〜ていない"
+      ],
+      "topic": "daily life",
+      "segments": [
+        {
+          "japanese": "まだ",
+          "korean": "아직",
+          "type": "vocabulary",
+          "baseForm": "まだ",
+          "concepts": [
+            "まだ"
+          ]
+        },
+        {
+          "japanese": "晩ごはん",
+          "korean": "저녁",
+          "type": "vocabulary",
+          "baseForm": "晩ごはん",
+          "concepts": [
+            "晩ごはん"
+          ]
+        },
+        {
+          "japanese": "を",
+          "korean": "를",
+          "type": "particle",
+          "baseForm": "を",
+          "concepts": [
+            "を"
+          ]
+        },
+        {
+          "japanese": "食べていません。",
+          "korean": "안 먹었어요",
+          "type": "construction",
+          "baseForm": "食べる",
+          "concepts": [
+            "食べる",
+            "〜ていない"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ex-33",
+      "japanese": "何時に家を出ますか。",
+      "translation": "몇 시에 집에서 나가요?",
+      "concepts": [
+        "何時",
+        "家",
+        "出る"
+      ],
+      "topic": "daily life",
+      "segments": [
+        {
+          "japanese": "何時に",
+          "korean": "몇 시에",
+          "type": "vocabulary",
+          "baseForm": "何時",
+          "concepts": [
+            "何時"
+          ]
+        },
+        {
+          "japanese": "家を出ますか。",
+          "korean": "집에서 나가요?",
+          "type": "construction",
+          "baseForm": "出る",
+          "concepts": [
+            "家",
+            "出る"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ex-34",
+      "japanese": "会社まで一時間かかります。",
+      "translation": "회사까지 한 시간 걸려요.",
+      "concepts": [
+        "会社",
+        "一時間",
+        "かかる"
+      ],
+      "topic": "daily life",
+      "segments": [
+        {
+          "japanese": "会社まで",
+          "korean": "회사까지",
+          "type": "vocabulary",
+          "baseForm": "会社",
+          "concepts": [
+            "会社"
+          ]
+        },
+        {
+          "japanese": "一時間かかります。",
+          "korean": "한 시간 걸려요",
+          "type": "construction",
+          "baseForm": "かかる",
+          "concepts": [
+            "一時間",
+            "かかる"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ex-35",
+      "japanese": "電話番号を教えてください。",
+      "translation": "전화번호를 알려 주세요.",
+      "concepts": [
+        "電話番号",
+        "を",
+        "教える",
+        "〜てください"
+      ],
+      "topic": "daily life",
+      "segments": [
+        {
+          "japanese": "電話番号",
+          "korean": "전화번호",
+          "type": "vocabulary",
+          "baseForm": "電話番号",
+          "concepts": [
+            "電話番号"
+          ]
+        },
+        {
+          "japanese": "を",
+          "korean": "를",
+          "type": "particle",
+          "baseForm": "を",
+          "concepts": [
+            "を"
+          ]
+        },
+        {
+          "japanese": "教えてください。",
+          "korean": "알려 주세요",
+          "type": "construction",
+          "baseForm": "教える",
+          "concepts": [
+            "教える",
+            "〜てください"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ex-36",
+      "japanese": "後で電話します。",
+      "translation": "나중에 전화할게요.",
+      "concepts": [
+        "後で",
+        "電話する"
+      ],
+      "topic": "daily life",
+      "segments": [
+        {
+          "japanese": "後で",
+          "korean": "나중에",
+          "type": "vocabulary",
+          "baseForm": "後で",
+          "concepts": [
+            "後で"
+          ]
+        },
+        {
+          "japanese": "電話します。",
+          "korean": "전화할게요",
+          "type": "construction",
+          "baseForm": "電話する",
+          "concepts": [
+            "電話する"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ex-37",
+      "japanese": "少し待ってください。",
+      "translation": "조금 기다려 주세요.",
+      "concepts": [
+        "少し",
+        "待つ",
+        "〜てください"
+      ],
+      "topic": "daily life",
+      "segments": [
+        {
+          "japanese": "少し",
+          "korean": "조금",
+          "type": "vocabulary",
+          "baseForm": "少し",
+          "concepts": [
+            "少し"
+          ]
+        },
+        {
+          "japanese": "待ってください。",
+          "korean": "기다려 주세요",
+          "type": "construction",
+          "baseForm": "待つ",
+          "concepts": [
+            "待つ",
+            "〜てください"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ex-38",
+      "japanese": "今、大丈夫ですか。",
+      "translation": "지금 괜찮아요?",
+      "concepts": [
+        "今",
+        "大丈夫"
+      ],
+      "topic": "daily life",
+      "segments": [
+        {
+          "japanese": "今、",
+          "korean": "지금,",
+          "type": "vocabulary",
+          "baseForm": "今",
+          "concepts": [
+            "今"
+          ]
+        },
+        {
+          "japanese": "大丈夫ですか。",
+          "korean": "괜찮아요?",
+          "type": "construction",
+          "baseForm": "大丈夫",
+          "concepts": [
+            "大丈夫",
+            "です"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ex-39",
+      "japanese": "手伝ってもらえますか。",
+      "translation": "도와주실 수 있어요?",
+      "concepts": [
+        "手伝う",
+        "〜てもらう"
+      ],
+      "topic": "daily life",
+      "segments": [
+        {
+          "japanese": "手伝ってもらえますか。",
+          "korean": "도와주실 수 있어요?",
+          "type": "construction",
+          "baseForm": "手伝う",
+          "concepts": [
+            "手伝う",
+            "〜てもらう"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ex-40",
+      "japanese": "一緒に行きませんか。",
+      "translation": "같이 안 갈래요?",
+      "concepts": [
+        "一緒に",
+        "行く",
+        "〜ませんか"
+      ],
+      "topic": "daily life",
+      "segments": [
+        {
+          "japanese": "一緒に",
+          "korean": "같이",
+          "type": "vocabulary",
+          "baseForm": "一緒に",
+          "concepts": [
+            "一緒に"
+          ]
+        },
+        {
+          "japanese": "行きませんか。",
+          "korean": "안 갈래요?",
+          "type": "construction",
+          "baseForm": "行く",
+          "concepts": [
+            "行く",
+            "〜ませんか"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ex-41",
+      "japanese": "何が食べたいですか。",
+      "translation": "뭐 먹고 싶어요?",
+      "concepts": [
+        "何",
+        "食べる",
+        "〜たい"
+      ],
+      "topic": "daily life",
+      "segments": [
+        {
+          "japanese": "何が",
+          "korean": "뭐가",
+          "type": "vocabulary",
+          "baseForm": "何",
+          "concepts": [
+            "何"
+          ]
+        },
+        {
+          "japanese": "食べたいですか。",
+          "korean": "먹고 싶어요?",
+          "type": "construction",
+          "baseForm": "食べる",
+          "concepts": [
+            "食べる",
+            "〜たい"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ex-42",
+      "japanese": "どこに行きたいですか。",
+      "translation": "어디 가고 싶어요?",
+      "concepts": [
+        "どこ",
+        "行く",
+        "〜たい"
+      ],
+      "topic": "daily life",
+      "segments": [
+        {
+          "japanese": "どこに",
+          "korean": "어디",
+          "type": "vocabulary",
+          "baseForm": "どこ",
+          "concepts": [
+            "どこ"
+          ]
+        },
+        {
+          "japanese": "行きたいですか。",
+          "korean": "가고 싶어요?",
+          "type": "construction",
+          "baseForm": "行く",
+          "concepts": [
+            "行く",
+            "〜たい"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ex-43",
+      "japanese": "これは私のかばんです。",
+      "translation": "이건 제 가방이에요.",
+      "concepts": [
+        "これ",
+        "は",
+        "私の",
+        "かばん"
+      ],
+      "topic": "daily life",
+      "segments": [
+        {
+          "japanese": "これ",
+          "korean": "이건",
+          "type": "vocabulary",
+          "baseForm": "これ",
+          "concepts": [
+            "これ"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "은",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "私の",
+          "korean": "제",
+          "type": "vocabulary",
+          "baseForm": "私の",
+          "concepts": [
+            "私の"
+          ]
+        },
+        {
+          "japanese": "かばんです。",
+          "korean": "가방이에요",
+          "type": "construction",
+          "baseForm": "かばん",
+          "concepts": [
+            "かばん",
+            "です"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ex-44",
+      "japanese": "これはだれのですか。",
+      "translation": "이건 누구 거예요?",
+      "concepts": [
+        "これ",
+        "は",
+        "だれ",
+        "の"
+      ],
+      "topic": "daily life",
+      "segments": [
+        {
+          "japanese": "これ",
+          "korean": "이건",
+          "type": "vocabulary",
+          "baseForm": "これ",
+          "concepts": [
+            "これ"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "은",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "だれのですか。",
+          "korean": "누구 거예요?",
+          "type": "construction",
+          "baseForm": "だれ",
+          "concepts": [
+            "だれ",
+            "の",
+            "です"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ex-45",
+      "japanese": "写真を見てください。",
+      "translation": "사진을 봐 주세요.",
+      "concepts": [
+        "写真",
+        "を",
+        "見る",
+        "〜てください"
+      ],
+      "topic": "daily life",
+      "segments": [
+        {
+          "japanese": "写真",
+          "korean": "사진",
+          "type": "vocabulary",
+          "baseForm": "写真",
+          "concepts": [
+            "写真"
+          ]
+        },
+        {
+          "japanese": "を",
+          "korean": "을",
+          "type": "particle",
+          "baseForm": "を",
+          "concepts": [
+            "を"
+          ]
+        },
+        {
+          "japanese": "見てください。",
+          "korean": "봐 주세요",
+          "type": "construction",
+          "baseForm": "見る",
+          "concepts": [
+            "見る",
+            "〜てください"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ex-46",
+      "japanese": "この漢字の読み方がわかりません。",
+      "translation": "이 한자 읽는 법을 모르겠어요.",
+      "concepts": [
+        "漢字",
+        "読み方",
+        "わかる"
+      ],
+      "topic": "daily life",
+      "segments": [
+        {
+          "japanese": "この漢字の読み方",
+          "korean": "이 한자 읽는 법",
+          "type": "vocabulary",
+          "baseForm": "この漢字の読み方",
+          "concepts": [
+            "漢字",
+            "読み方"
+          ]
+        },
+        {
+          "japanese": "がわかりません。",
+          "korean": "모르겠어요",
+          "type": "construction",
+          "baseForm": "わかる",
+          "concepts": [
+            "わかる"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ex-47",
+      "japanese": "もう一度説明してもらえますか。",
+      "translation": "다시 한 번 설명해 주실 수 있어요?",
+      "concepts": [
+        "もう一度",
+        "説明する",
+        "〜てもらう"
+      ],
+      "topic": "daily life",
+      "segments": [
+        {
+          "japanese": "もう一度",
+          "korean": "다시 한 번",
+          "type": "vocabulary",
+          "baseForm": "もう一度",
+          "concepts": [
+            "もう一度"
+          ]
+        },
+        {
+          "japanese": "説明してもらえますか。",
+          "korean": "설명해 주실 수 있어요?",
+          "type": "construction",
+          "baseForm": "説明する",
+          "concepts": [
+            "説明する",
+            "〜てもらう"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ex-48",
+      "japanese": "写真を撮りましょうか。",
+      "translation": "사진 찍을까요?",
+      "concepts": [
+        "写真",
+        "を",
+        "撮る",
+        "〜ましょうか"
+      ],
+      "topic": "daily life",
+      "segments": [
+        {
+          "japanese": "写真",
+          "korean": "사진",
+          "type": "vocabulary",
+          "baseForm": "写真",
+          "concepts": [
+            "写真"
+          ]
+        },
+        {
+          "japanese": "を",
+          "korean": "를",
+          "type": "particle",
+          "baseForm": "を",
+          "concepts": [
+            "を"
+          ]
+        },
+        {
+          "japanese": "撮りましょうか。",
+          "korean": "찍을까요?",
+          "type": "construction",
+          "baseForm": "撮る",
+          "concepts": [
+            "撮る",
+            "〜ましょうか"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ex-49",
+      "japanese": "楽しみにしています。",
+      "translation": "기대하고 있어요.",
+      "concepts": [
+        "楽しみにする",
+        "〜ている"
+      ],
+      "topic": "daily life",
+      "segments": [
+        {
+          "japanese": "楽しみにしています。",
+          "korean": "기대하고 있어요",
+          "type": "construction",
+          "baseForm": "楽しみにする",
+          "concepts": [
+            "楽しみにする",
+            "〜ている"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ex-50",
+      "japanese": "気をつけてください。",
+      "translation": "조심하세요.",
+      "concepts": [
+        "気をつける",
+        "〜てください"
+      ],
+      "topic": "daily life",
+      "segments": [
+        {
+          "japanese": "気をつけてください。",
+          "korean": "조심하세요",
+          "type": "construction",
+          "baseForm": "気をつける",
+          "concepts": [
+            "気をつける",
+            "〜てください"
+          ]
+        }
       ]
     }
   ]

@@ -6,12 +6,40 @@
       "id": "rs-1",
       "japanese": "メニューをお願いします。",
       "translation": "메뉴 부탁합니다.",
-      "concepts": ["メニュー", "を", "お願いする"],
+      "concepts": [
+        "メニュー",
+        "を",
+        "お願いする"
+      ],
       "topic": "restaurants",
       "segments": [
-        { "japanese": "メニュー", "korean": "메뉴", "type": "vocabulary", "baseForm": "メニュー", "concepts": ["メニュー"] },
-        { "japanese": "を", "korean": "를", "type": "particle", "baseForm": "を", "concepts": ["を"] },
-        { "japanese": "お願いします。", "korean": "부탁합니다", "type": "construction", "baseForm": "お願いする", "concepts": ["お願いする"] }
+        {
+          "japanese": "メニュー",
+          "korean": "메뉴",
+          "type": "vocabulary",
+          "baseForm": "メニュー",
+          "concepts": [
+            "メニュー"
+          ]
+        },
+        {
+          "japanese": "を",
+          "korean": "를",
+          "type": "particle",
+          "baseForm": "を",
+          "concepts": [
+            "を"
+          ]
+        },
+        {
+          "japanese": "お願いします。",
+          "korean": "부탁합니다",
+          "type": "construction",
+          "baseForm": "お願いする",
+          "concepts": [
+            "お願いする"
+          ]
+        }
       ]
     },
     {
@@ -19,36 +47,1852 @@
       "japanese": "これはとても辛いですか。",
       "reading": "これはとてもからいですか。",
       "translation": "이것은 아주 매워요?",
-      "concepts": ["これ", "は", "とても", "辛い"],
+      "concepts": [
+        "これ",
+        "は",
+        "とても",
+        "辛い"
+      ],
       "topic": "restaurants",
       "segments": [
-        { "japanese": "これ", "korean": "이것", "type": "vocabulary", "baseForm": "これ", "concepts": ["これ"] },
-        { "japanese": "は", "korean": "은", "type": "particle", "baseForm": "は", "concepts": ["は"] },
-        { "japanese": "とても", "korean": "아주", "type": "vocabulary", "baseForm": "とても", "concepts": ["とても"] },
-        { "japanese": "辛いですか。", "korean": "매워요?", "type": "construction", "baseForm": "辛い", "concepts": ["辛い", "ですか"] }
+        {
+          "japanese": "これ",
+          "korean": "이것",
+          "type": "vocabulary",
+          "baseForm": "これ",
+          "concepts": [
+            "これ"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "은",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "とても",
+          "korean": "아주",
+          "type": "vocabulary",
+          "baseForm": "とても",
+          "concepts": [
+            "とても"
+          ]
+        },
+        {
+          "japanese": "辛いですか。",
+          "korean": "매워요?",
+          "type": "construction",
+          "baseForm": "辛い",
+          "concepts": [
+            "辛い",
+            "ですか"
+          ]
+        }
       ]
     },
     {
       "id": "rs-3",
       "japanese": "お水をください。",
       "translation": "물을 주세요.",
-      "concepts": ["お水", "を", "ください"],
+      "concepts": [
+        "お水",
+        "を",
+        "ください"
+      ],
       "topic": "restaurants",
       "segments": [
-        { "japanese": "お水", "korean": "물", "type": "vocabulary", "baseForm": "お水", "concepts": ["お水"] },
-        { "japanese": "を", "korean": "을", "type": "particle", "baseForm": "を", "concepts": ["を"] },
-        { "japanese": "ください。", "korean": "주세요", "type": "construction", "baseForm": "ください", "concepts": ["ください"] }
+        {
+          "japanese": "お水",
+          "korean": "물",
+          "type": "vocabulary",
+          "baseForm": "お水",
+          "concepts": [
+            "お水"
+          ]
+        },
+        {
+          "japanese": "を",
+          "korean": "을",
+          "type": "particle",
+          "baseForm": "を",
+          "concepts": [
+            "を"
+          ]
+        },
+        {
+          "japanese": "ください。",
+          "korean": "주세요",
+          "type": "construction",
+          "baseForm": "ください",
+          "concepts": [
+            "ください"
+          ]
+        }
       ]
     },
     {
       "id": "rs-4",
       "japanese": "とてもおいしかったです。",
       "translation": "아주 맛있었어요.",
-      "concepts": ["とても", "おいしい"],
+      "concepts": [
+        "とても",
+        "おいしい"
+      ],
       "topic": "restaurants",
       "segments": [
-        { "japanese": "とても", "korean": "아주", "type": "vocabulary", "baseForm": "とても", "concepts": ["とても"] },
-        { "japanese": "おいしかったです。", "korean": "맛있었어요", "type": "construction", "baseForm": "おいしい", "concepts": ["おいしい", "〜かった"] }
+        {
+          "japanese": "とても",
+          "korean": "아주",
+          "type": "vocabulary",
+          "baseForm": "とても",
+          "concepts": [
+            "とても"
+          ]
+        },
+        {
+          "japanese": "おいしかったです。",
+          "korean": "맛있었어요",
+          "type": "construction",
+          "baseForm": "おいしい",
+          "concepts": [
+            "おいしい",
+            "〜かった"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rs-5",
+      "japanese": "二名です。",
+      "translation": "두 명이에요.",
+      "concepts": [
+        "二名"
+      ],
+      "topic": "restaurants",
+      "segments": [
+        {
+          "japanese": "二名です。",
+          "korean": "두 명이에요",
+          "type": "construction",
+          "baseForm": "二名",
+          "concepts": [
+            "二名",
+            "です"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rs-6",
+      "japanese": "予約をお願いします。",
+      "translation": "예약 부탁드려요.",
+      "concepts": [
+        "予約",
+        "を",
+        "お願いする"
+      ],
+      "topic": "restaurants",
+      "segments": [
+        {
+          "japanese": "予約",
+          "korean": "예약",
+          "type": "vocabulary",
+          "baseForm": "予約",
+          "concepts": [
+            "予約"
+          ]
+        },
+        {
+          "japanese": "を",
+          "korean": "을",
+          "type": "particle",
+          "baseForm": "を",
+          "concepts": [
+            "を"
+          ]
+        },
+        {
+          "japanese": "お願いします。",
+          "korean": "부탁드려요",
+          "type": "construction",
+          "baseForm": "お願いする",
+          "concepts": [
+            "お願いする"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rs-7",
+      "japanese": "予約はしていません。",
+      "translation": "예약은 안 했어요.",
+      "concepts": [
+        "予約",
+        "は",
+        "する",
+        "〜ていない"
+      ],
+      "topic": "restaurants",
+      "segments": [
+        {
+          "japanese": "予約",
+          "korean": "예약",
+          "type": "vocabulary",
+          "baseForm": "予約",
+          "concepts": [
+            "予約"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "은",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "していません。",
+          "korean": "안 했어요",
+          "type": "construction",
+          "baseForm": "する",
+          "concepts": [
+            "する",
+            "〜ていない"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rs-8",
+      "japanese": "どのくらい待ちますか。",
+      "translation": "얼마나 기다려요?",
+      "concepts": [
+        "どのくらい",
+        "待つ"
+      ],
+      "topic": "restaurants",
+      "segments": [
+        {
+          "japanese": "どのくらい",
+          "korean": "얼마나",
+          "type": "vocabulary",
+          "baseForm": "どのくらい",
+          "concepts": [
+            "どのくらい"
+          ]
+        },
+        {
+          "japanese": "待ちますか。",
+          "korean": "기다려요?",
+          "type": "construction",
+          "baseForm": "待つ",
+          "concepts": [
+            "待つ"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rs-9",
+      "japanese": "窓側の席はありますか。",
+      "translation": "창가 자리 있어요?",
+      "concepts": [
+        "窓側の席",
+        "は",
+        "ある"
+      ],
+      "topic": "restaurants",
+      "segments": [
+        {
+          "japanese": "窓側の席",
+          "korean": "창가 자리",
+          "type": "vocabulary",
+          "baseForm": "窓側の席",
+          "concepts": [
+            "窓側の席"
+          ]
+        },
+        {
+          "japanese": "はありますか。",
+          "korean": "있어요?",
+          "type": "construction",
+          "baseForm": "ある",
+          "concepts": [
+            "は",
+            "ある"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rs-10",
+      "japanese": "おすすめは何ですか。",
+      "translation": "추천 메뉴가 뭐예요?",
+      "concepts": [
+        "おすすめ",
+        "は",
+        "何"
+      ],
+      "topic": "restaurants",
+      "segments": [
+        {
+          "japanese": "おすすめ",
+          "korean": "추천 메뉴",
+          "type": "vocabulary",
+          "baseForm": "おすすめ",
+          "concepts": [
+            "おすすめ"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "가",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "何ですか。",
+          "korean": "뭐예요?",
+          "type": "construction",
+          "baseForm": "何",
+          "concepts": [
+            "何",
+            "です"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rs-11",
+      "japanese": "これは何の料理ですか。",
+      "translation": "이건 무슨 요리예요?",
+      "concepts": [
+        "これ",
+        "は",
+        "何",
+        "料理"
+      ],
+      "topic": "restaurants",
+      "segments": [
+        {
+          "japanese": "これ",
+          "korean": "이건",
+          "type": "vocabulary",
+          "baseForm": "これ",
+          "concepts": [
+            "これ"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "은",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "何の料理ですか。",
+          "korean": "무슨 요리예요?",
+          "type": "construction",
+          "baseForm": "何の料理",
+          "concepts": [
+            "何",
+            "料理",
+            "です"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rs-12",
+      "japanese": "同じものをお願いします。",
+      "translation": "같은 걸로 부탁해요.",
+      "concepts": [
+        "同じもの",
+        "を",
+        "お願いする"
+      ],
+      "topic": "restaurants",
+      "segments": [
+        {
+          "japanese": "同じもの",
+          "korean": "같은 것",
+          "type": "vocabulary",
+          "baseForm": "同じもの",
+          "concepts": [
+            "同じもの"
+          ]
+        },
+        {
+          "japanese": "を",
+          "korean": "을",
+          "type": "particle",
+          "baseForm": "を",
+          "concepts": [
+            "を"
+          ]
+        },
+        {
+          "japanese": "お願いします。",
+          "korean": "부탁해요",
+          "type": "construction",
+          "baseForm": "お願いする",
+          "concepts": [
+            "お願いする"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rs-13",
+      "japanese": "これをふたつください。",
+      "translation": "이거 두 개 주세요.",
+      "concepts": [
+        "これ",
+        "を",
+        "ふたつ",
+        "ください"
+      ],
+      "topic": "restaurants",
+      "segments": [
+        {
+          "japanese": "これ",
+          "korean": "이거",
+          "type": "vocabulary",
+          "baseForm": "これ",
+          "concepts": [
+            "これ"
+          ]
+        },
+        {
+          "japanese": "を",
+          "korean": "를",
+          "type": "particle",
+          "baseForm": "を",
+          "concepts": [
+            "を"
+          ]
+        },
+        {
+          "japanese": "ふたつ",
+          "korean": "두 개",
+          "type": "vocabulary",
+          "baseForm": "ふたつ",
+          "concepts": [
+            "ふたつ"
+          ]
+        },
+        {
+          "japanese": "ください。",
+          "korean": "주세요",
+          "type": "construction",
+          "baseForm": "ください",
+          "concepts": [
+            "ください"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rs-14",
+      "japanese": "取り皿をもらえますか。",
+      "translation": "앞접시 좀 주실 수 있어요?",
+      "concepts": [
+        "取り皿",
+        "を",
+        "もらう"
+      ],
+      "topic": "restaurants",
+      "segments": [
+        {
+          "japanese": "取り皿",
+          "korean": "앞접시",
+          "type": "vocabulary",
+          "baseForm": "取り皿",
+          "concepts": [
+            "取り皿"
+          ]
+        },
+        {
+          "japanese": "を",
+          "korean": "를",
+          "type": "particle",
+          "baseForm": "を",
+          "concepts": [
+            "を"
+          ]
+        },
+        {
+          "japanese": "もらえますか。",
+          "korean": "주실 수 있어요?",
+          "type": "construction",
+          "baseForm": "もらう",
+          "concepts": [
+            "もらう"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rs-15",
+      "japanese": "お箸をもうひとつください。",
+      "translation": "젓가락 하나 더 주세요.",
+      "concepts": [
+        "お箸",
+        "を",
+        "もうひとつ",
+        "ください"
+      ],
+      "topic": "restaurants",
+      "segments": [
+        {
+          "japanese": "お箸",
+          "korean": "젓가락",
+          "type": "vocabulary",
+          "baseForm": "お箸",
+          "concepts": [
+            "お箸"
+          ]
+        },
+        {
+          "japanese": "を",
+          "korean": "를",
+          "type": "particle",
+          "baseForm": "を",
+          "concepts": [
+            "を"
+          ]
+        },
+        {
+          "japanese": "もうひとつ",
+          "korean": "하나 더",
+          "type": "vocabulary",
+          "baseForm": "もうひとつ",
+          "concepts": [
+            "もうひとつ"
+          ]
+        },
+        {
+          "japanese": "ください。",
+          "korean": "주세요",
+          "type": "construction",
+          "baseForm": "ください",
+          "concepts": [
+            "ください"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rs-16",
+      "japanese": "フォークはありますか。",
+      "translation": "포크 있어요?",
+      "concepts": [
+        "フォーク",
+        "は",
+        "ある"
+      ],
+      "topic": "restaurants",
+      "segments": [
+        {
+          "japanese": "フォーク",
+          "korean": "포크",
+          "type": "vocabulary",
+          "baseForm": "フォーク",
+          "concepts": [
+            "フォーク"
+          ]
+        },
+        {
+          "japanese": "はありますか。",
+          "korean": "있어요?",
+          "type": "construction",
+          "baseForm": "ある",
+          "concepts": [
+            "は",
+            "ある"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rs-17",
+      "japanese": "アレルギーがあります。",
+      "translation": "알레르기가 있어요.",
+      "concepts": [
+        "アレルギー",
+        "ある"
+      ],
+      "topic": "restaurants",
+      "segments": [
+        {
+          "japanese": "アレルギー",
+          "korean": "알레르기",
+          "type": "vocabulary",
+          "baseForm": "アレルギー",
+          "concepts": [
+            "アレルギー"
+          ]
+        },
+        {
+          "japanese": "があります。",
+          "korean": "가 있어요",
+          "type": "construction",
+          "baseForm": "ある",
+          "concepts": [
+            "ある"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rs-18",
+      "japanese": "卵は入っていますか。",
+      "translation": "계란 들어 있어요?",
+      "concepts": [
+        "卵",
+        "は",
+        "入る"
+      ],
+      "topic": "restaurants",
+      "segments": [
+        {
+          "japanese": "卵",
+          "korean": "계란",
+          "type": "vocabulary",
+          "baseForm": "卵",
+          "concepts": [
+            "卵"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "는",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "入っていますか。",
+          "korean": "들어 있어요?",
+          "type": "construction",
+          "baseForm": "入る",
+          "concepts": [
+            "入る"
+          ]
+        }
+      ],
+      "reading": "たまごははいっていますか。"
+    },
+    {
+      "id": "rs-19",
+      "japanese": "辛くしないでください。",
+      "translation": "맵지 않게 해 주세요.",
+      "concepts": [
+        "辛い",
+        "〜ないでください"
+      ],
+      "topic": "restaurants",
+      "segments": [
+        {
+          "japanese": "辛くしないでください。",
+          "korean": "맵지 않게 해 주세요",
+          "type": "construction",
+          "baseForm": "辛い",
+          "concepts": [
+            "辛い",
+            "〜ないでください"
+          ]
+        }
+      ],
+      "reading": "からくしないでください。"
+    },
+    {
+      "id": "rs-20",
+      "japanese": "少し辛くしてください。",
+      "translation": "조금 맵게 해 주세요.",
+      "concepts": [
+        "少し",
+        "辛い",
+        "〜てください"
+      ],
+      "topic": "restaurants",
+      "segments": [
+        {
+          "japanese": "少し",
+          "korean": "조금",
+          "type": "vocabulary",
+          "baseForm": "少し",
+          "concepts": [
+            "少し"
+          ]
+        },
+        {
+          "japanese": "辛くしてください。",
+          "korean": "맵게 해 주세요",
+          "type": "construction",
+          "baseForm": "辛い",
+          "concepts": [
+            "辛い",
+            "〜てください"
+          ]
+        }
+      ],
+      "reading": "すこしからくしてください。"
+    },
+    {
+      "id": "rs-21",
+      "japanese": "野菜は入っていますか。",
+      "translation": "야채 들어 있어요?",
+      "concepts": [
+        "野菜",
+        "は",
+        "入る"
+      ],
+      "topic": "restaurants",
+      "segments": [
+        {
+          "japanese": "野菜",
+          "korean": "야채",
+          "type": "vocabulary",
+          "baseForm": "野菜",
+          "concepts": [
+            "野菜"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "는",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "入っていますか。",
+          "korean": "들어 있어요?",
+          "type": "construction",
+          "baseForm": "入る",
+          "concepts": [
+            "入る"
+          ]
+        }
+      ],
+      "reading": "やさいははいっていますか。"
+    },
+    {
+      "id": "rs-22",
+      "japanese": "肉が食べられません。",
+      "translation": "고기를 못 먹어요.",
+      "concepts": [
+        "肉",
+        "が",
+        "食べる",
+        "〜られる"
+      ],
+      "topic": "restaurants",
+      "segments": [
+        {
+          "japanese": "肉",
+          "korean": "고기",
+          "type": "vocabulary",
+          "baseForm": "肉",
+          "concepts": [
+            "肉"
+          ]
+        },
+        {
+          "japanese": "が",
+          "korean": "를",
+          "type": "particle",
+          "baseForm": "が",
+          "concepts": [
+            "が"
+          ]
+        },
+        {
+          "japanese": "食べられません。",
+          "korean": "못 먹어요",
+          "type": "construction",
+          "baseForm": "食べる",
+          "concepts": [
+            "食べる",
+            "〜られる"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rs-23",
+      "japanese": "ベジタリアン向けのメニューはありますか。",
+      "translation": "채식 메뉴 있어요?",
+      "concepts": [
+        "ベジタリアン",
+        "は",
+        "ある"
+      ],
+      "topic": "restaurants",
+      "segments": [
+        {
+          "japanese": "ベジタリアン向けのメニュー",
+          "korean": "채식 메뉴",
+          "type": "vocabulary",
+          "baseForm": "ベジタリアン向けのメニュー",
+          "concepts": [
+            "ベジタリアン"
+          ]
+        },
+        {
+          "japanese": "はありますか。",
+          "korean": "있어요?",
+          "type": "construction",
+          "baseForm": "ある",
+          "concepts": [
+            "は",
+            "ある"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rs-24",
+      "japanese": "英語のメニューはありますか。",
+      "translation": "영어 메뉴 있어요?",
+      "concepts": [
+        "英語のメニュー",
+        "は",
+        "ある"
+      ],
+      "topic": "restaurants",
+      "segments": [
+        {
+          "japanese": "英語のメニュー",
+          "korean": "영어 메뉴",
+          "type": "vocabulary",
+          "baseForm": "英語のメニュー",
+          "concepts": [
+            "英語のメニュー"
+          ]
+        },
+        {
+          "japanese": "はありますか。",
+          "korean": "있어요?",
+          "type": "construction",
+          "baseForm": "ある",
+          "concepts": [
+            "は",
+            "ある"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rs-25",
+      "japanese": "写真付きのメニューはありますか。",
+      "translation": "사진이 있는 메뉴판 있어요?",
+      "concepts": [
+        "写真付きのメニュー",
+        "は",
+        "ある"
+      ],
+      "topic": "restaurants",
+      "segments": [
+        {
+          "japanese": "写真付きのメニュー",
+          "korean": "사진이 있는 메뉴판",
+          "type": "vocabulary",
+          "baseForm": "写真付きのメニュー",
+          "concepts": [
+            "写真付きのメニュー"
+          ]
+        },
+        {
+          "japanese": "はありますか。",
+          "korean": "있어요?",
+          "type": "construction",
+          "baseForm": "ある",
+          "concepts": [
+            "は",
+            "ある"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rs-26",
+      "japanese": "これはどうやって食べますか。",
+      "translation": "이건 어떻게 먹어요?",
+      "concepts": [
+        "これ",
+        "は",
+        "どうやって",
+        "食べる"
+      ],
+      "topic": "restaurants",
+      "segments": [
+        {
+          "japanese": "これ",
+          "korean": "이건",
+          "type": "vocabulary",
+          "baseForm": "これ",
+          "concepts": [
+            "これ"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "은",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "どうやって食べますか。",
+          "korean": "어떻게 먹어요?",
+          "type": "construction",
+          "baseForm": "食べる",
+          "concepts": [
+            "どうやって",
+            "食べる"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rs-27",
+      "japanese": "飲み物は何にしますか。",
+      "translation": "음료는 뭘로 하시겠어요?",
+      "concepts": [
+        "飲み物",
+        "は",
+        "何",
+        "する"
+      ],
+      "topic": "restaurants",
+      "segments": [
+        {
+          "japanese": "飲み物",
+          "korean": "음료",
+          "type": "vocabulary",
+          "baseForm": "飲み物",
+          "concepts": [
+            "飲み物"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "는",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "何にしますか。",
+          "korean": "뭘로 하시겠어요?",
+          "type": "construction",
+          "baseForm": "する",
+          "concepts": [
+            "何",
+            "する"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rs-28",
+      "japanese": "ビールをください。",
+      "translation": "맥주 주세요.",
+      "concepts": [
+        "ビール",
+        "を",
+        "ください"
+      ],
+      "topic": "restaurants",
+      "segments": [
+        {
+          "japanese": "ビール",
+          "korean": "맥주",
+          "type": "vocabulary",
+          "baseForm": "ビール",
+          "concepts": [
+            "ビール"
+          ]
+        },
+        {
+          "japanese": "を",
+          "korean": "를",
+          "type": "particle",
+          "baseForm": "を",
+          "concepts": [
+            "を"
+          ]
+        },
+        {
+          "japanese": "ください。",
+          "korean": "주세요",
+          "type": "construction",
+          "baseForm": "ください",
+          "concepts": [
+            "ください"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rs-29",
+      "japanese": "コーヒーは食後にお願いします。",
+      "translation": "커피는 식후에 부탁해요.",
+      "concepts": [
+        "コーヒー",
+        "は",
+        "食後",
+        "お願いする"
+      ],
+      "topic": "restaurants",
+      "segments": [
+        {
+          "japanese": "コーヒー",
+          "korean": "커피",
+          "type": "vocabulary",
+          "baseForm": "コーヒー",
+          "concepts": [
+            "コーヒー"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "는",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "食後に",
+          "korean": "식후에",
+          "type": "vocabulary",
+          "baseForm": "食後",
+          "concepts": [
+            "食後"
+          ]
+        },
+        {
+          "japanese": "お願いします。",
+          "korean": "부탁해요",
+          "type": "construction",
+          "baseForm": "お願いする",
+          "concepts": [
+            "お願いする"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rs-30",
+      "japanese": "氷は少なめでお願いします。",
+      "translation": "얼음은 적게 부탁해요.",
+      "concepts": [
+        "氷",
+        "は",
+        "少なめ",
+        "お願いする"
+      ],
+      "topic": "restaurants",
+      "segments": [
+        {
+          "japanese": "氷",
+          "korean": "얼음",
+          "type": "vocabulary",
+          "baseForm": "氷",
+          "concepts": [
+            "氷"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "은",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "少なめで",
+          "korean": "적게",
+          "type": "vocabulary",
+          "baseForm": "少なめ",
+          "concepts": [
+            "少なめ"
+          ]
+        },
+        {
+          "japanese": "お願いします。",
+          "korean": "부탁해요",
+          "type": "construction",
+          "baseForm": "お願いする",
+          "concepts": [
+            "お願いする"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rs-31",
+      "japanese": "デザートは何がありますか。",
+      "translation": "디저트는 뭐가 있어요?",
+      "concepts": [
+        "デザート",
+        "は",
+        "何",
+        "ある"
+      ],
+      "topic": "restaurants",
+      "segments": [
+        {
+          "japanese": "デザート",
+          "korean": "디저트",
+          "type": "vocabulary",
+          "baseForm": "デザート",
+          "concepts": [
+            "デザート"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "는",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "何がありますか。",
+          "korean": "뭐가 있어요?",
+          "type": "construction",
+          "baseForm": "ある",
+          "concepts": [
+            "何",
+            "ある"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rs-32",
+      "japanese": "セットメニューはありますか。",
+      "translation": "세트 메뉴 있어요?",
+      "concepts": [
+        "セットメニュー",
+        "は",
+        "ある"
+      ],
+      "topic": "restaurants",
+      "segments": [
+        {
+          "japanese": "セットメニュー",
+          "korean": "세트 메뉴",
+          "type": "vocabulary",
+          "baseForm": "セットメニュー",
+          "concepts": [
+            "セットメニュー"
+          ]
+        },
+        {
+          "japanese": "はありますか。",
+          "korean": "있어요?",
+          "type": "construction",
+          "baseForm": "ある",
+          "concepts": [
+            "は",
+            "ある"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rs-33",
+      "japanese": "ご飯を大盛りにできますか。",
+      "translation": "밥을 곱빼기로 할 수 있어요?",
+      "concepts": [
+        "ご飯",
+        "を",
+        "大盛り",
+        "できる"
+      ],
+      "topic": "restaurants",
+      "segments": [
+        {
+          "japanese": "ご飯",
+          "korean": "밥",
+          "type": "vocabulary",
+          "baseForm": "ご飯",
+          "concepts": [
+            "ご飯"
+          ]
+        },
+        {
+          "japanese": "を",
+          "korean": "을",
+          "type": "particle",
+          "baseForm": "を",
+          "concepts": [
+            "を"
+          ]
+        },
+        {
+          "japanese": "大盛りにできますか。",
+          "korean": "곱빼기로 할 수 있어요?",
+          "type": "construction",
+          "baseForm": "大盛り",
+          "concepts": [
+            "大盛り",
+            "できる"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rs-34",
+      "japanese": "パンとご飯どちらにしますか。",
+      "translation": "빵과 밥 중 어느 걸로 하시겠어요?",
+      "concepts": [
+        "パン",
+        "ご飯",
+        "どちら",
+        "する"
+      ],
+      "topic": "restaurants",
+      "segments": [
+        {
+          "japanese": "パンとご飯",
+          "korean": "빵과 밥",
+          "type": "vocabulary",
+          "baseForm": "パンとご飯",
+          "concepts": [
+            "パン",
+            "ご飯"
+          ]
+        },
+        {
+          "japanese": "どちらにしますか。",
+          "korean": "어느 걸로 하시겠어요?",
+          "type": "construction",
+          "baseForm": "する",
+          "concepts": [
+            "どちら",
+            "する"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rs-35",
+      "japanese": "お会計をお願いします。",
+      "translation": "계산 부탁드려요.",
+      "concepts": [
+        "お会計",
+        "を",
+        "お願いする"
+      ],
+      "topic": "restaurants",
+      "segments": [
+        {
+          "japanese": "お会計",
+          "korean": "계산",
+          "type": "vocabulary",
+          "baseForm": "お会計",
+          "concepts": [
+            "お会計"
+          ]
+        },
+        {
+          "japanese": "を",
+          "korean": "를",
+          "type": "particle",
+          "baseForm": "を",
+          "concepts": [
+            "を"
+          ]
+        },
+        {
+          "japanese": "お願いします。",
+          "korean": "부탁드려요",
+          "type": "construction",
+          "baseForm": "お願いする",
+          "concepts": [
+            "お願いする"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rs-36",
+      "japanese": "別々に払えますか。",
+      "translation": "따로따로 계산할 수 있어요?",
+      "concepts": [
+        "別々に",
+        "払う"
+      ],
+      "topic": "restaurants",
+      "segments": [
+        {
+          "japanese": "別々に",
+          "korean": "따로따로",
+          "type": "vocabulary",
+          "baseForm": "別々に",
+          "concepts": [
+            "別々に"
+          ]
+        },
+        {
+          "japanese": "払えますか。",
+          "korean": "계산할 수 있어요?",
+          "type": "construction",
+          "baseForm": "払う",
+          "concepts": [
+            "払う"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rs-37",
+      "japanese": "カードは使えますか。",
+      "translation": "카드 쓸 수 있어요?",
+      "concepts": [
+        "カード",
+        "は",
+        "使う"
+      ],
+      "topic": "restaurants",
+      "segments": [
+        {
+          "japanese": "カード",
+          "korean": "카드",
+          "type": "vocabulary",
+          "baseForm": "カード",
+          "concepts": [
+            "カード"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "는",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "使えますか。",
+          "korean": "쓸 수 있어요?",
+          "type": "construction",
+          "baseForm": "使う",
+          "concepts": [
+            "使う"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rs-38",
+      "japanese": "レシートをください。",
+      "translation": "영수증 주세요.",
+      "concepts": [
+        "レシート",
+        "を",
+        "ください"
+      ],
+      "topic": "restaurants",
+      "segments": [
+        {
+          "japanese": "レシート",
+          "korean": "영수증",
+          "type": "vocabulary",
+          "baseForm": "レシート",
+          "concepts": [
+            "レシート"
+          ]
+        },
+        {
+          "japanese": "を",
+          "korean": "를",
+          "type": "particle",
+          "baseForm": "を",
+          "concepts": [
+            "を"
+          ]
+        },
+        {
+          "japanese": "ください。",
+          "korean": "주세요",
+          "type": "construction",
+          "baseForm": "ください",
+          "concepts": [
+            "ください"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rs-39",
+      "japanese": "お釣りが違います。",
+      "translation": "거스름돈이 틀려요.",
+      "concepts": [
+        "お釣り",
+        "が",
+        "違う"
+      ],
+      "topic": "restaurants",
+      "segments": [
+        {
+          "japanese": "お釣り",
+          "korean": "거스름돈",
+          "type": "vocabulary",
+          "baseForm": "お釣り",
+          "concepts": [
+            "お釣り"
+          ]
+        },
+        {
+          "japanese": "が",
+          "korean": "이",
+          "type": "particle",
+          "baseForm": "が",
+          "concepts": [
+            "が"
+          ]
+        },
+        {
+          "japanese": "違います。",
+          "korean": "틀려요",
+          "type": "construction",
+          "baseForm": "違う",
+          "concepts": [
+            "違う"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rs-40",
+      "japanese": "頼んだものと違います。",
+      "translation": "주문한 거랑 달라요.",
+      "concepts": [
+        "頼む",
+        "と",
+        "違う"
+      ],
+      "topic": "restaurants",
+      "segments": [
+        {
+          "japanese": "頼んだもの",
+          "korean": "주문한 것",
+          "type": "vocabulary",
+          "baseForm": "頼んだもの",
+          "concepts": [
+            "頼む"
+          ]
+        },
+        {
+          "japanese": "と",
+          "korean": "랑",
+          "type": "particle",
+          "baseForm": "と",
+          "concepts": [
+            "と"
+          ]
+        },
+        {
+          "japanese": "違います。",
+          "korean": "달라요",
+          "type": "construction",
+          "baseForm": "違う",
+          "concepts": [
+            "違う"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rs-41",
+      "japanese": "まだ料理が来ません。",
+      "translation": "아직 음식이 안 나왔어요.",
+      "concepts": [
+        "まだ",
+        "料理",
+        "が",
+        "来る"
+      ],
+      "topic": "restaurants",
+      "segments": [
+        {
+          "japanese": "まだ",
+          "korean": "아직",
+          "type": "vocabulary",
+          "baseForm": "まだ",
+          "concepts": [
+            "まだ"
+          ]
+        },
+        {
+          "japanese": "料理",
+          "korean": "음식",
+          "type": "vocabulary",
+          "baseForm": "料理",
+          "concepts": [
+            "料理"
+          ]
+        },
+        {
+          "japanese": "が",
+          "korean": "이",
+          "type": "particle",
+          "baseForm": "が",
+          "concepts": [
+            "が"
+          ]
+        },
+        {
+          "japanese": "来ません。",
+          "korean": "안 나왔어요",
+          "type": "construction",
+          "baseForm": "来る",
+          "concepts": [
+            "来る"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rs-42",
+      "japanese": "持ち帰りできますか。",
+      "translation": "포장 되나요?",
+      "concepts": [
+        "持ち帰り",
+        "できる"
+      ],
+      "topic": "restaurants",
+      "segments": [
+        {
+          "japanese": "持ち帰りできますか。",
+          "korean": "포장 되나요?",
+          "type": "construction",
+          "baseForm": "持ち帰り",
+          "concepts": [
+            "持ち帰り",
+            "できる"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rs-43",
+      "japanese": "残りを包んでもらえますか。",
+      "translation": "남은 거 싸 주실 수 있어요?",
+      "concepts": [
+        "残り",
+        "を",
+        "包む",
+        "〜てもらう"
+      ],
+      "topic": "restaurants",
+      "segments": [
+        {
+          "japanese": "残り",
+          "korean": "남은 것",
+          "type": "vocabulary",
+          "baseForm": "残り",
+          "concepts": [
+            "残り"
+          ]
+        },
+        {
+          "japanese": "を",
+          "korean": "를",
+          "type": "particle",
+          "baseForm": "を",
+          "concepts": [
+            "を"
+          ]
+        },
+        {
+          "japanese": "包んでもらえますか。",
+          "korean": "싸 주실 수 있어요?",
+          "type": "construction",
+          "baseForm": "包む",
+          "concepts": [
+            "包む",
+            "〜てもらう"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rs-44",
+      "japanese": "灰皿はありますか。",
+      "translation": "재떨이 있어요?",
+      "concepts": [
+        "灰皿",
+        "は",
+        "ある"
+      ],
+      "topic": "restaurants",
+      "segments": [
+        {
+          "japanese": "灰皿",
+          "korean": "재떨이",
+          "type": "vocabulary",
+          "baseForm": "灰皿",
+          "concepts": [
+            "灰皿"
+          ]
+        },
+        {
+          "japanese": "はありますか。",
+          "korean": "있어요?",
+          "type": "construction",
+          "baseForm": "ある",
+          "concepts": [
+            "は",
+            "ある"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rs-45",
+      "japanese": "トイレはどこですか。",
+      "translation": "화장실은 어디예요?",
+      "concepts": [
+        "トイレ",
+        "は",
+        "どこ"
+      ],
+      "topic": "restaurants",
+      "segments": [
+        {
+          "japanese": "トイレ",
+          "korean": "화장실",
+          "type": "vocabulary",
+          "baseForm": "トイレ",
+          "concepts": [
+            "トイレ"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "은",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "どこですか。",
+          "korean": "어디예요?",
+          "type": "construction",
+          "baseForm": "どこ",
+          "concepts": [
+            "どこ",
+            "ですか"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rs-46",
+      "japanese": "お腹がいっぱいです。",
+      "translation": "배가 불러요.",
+      "concepts": [
+        "お腹",
+        "が",
+        "いっぱい"
+      ],
+      "topic": "restaurants",
+      "segments": [
+        {
+          "japanese": "お腹",
+          "korean": "배",
+          "type": "vocabulary",
+          "baseForm": "お腹",
+          "concepts": [
+            "お腹"
+          ]
+        },
+        {
+          "japanese": "が",
+          "korean": "가",
+          "type": "particle",
+          "baseForm": "が",
+          "concepts": [
+            "が"
+          ]
+        },
+        {
+          "japanese": "いっぱいです。",
+          "korean": "불러요",
+          "type": "construction",
+          "baseForm": "いっぱい",
+          "concepts": [
+            "いっぱい",
+            "です"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rs-47",
+      "japanese": "お腹が空きました。",
+      "translation": "배가 고파요.",
+      "concepts": [
+        "お腹",
+        "が",
+        "空く"
+      ],
+      "topic": "restaurants",
+      "segments": [
+        {
+          "japanese": "お腹",
+          "korean": "배",
+          "type": "vocabulary",
+          "baseForm": "お腹",
+          "concepts": [
+            "お腹"
+          ]
+        },
+        {
+          "japanese": "が",
+          "korean": "가",
+          "type": "particle",
+          "baseForm": "が",
+          "concepts": [
+            "が"
+          ]
+        },
+        {
+          "japanese": "空きました。",
+          "korean": "고파요",
+          "type": "construction",
+          "baseForm": "空く",
+          "concepts": [
+            "空く"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rs-48",
+      "japanese": "また来ます。",
+      "translation": "또 올게요.",
+      "concepts": [
+        "また",
+        "来る"
+      ],
+      "topic": "restaurants",
+      "segments": [
+        {
+          "japanese": "また",
+          "korean": "또",
+          "type": "vocabulary",
+          "baseForm": "また",
+          "concepts": [
+            "また"
+          ]
+        },
+        {
+          "japanese": "来ます。",
+          "korean": "올게요",
+          "type": "construction",
+          "baseForm": "来る",
+          "concepts": [
+            "来る"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rs-49",
+      "japanese": "ごちそうさまでした。",
+      "translation": "잘 먹었습니다.",
+      "concepts": [
+        "ごちそうさま"
+      ],
+      "topic": "restaurants",
+      "segments": [
+        {
+          "japanese": "ごちそうさまでした。",
+          "korean": "잘 먹었습니다",
+          "type": "construction",
+          "baseForm": "ごちそうさま",
+          "concepts": [
+            "ごちそうさま"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rs-50",
+      "japanese": "お会計はおいくらですか。",
+      "translation": "얼마예요?",
+      "concepts": [
+        "お会計",
+        "は",
+        "いくら"
+      ],
+      "topic": "restaurants",
+      "segments": [
+        {
+          "japanese": "お会計",
+          "korean": "계산",
+          "type": "vocabulary",
+          "baseForm": "お会計",
+          "concepts": [
+            "お会計"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "는",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "おいくらですか。",
+          "korean": "얼마예요?",
+          "type": "construction",
+          "baseForm": "いくら",
+          "concepts": [
+            "いくら",
+            "です"
+          ]
+        }
       ]
     }
   ]

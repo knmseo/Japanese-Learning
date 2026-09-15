@@ -6,47 +6,2054 @@
       "id": "dr-1",
       "japanese": "駅はどこですか。",
       "translation": "역은 어디예요?",
-      "concepts": ["駅", "は", "どこ"],
+      "concepts": [
+        "駅",
+        "は",
+        "どこ"
+      ],
       "topic": "trains",
       "segments": [
-        { "japanese": "駅", "korean": "역", "type": "vocabulary", "baseForm": "駅", "concepts": ["駅"] },
-        { "japanese": "は", "korean": "은", "type": "particle", "baseForm": "は", "concepts": ["は"] },
-        { "japanese": "どこですか。", "korean": "어디예요?", "type": "construction", "baseForm": "どこ", "concepts": ["どこ", "ですか"] }
+        {
+          "japanese": "駅",
+          "korean": "역",
+          "type": "vocabulary",
+          "baseForm": "駅",
+          "concepts": [
+            "駅"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "은",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "どこですか。",
+          "korean": "어디예요?",
+          "type": "construction",
+          "baseForm": "どこ",
+          "concepts": [
+            "どこ",
+            "ですか"
+          ]
+        }
       ]
     },
     {
       "id": "dr-2",
       "japanese": "まっすぐ行ってください。",
       "translation": "곧장 가 주세요.",
-      "concepts": ["まっすぐ", "行く", "〜てください"],
+      "concepts": [
+        "まっすぐ",
+        "行く",
+        "〜てください"
+      ],
       "topic": "trains",
       "segments": [
-        { "japanese": "まっすぐ", "korean": "곧장", "type": "vocabulary", "baseForm": "まっすぐ", "concepts": ["まっすぐ"] },
-        { "japanese": "行ってください。", "korean": "가 주세요", "type": "construction", "baseForm": "行く", "concepts": ["行く", "〜てください"] }
+        {
+          "japanese": "まっすぐ",
+          "korean": "곧장",
+          "type": "vocabulary",
+          "baseForm": "まっすぐ",
+          "concepts": [
+            "まっすぐ"
+          ]
+        },
+        {
+          "japanese": "行ってください。",
+          "korean": "가 주세요",
+          "type": "construction",
+          "baseForm": "行く",
+          "concepts": [
+            "行く",
+            "〜てください"
+          ]
+        }
       ]
     },
     {
       "id": "dr-3",
       "japanese": "ここから近いですか。",
       "translation": "여기서 가까워요?",
-      "concepts": ["ここ", "から", "近い"],
+      "concepts": [
+        "ここ",
+        "から",
+        "近い"
+      ],
       "topic": "trains",
       "segments": [
-        { "japanese": "ここ", "korean": "여기", "type": "vocabulary", "baseForm": "ここ", "concepts": ["ここ"] },
-        { "japanese": "から", "korean": "서", "type": "particle", "baseForm": "から", "concepts": ["から"] },
-        { "japanese": "近いですか。", "korean": "가까워요?", "type": "construction", "baseForm": "近い", "concepts": ["近い", "ですか"] }
+        {
+          "japanese": "ここ",
+          "korean": "여기",
+          "type": "vocabulary",
+          "baseForm": "ここ",
+          "concepts": [
+            "ここ"
+          ]
+        },
+        {
+          "japanese": "から",
+          "korean": "서",
+          "type": "particle",
+          "baseForm": "から",
+          "concepts": [
+            "から"
+          ]
+        },
+        {
+          "japanese": "近いですか。",
+          "korean": "가까워요?",
+          "type": "construction",
+          "baseForm": "近い",
+          "concepts": [
+            "近い",
+            "ですか"
+          ]
+        }
       ]
     },
     {
       "id": "dr-4",
       "japanese": "地図を見せてもらえますか。",
       "translation": "지도를 보여 주실 수 있어요?",
-      "concepts": ["地図", "を", "見せる", "〜てもらう"],
+      "concepts": [
+        "地図",
+        "を",
+        "見せる",
+        "〜てもらう"
+      ],
       "topic": "trains",
       "segments": [
-        { "japanese": "地図", "korean": "지도", "type": "vocabulary", "baseForm": "地図", "concepts": ["地図"] },
-        { "japanese": "を", "korean": "를", "type": "particle", "baseForm": "を", "concepts": ["を"] },
-        { "japanese": "見せてもらえますか。", "korean": "보여 주실 수 있어요?", "type": "construction", "baseForm": "見せる", "concepts": ["見せる", "〜てもらう"] }
+        {
+          "japanese": "地図",
+          "korean": "지도",
+          "type": "vocabulary",
+          "baseForm": "地図",
+          "concepts": [
+            "地図"
+          ]
+        },
+        {
+          "japanese": "を",
+          "korean": "를",
+          "type": "particle",
+          "baseForm": "を",
+          "concepts": [
+            "を"
+          ]
+        },
+        {
+          "japanese": "見せてもらえますか。",
+          "korean": "보여 주실 수 있어요?",
+          "type": "construction",
+          "baseForm": "見せる",
+          "concepts": [
+            "見せる",
+            "〜てもらう"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dr-5",
+      "japanese": "右に曲がってください。",
+      "translation": "오른쪽으로 돌아 주세요.",
+      "concepts": [
+        "右",
+        "に",
+        "曲がる",
+        "〜てください"
+      ],
+      "topic": "walking",
+      "segments": [
+        {
+          "japanese": "右",
+          "korean": "오른쪽",
+          "type": "vocabulary",
+          "baseForm": "右",
+          "concepts": [
+            "右"
+          ]
+        },
+        {
+          "japanese": "に",
+          "korean": "으로",
+          "type": "particle",
+          "baseForm": "に",
+          "concepts": [
+            "に"
+          ]
+        },
+        {
+          "japanese": "曲がってください。",
+          "korean": "돌아 주세요",
+          "type": "construction",
+          "baseForm": "曲がる",
+          "concepts": [
+            "曲がる",
+            "〜てください"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dr-6",
+      "japanese": "左に曲がってください。",
+      "translation": "왼쪽으로 돌아 주세요.",
+      "concepts": [
+        "左",
+        "に",
+        "曲がる",
+        "〜てください"
+      ],
+      "topic": "walking",
+      "segments": [
+        {
+          "japanese": "左",
+          "korean": "왼쪽",
+          "type": "vocabulary",
+          "baseForm": "左",
+          "concepts": [
+            "左"
+          ]
+        },
+        {
+          "japanese": "に",
+          "korean": "으로",
+          "type": "particle",
+          "baseForm": "に",
+          "concepts": [
+            "に"
+          ]
+        },
+        {
+          "japanese": "曲がってください。",
+          "korean": "돌아 주세요",
+          "type": "construction",
+          "baseForm": "曲がる",
+          "concepts": [
+            "曲がる",
+            "〜てください"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dr-7",
+      "japanese": "次の角を右です。",
+      "translation": "다음 모퉁이에서 오른쪽이에요.",
+      "concepts": [
+        "次の角",
+        "を",
+        "右"
+      ],
+      "topic": "walking",
+      "segments": [
+        {
+          "japanese": "次の角",
+          "korean": "다음 모퉁이",
+          "type": "vocabulary",
+          "baseForm": "次の角",
+          "concepts": [
+            "次の角"
+          ]
+        },
+        {
+          "japanese": "を",
+          "korean": "에서",
+          "type": "particle",
+          "baseForm": "を",
+          "concepts": [
+            "を"
+          ]
+        },
+        {
+          "japanese": "右です。",
+          "korean": "오른쪽이에요",
+          "type": "construction",
+          "baseForm": "右",
+          "concepts": [
+            "右",
+            "です"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dr-8",
+      "japanese": "信号を渡ってください。",
+      "translation": "신호등을 건너 주세요.",
+      "concepts": [
+        "信号",
+        "を",
+        "渡る",
+        "〜てください"
+      ],
+      "topic": "walking",
+      "segments": [
+        {
+          "japanese": "信号",
+          "korean": "신호등",
+          "type": "vocabulary",
+          "baseForm": "信号",
+          "concepts": [
+            "信号"
+          ]
+        },
+        {
+          "japanese": "を",
+          "korean": "을",
+          "type": "particle",
+          "baseForm": "を",
+          "concepts": [
+            "を"
+          ]
+        },
+        {
+          "japanese": "渡ってください。",
+          "korean": "건너 주세요",
+          "type": "construction",
+          "baseForm": "渡る",
+          "concepts": [
+            "渡る",
+            "〜てください"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dr-9",
+      "japanese": "橋を渡ると見えます。",
+      "translation": "다리를 건너면 보여요.",
+      "concepts": [
+        "橋",
+        "を",
+        "渡る",
+        "〜と",
+        "見える"
+      ],
+      "topic": "walking",
+      "segments": [
+        {
+          "japanese": "橋",
+          "korean": "다리",
+          "type": "vocabulary",
+          "baseForm": "橋",
+          "concepts": [
+            "橋"
+          ]
+        },
+        {
+          "japanese": "を",
+          "korean": "를",
+          "type": "particle",
+          "baseForm": "を",
+          "concepts": [
+            "を"
+          ]
+        },
+        {
+          "japanese": "渡ると",
+          "korean": "건너면",
+          "type": "construction",
+          "baseForm": "渡る",
+          "concepts": [
+            "渡る",
+            "〜と"
+          ]
+        },
+        {
+          "japanese": "見えます。",
+          "korean": "보여요",
+          "type": "construction",
+          "baseForm": "見える",
+          "concepts": [
+            "見える"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dr-10",
+      "japanese": "この道をまっすぐ行くと駅です。",
+      "translation": "이 길을 곧장 가면 역이에요.",
+      "concepts": [
+        "この道",
+        "を",
+        "まっすぐ",
+        "行く",
+        "〜と",
+        "駅"
+      ],
+      "topic": "walking",
+      "segments": [
+        {
+          "japanese": "この道",
+          "korean": "이 길",
+          "type": "vocabulary",
+          "baseForm": "この道",
+          "concepts": [
+            "この道"
+          ]
+        },
+        {
+          "japanese": "を",
+          "korean": "을",
+          "type": "particle",
+          "baseForm": "を",
+          "concepts": [
+            "を"
+          ]
+        },
+        {
+          "japanese": "まっすぐ行くと",
+          "korean": "곧장 가면",
+          "type": "construction",
+          "baseForm": "行く",
+          "concepts": [
+            "まっすぐ",
+            "行く",
+            "〜と"
+          ]
+        },
+        {
+          "japanese": "駅です。",
+          "korean": "역이에요",
+          "type": "construction",
+          "baseForm": "駅",
+          "concepts": [
+            "駅",
+            "です"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dr-11",
+      "japanese": "駅までどのくらいかかりますか。",
+      "translation": "역까지 얼마나 걸려요?",
+      "concepts": [
+        "駅",
+        "まで",
+        "どのくらい",
+        "かかる"
+      ],
+      "topic": "trains",
+      "segments": [
+        {
+          "japanese": "駅",
+          "korean": "역",
+          "type": "vocabulary",
+          "baseForm": "駅",
+          "concepts": [
+            "駅"
+          ]
+        },
+        {
+          "japanese": "まで",
+          "korean": "까지",
+          "type": "particle",
+          "baseForm": "まで",
+          "concepts": [
+            "まで"
+          ]
+        },
+        {
+          "japanese": "どのくらいかかりますか。",
+          "korean": "얼마나 걸려요?",
+          "type": "construction",
+          "baseForm": "かかる",
+          "concepts": [
+            "どのくらい",
+            "かかる"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dr-12",
+      "japanese": "歩いて五分くらいです。",
+      "translation": "걸어서 오 분 정도예요.",
+      "concepts": [
+        "歩く",
+        "五分",
+        "くらい"
+      ],
+      "topic": "walking",
+      "segments": [
+        {
+          "japanese": "歩いて",
+          "korean": "걸어서",
+          "type": "construction",
+          "baseForm": "歩く",
+          "concepts": [
+            "歩く"
+          ]
+        },
+        {
+          "japanese": "五分くらいです。",
+          "korean": "오 분 정도예요",
+          "type": "construction",
+          "baseForm": "五分",
+          "concepts": [
+            "五分",
+            "くらい",
+            "です"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dr-13",
+      "japanese": "タクシーで行ったほうがいいですか。",
+      "translation": "택시로 가는 게 좋을까요?",
+      "concepts": [
+        "タクシー",
+        "で",
+        "行く",
+        "〜たほうがいい"
+      ],
+      "topic": "taxis",
+      "segments": [
+        {
+          "japanese": "タクシー",
+          "korean": "택시",
+          "type": "vocabulary",
+          "baseForm": "タクシー",
+          "concepts": [
+            "タクシー"
+          ]
+        },
+        {
+          "japanese": "で",
+          "korean": "로",
+          "type": "particle",
+          "baseForm": "で",
+          "concepts": [
+            "で"
+          ]
+        },
+        {
+          "japanese": "行ったほうがいいですか。",
+          "korean": "가는 게 좋을까요?",
+          "type": "construction",
+          "baseForm": "行く",
+          "concepts": [
+            "行く",
+            "〜たほうがいい"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dr-14",
+      "japanese": "タクシー乗り場はどこですか。",
+      "translation": "택시 승강장은 어디예요?",
+      "concepts": [
+        "タクシー乗り場",
+        "は",
+        "どこ"
+      ],
+      "topic": "taxis",
+      "segments": [
+        {
+          "japanese": "タクシー乗り場",
+          "korean": "택시 승강장",
+          "type": "vocabulary",
+          "baseForm": "タクシー乗り場",
+          "concepts": [
+            "タクシー乗り場"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "은",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "どこですか。",
+          "korean": "어디예요?",
+          "type": "construction",
+          "baseForm": "どこ",
+          "concepts": [
+            "どこ",
+            "ですか"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dr-15",
+      "japanese": "バス停はどこにありますか。",
+      "translation": "버스 정류장은 어디에 있어요?",
+      "concepts": [
+        "バス停",
+        "は",
+        "どこ",
+        "ある"
+      ],
+      "topic": "buses",
+      "segments": [
+        {
+          "japanese": "バス停",
+          "korean": "버스 정류장",
+          "type": "vocabulary",
+          "baseForm": "バス停",
+          "concepts": [
+            "バス停"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "은",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "どこにありますか。",
+          "korean": "어디에 있어요?",
+          "type": "construction",
+          "baseForm": "ある",
+          "concepts": [
+            "どこ",
+            "ある"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dr-16",
+      "japanese": "このバスは空港に行きますか。",
+      "translation": "이 버스는 공항에 가요?",
+      "concepts": [
+        "このバス",
+        "は",
+        "空港",
+        "に",
+        "行く"
+      ],
+      "topic": "buses",
+      "segments": [
+        {
+          "japanese": "このバス",
+          "korean": "이 버스",
+          "type": "vocabulary",
+          "baseForm": "このバス",
+          "concepts": [
+            "このバス"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "는",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "空港",
+          "korean": "공항",
+          "type": "vocabulary",
+          "baseForm": "空港",
+          "concepts": [
+            "空港"
+          ]
+        },
+        {
+          "japanese": "に",
+          "korean": "에",
+          "type": "particle",
+          "baseForm": "に",
+          "concepts": [
+            "に"
+          ]
+        },
+        {
+          "japanese": "行きますか。",
+          "korean": "가요?",
+          "type": "construction",
+          "baseForm": "行く",
+          "concepts": [
+            "行く",
+            "ますか"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dr-17",
+      "japanese": "何番のバスに乗ればいいですか。",
+      "translation": "몇 번 버스를 타면 돼요?",
+      "concepts": [
+        "何番",
+        "に",
+        "乗る",
+        "〜ばいい"
+      ],
+      "topic": "buses",
+      "segments": [
+        {
+          "japanese": "何番のバス",
+          "korean": "몇 번 버스",
+          "type": "vocabulary",
+          "baseForm": "何番",
+          "concepts": [
+            "何番"
+          ]
+        },
+        {
+          "japanese": "に",
+          "korean": "를",
+          "type": "particle",
+          "baseForm": "に",
+          "concepts": [
+            "に"
+          ]
+        },
+        {
+          "japanese": "乗ればいいですか。",
+          "korean": "타면 돼요?",
+          "type": "construction",
+          "baseForm": "乗る",
+          "concepts": [
+            "乗る",
+            "〜ばいい"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dr-18",
+      "japanese": "次のバス停で降ります。",
+      "translation": "다음 정류장에서 내려요.",
+      "concepts": [
+        "次のバス停",
+        "で",
+        "降りる"
+      ],
+      "topic": "buses",
+      "segments": [
+        {
+          "japanese": "次のバス停",
+          "korean": "다음 정류장",
+          "type": "vocabulary",
+          "baseForm": "次のバス停",
+          "concepts": [
+            "次のバス停"
+          ]
+        },
+        {
+          "japanese": "で",
+          "korean": "에서",
+          "type": "particle",
+          "baseForm": "で",
+          "concepts": [
+            "で"
+          ]
+        },
+        {
+          "japanese": "降ります。",
+          "korean": "내려요",
+          "type": "construction",
+          "baseForm": "降りる",
+          "concepts": [
+            "降りる"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dr-19",
+      "japanese": "ここで降ろしてください。",
+      "translation": "여기서 내려 주세요.",
+      "concepts": [
+        "ここ",
+        "で",
+        "降ろす",
+        "〜てください"
+      ],
+      "topic": "taxis",
+      "segments": [
+        {
+          "japanese": "ここ",
+          "korean": "여기",
+          "type": "vocabulary",
+          "baseForm": "ここ",
+          "concepts": [
+            "ここ"
+          ]
+        },
+        {
+          "japanese": "で",
+          "korean": "서",
+          "type": "particle",
+          "baseForm": "で",
+          "concepts": [
+            "で"
+          ]
+        },
+        {
+          "japanese": "降ろしてください。",
+          "korean": "내려 주세요",
+          "type": "construction",
+          "baseForm": "降ろす",
+          "concepts": [
+            "降ろす",
+            "〜てください"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dr-20",
+      "japanese": "改札はどちらですか。",
+      "translation": "개찰구는 어느 쪽이에요?",
+      "concepts": [
+        "改札",
+        "は",
+        "どちら"
+      ],
+      "topic": "trains",
+      "segments": [
+        {
+          "japanese": "改札",
+          "korean": "개찰구",
+          "type": "vocabulary",
+          "baseForm": "改札",
+          "concepts": [
+            "改札"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "는",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "どちらですか。",
+          "korean": "어느 쪽이에요?",
+          "type": "construction",
+          "baseForm": "どちら",
+          "concepts": [
+            "どちら",
+            "です"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dr-21",
+      "japanese": "何番線ですか。",
+      "translation": "몇 번 플랫폼이에요?",
+      "concepts": [
+        "何番線"
+      ],
+      "topic": "trains",
+      "segments": [
+        {
+          "japanese": "何番線ですか。",
+          "korean": "몇 번 플랫폼이에요?",
+          "type": "construction",
+          "baseForm": "何番線",
+          "concepts": [
+            "何番線",
+            "です"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dr-22",
+      "japanese": "このホームで合っていますか。",
+      "translation": "이 플랫폼이 맞아요?",
+      "concepts": [
+        "このホーム",
+        "で",
+        "合う"
+      ],
+      "topic": "trains",
+      "segments": [
+        {
+          "japanese": "このホーム",
+          "korean": "이 플랫폼",
+          "type": "vocabulary",
+          "baseForm": "このホーム",
+          "concepts": [
+            "このホーム"
+          ]
+        },
+        {
+          "japanese": "で",
+          "korean": "가",
+          "type": "particle",
+          "baseForm": "で",
+          "concepts": [
+            "で"
+          ]
+        },
+        {
+          "japanese": "合っていますか。",
+          "korean": "맞아요?",
+          "type": "construction",
+          "baseForm": "合う",
+          "concepts": [
+            "合う"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dr-23",
+      "japanese": "次の電車は何時ですか。",
+      "translation": "다음 전철은 몇 시예요?",
+      "concepts": [
+        "次の電車",
+        "は",
+        "何時"
+      ],
+      "topic": "trains",
+      "segments": [
+        {
+          "japanese": "次の電車",
+          "korean": "다음 전철",
+          "type": "vocabulary",
+          "baseForm": "次の電車",
+          "concepts": [
+            "次の電車"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "은",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "何時ですか。",
+          "korean": "몇 시예요?",
+          "type": "construction",
+          "baseForm": "何時",
+          "concepts": [
+            "何時",
+            "です"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dr-24",
+      "japanese": "終電は何時ですか。",
+      "translation": "막차는 몇 시예요?",
+      "concepts": [
+        "終電",
+        "は",
+        "何時"
+      ],
+      "topic": "trains",
+      "segments": [
+        {
+          "japanese": "終電",
+          "korean": "막차",
+          "type": "vocabulary",
+          "baseForm": "終電",
+          "concepts": [
+            "終電"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "는",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "何時ですか。",
+          "korean": "몇 시예요?",
+          "type": "construction",
+          "baseForm": "何時",
+          "concepts": [
+            "何時",
+            "です"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dr-25",
+      "japanese": "この電車は新宿に止まりますか。",
+      "translation": "이 전철은 신주쿠에 서요?",
+      "concepts": [
+        "この電車",
+        "は",
+        "新宿",
+        "に",
+        "止まる"
+      ],
+      "topic": "trains",
+      "segments": [
+        {
+          "japanese": "この電車",
+          "korean": "이 전철",
+          "type": "vocabulary",
+          "baseForm": "この電車",
+          "concepts": [
+            "この電車"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "은",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "新宿",
+          "korean": "신주쿠",
+          "type": "vocabulary",
+          "baseForm": "新宿",
+          "concepts": [
+            "新宿"
+          ]
+        },
+        {
+          "japanese": "に",
+          "korean": "에",
+          "type": "particle",
+          "baseForm": "に",
+          "concepts": [
+            "に"
+          ]
+        },
+        {
+          "japanese": "止まりますか。",
+          "korean": "서요?",
+          "type": "construction",
+          "baseForm": "止まる",
+          "concepts": [
+            "止まる",
+            "ますか"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dr-26",
+      "japanese": "どこで乗り換えればいいですか。",
+      "translation": "어디서 갈아타면 돼요?",
+      "concepts": [
+        "どこ",
+        "で",
+        "乗り換える",
+        "〜ばいい"
+      ],
+      "topic": "trains",
+      "segments": [
+        {
+          "japanese": "どこ",
+          "korean": "어디",
+          "type": "vocabulary",
+          "baseForm": "どこ",
+          "concepts": [
+            "どこ"
+          ]
+        },
+        {
+          "japanese": "で",
+          "korean": "서",
+          "type": "particle",
+          "baseForm": "で",
+          "concepts": [
+            "で"
+          ]
+        },
+        {
+          "japanese": "乗り換えればいいですか。",
+          "korean": "갈아타면 돼요?",
+          "type": "construction",
+          "baseForm": "乗り換える",
+          "concepts": [
+            "乗り換える",
+            "〜ばいい"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dr-27",
+      "japanese": "渋谷行きはどのホームですか。",
+      "translation": "시부야행은 어느 플랫폼이에요?",
+      "concepts": [
+        "渋谷行き",
+        "は",
+        "どのホーム"
+      ],
+      "topic": "trains",
+      "segments": [
+        {
+          "japanese": "渋谷行き",
+          "korean": "시부야행",
+          "type": "vocabulary",
+          "baseForm": "渋谷行き",
+          "concepts": [
+            "渋谷行き"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "은",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "どのホームですか。",
+          "korean": "어느 플랫폼이에요?",
+          "type": "construction",
+          "baseForm": "どのホーム",
+          "concepts": [
+            "どのホーム",
+            "です"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dr-28",
+      "japanese": "急行は止まりますか。",
+      "translation": "급행은 서요?",
+      "concepts": [
+        "急行",
+        "は",
+        "止まる"
+      ],
+      "topic": "trains",
+      "segments": [
+        {
+          "japanese": "急行",
+          "korean": "급행",
+          "type": "vocabulary",
+          "baseForm": "急行",
+          "concepts": [
+            "急行"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "은",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "止まりますか。",
+          "korean": "서요?",
+          "type": "construction",
+          "baseForm": "止まる",
+          "concepts": [
+            "止まる",
+            "ますか"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dr-29",
+      "japanese": "各駅停車に乗ってください。",
+      "translation": "완행열차를 타 주세요.",
+      "concepts": [
+        "各駅停車",
+        "に",
+        "乗る",
+        "〜てください"
+      ],
+      "topic": "trains",
+      "segments": [
+        {
+          "japanese": "各駅停車",
+          "korean": "완행열차",
+          "type": "vocabulary",
+          "baseForm": "各駅停車",
+          "concepts": [
+            "各駅停車"
+          ]
+        },
+        {
+          "japanese": "に",
+          "korean": "를",
+          "type": "particle",
+          "baseForm": "に",
+          "concepts": [
+            "に"
+          ]
+        },
+        {
+          "japanese": "乗ってください。",
+          "korean": "타 주세요",
+          "type": "construction",
+          "baseForm": "乗る",
+          "concepts": [
+            "乗る",
+            "〜てください"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dr-30",
+      "japanese": "切符はどこで買えますか。",
+      "translation": "표는 어디서 살 수 있어요?",
+      "concepts": [
+        "切符",
+        "は",
+        "どこ",
+        "買う"
+      ],
+      "topic": "trains",
+      "segments": [
+        {
+          "japanese": "切符",
+          "korean": "표",
+          "type": "vocabulary",
+          "baseForm": "切符",
+          "concepts": [
+            "切符"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "는",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "どこで買えますか。",
+          "korean": "어디서 살 수 있어요?",
+          "type": "construction",
+          "baseForm": "買う",
+          "concepts": [
+            "どこ",
+            "買う"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dr-31",
+      "japanese": "この住所はどこですか。",
+      "translation": "이 주소는 어디예요?",
+      "concepts": [
+        "この住所",
+        "は",
+        "どこ"
+      ],
+      "topic": "landmarks",
+      "segments": [
+        {
+          "japanese": "この住所",
+          "korean": "이 주소",
+          "type": "vocabulary",
+          "baseForm": "この住所",
+          "concepts": [
+            "この住所"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "는",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "どこですか。",
+          "korean": "어디예요?",
+          "type": "construction",
+          "baseForm": "どこ",
+          "concepts": [
+            "どこ",
+            "ですか"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dr-32",
+      "japanese": "この辺にコンビニはありますか。",
+      "translation": "이 근처에 편의점 있어요?",
+      "concepts": [
+        "この辺",
+        "に",
+        "コンビニ",
+        "は",
+        "ある"
+      ],
+      "topic": "landmarks",
+      "segments": [
+        {
+          "japanese": "この辺",
+          "korean": "이 근처",
+          "type": "vocabulary",
+          "baseForm": "この辺",
+          "concepts": [
+            "この辺"
+          ]
+        },
+        {
+          "japanese": "に",
+          "korean": "에",
+          "type": "particle",
+          "baseForm": "に",
+          "concepts": [
+            "に"
+          ]
+        },
+        {
+          "japanese": "コンビニ",
+          "korean": "편의점",
+          "type": "vocabulary",
+          "baseForm": "コンビニ",
+          "concepts": [
+            "コンビニ"
+          ]
+        },
+        {
+          "japanese": "はありますか。",
+          "korean": "있어요?",
+          "type": "construction",
+          "baseForm": "ある",
+          "concepts": [
+            "は",
+            "ある"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dr-33",
+      "japanese": "交番はどこですか。",
+      "translation": "파출소는 어디예요?",
+      "concepts": [
+        "交番",
+        "は",
+        "どこ"
+      ],
+      "topic": "landmarks",
+      "segments": [
+        {
+          "japanese": "交番",
+          "korean": "파출소",
+          "type": "vocabulary",
+          "baseForm": "交番",
+          "concepts": [
+            "交番"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "는",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "どこですか。",
+          "korean": "어디예요?",
+          "type": "construction",
+          "baseForm": "どこ",
+          "concepts": [
+            "どこ",
+            "ですか"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dr-34",
+      "japanese": "一番近い病院はどこですか。",
+      "translation": "가장 가까운 병원은 어디예요?",
+      "concepts": [
+        "一番",
+        "近い",
+        "病院",
+        "は",
+        "どこ"
+      ],
+      "topic": "landmarks",
+      "segments": [
+        {
+          "japanese": "一番近い病院",
+          "korean": "가장 가까운 병원",
+          "type": "vocabulary",
+          "baseForm": "一番近い病院",
+          "concepts": [
+            "一番",
+            "近い",
+            "病院"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "은",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "どこですか。",
+          "korean": "어디예요?",
+          "type": "construction",
+          "baseForm": "どこ",
+          "concepts": [
+            "どこ",
+            "ですか"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dr-35",
+      "japanese": "郵便局はこの近くにありますか。",
+      "translation": "우체국은 이 근처에 있어요?",
+      "concepts": [
+        "郵便局",
+        "は",
+        "この近く",
+        "ある"
+      ],
+      "topic": "landmarks",
+      "segments": [
+        {
+          "japanese": "郵便局",
+          "korean": "우체국",
+          "type": "vocabulary",
+          "baseForm": "郵便局",
+          "concepts": [
+            "郵便局"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "은",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "この近くに",
+          "korean": "이 근처에",
+          "type": "vocabulary",
+          "baseForm": "この近く",
+          "concepts": [
+            "この近く"
+          ]
+        },
+        {
+          "japanese": "ありますか。",
+          "korean": "있어요?",
+          "type": "construction",
+          "baseForm": "ある",
+          "concepts": [
+            "ある"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dr-36",
+      "japanese": "銀行はどの建物ですか。",
+      "translation": "은행은 어느 건물이에요?",
+      "concepts": [
+        "銀行",
+        "は",
+        "どの建物"
+      ],
+      "topic": "landmarks",
+      "segments": [
+        {
+          "japanese": "銀行",
+          "korean": "은행",
+          "type": "vocabulary",
+          "baseForm": "銀行",
+          "concepts": [
+            "銀行"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "은",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "どの建物ですか。",
+          "korean": "어느 건물이에요?",
+          "type": "construction",
+          "baseForm": "どの建物",
+          "concepts": [
+            "どの建物",
+            "です"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dr-37",
+      "japanese": "公園はこの先ですか。",
+      "translation": "공원은 이 앞쪽이에요?",
+      "concepts": [
+        "公園",
+        "は",
+        "この先"
+      ],
+      "topic": "landmarks",
+      "segments": [
+        {
+          "japanese": "公園",
+          "korean": "공원",
+          "type": "vocabulary",
+          "baseForm": "公園",
+          "concepts": [
+            "公園"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "은",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "この先ですか。",
+          "korean": "이 앞쪽이에요?",
+          "type": "construction",
+          "baseForm": "この先",
+          "concepts": [
+            "この先",
+            "です"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dr-38",
+      "japanese": "美術館への行き方を教えてください。",
+      "translation": "미술관 가는 길을 알려 주세요.",
+      "concepts": [
+        "美術館",
+        "行き方",
+        "を",
+        "教える",
+        "〜てください"
+      ],
+      "topic": "landmarks",
+      "segments": [
+        {
+          "japanese": "美術館",
+          "korean": "미술관",
+          "type": "vocabulary",
+          "baseForm": "美術館",
+          "concepts": [
+            "美術館"
+          ]
+        },
+        {
+          "japanese": "への行き方",
+          "korean": "가는 길",
+          "type": "construction",
+          "baseForm": "行き方",
+          "concepts": [
+            "行き方"
+          ]
+        },
+        {
+          "japanese": "を",
+          "korean": "을",
+          "type": "particle",
+          "baseForm": "を",
+          "concepts": [
+            "を"
+          ]
+        },
+        {
+          "japanese": "教えてください。",
+          "korean": "알려 주세요",
+          "type": "construction",
+          "baseForm": "教える",
+          "concepts": [
+            "教える",
+            "〜てください"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dr-39",
+      "japanese": "デパートはあのビルの中です。",
+      "translation": "백화점은 저 빌딩 안이에요.",
+      "concepts": [
+        "デパート",
+        "は",
+        "あのビル",
+        "中"
+      ],
+      "topic": "landmarks",
+      "segments": [
+        {
+          "japanese": "デパート",
+          "korean": "백화점",
+          "type": "vocabulary",
+          "baseForm": "デパート",
+          "concepts": [
+            "デパート"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "은",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "あのビルの中です。",
+          "korean": "저 빌딩 안이에요",
+          "type": "construction",
+          "baseForm": "あのビルの中",
+          "concepts": [
+            "あのビル",
+            "中",
+            "です"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dr-40",
+      "japanese": "ホテルの場所がわかりません。",
+      "translation": "호텔 위치를 모르겠어요.",
+      "concepts": [
+        "ホテル",
+        "場所",
+        "わかる"
+      ],
+      "topic": "landmarks",
+      "segments": [
+        {
+          "japanese": "ホテルの場所",
+          "korean": "호텔 위치",
+          "type": "vocabulary",
+          "baseForm": "ホテルの場所",
+          "concepts": [
+            "ホテル",
+            "場所"
+          ]
+        },
+        {
+          "japanese": "がわかりません。",
+          "korean": "모르겠어요",
+          "type": "construction",
+          "baseForm": "わかる",
+          "concepts": [
+            "わかる"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dr-41",
+      "japanese": "この地図で今どこにいますか。",
+      "translation": "이 지도에서 지금 어디에 있어요?",
+      "concepts": [
+        "この地図",
+        "で",
+        "今",
+        "どこ",
+        "いる"
+      ],
+      "topic": "landmarks",
+      "segments": [
+        {
+          "japanese": "この地図",
+          "korean": "이 지도",
+          "type": "vocabulary",
+          "baseForm": "この地図",
+          "concepts": [
+            "この地図"
+          ]
+        },
+        {
+          "japanese": "で",
+          "korean": "에서",
+          "type": "particle",
+          "baseForm": "で",
+          "concepts": [
+            "で"
+          ]
+        },
+        {
+          "japanese": "今どこにいますか。",
+          "korean": "지금 어디에 있어요?",
+          "type": "construction",
+          "baseForm": "いる",
+          "concepts": [
+            "今",
+            "どこ",
+            "いる"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dr-42",
+      "japanese": "私たちは今ここにいます。",
+      "translation": "우리는 지금 여기에 있어요.",
+      "concepts": [
+        "私たち",
+        "は",
+        "今",
+        "ここ",
+        "いる"
+      ],
+      "topic": "landmarks",
+      "segments": [
+        {
+          "japanese": "私たち",
+          "korean": "우리",
+          "type": "vocabulary",
+          "baseForm": "私たち",
+          "concepts": [
+            "私たち"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "는",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "今ここにいます。",
+          "korean": "지금 여기에 있어요",
+          "type": "construction",
+          "baseForm": "いる",
+          "concepts": [
+            "今",
+            "ここ",
+            "いる"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dr-43",
+      "japanese": "道に迷ってしまいました。",
+      "translation": "길을 잃어버렸어요.",
+      "concepts": [
+        "道に迷う",
+        "〜てしまう"
+      ],
+      "topic": "walking",
+      "segments": [
+        {
+          "japanese": "道に迷ってしまいました。",
+          "korean": "길을 잃어버렸어요",
+          "type": "construction",
+          "baseForm": "道に迷う",
+          "concepts": [
+            "道に迷う",
+            "〜てしまう"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dr-44",
+      "japanese": "すみません、ちょっとよろしいですか。",
+      "translation": "저기요, 잠깐 괜찮으세요?",
+      "concepts": [
+        "すみません",
+        "ちょっと",
+        "よろしい"
+      ],
+      "topic": "walking",
+      "segments": [
+        {
+          "japanese": "すみません、",
+          "korean": "저기요,",
+          "type": "vocabulary",
+          "baseForm": "すみません",
+          "concepts": [
+            "すみません"
+          ]
+        },
+        {
+          "japanese": "ちょっとよろしいですか。",
+          "korean": "잠깐 괜찮으세요?",
+          "type": "construction",
+          "baseForm": "よろしい",
+          "concepts": [
+            "ちょっと",
+            "よろしい"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dr-45",
+      "japanese": "このあたりに詳しくありません。",
+      "translation": "이 근처는 잘 몰라요.",
+      "concepts": [
+        "このあたり",
+        "詳しい"
+      ],
+      "topic": "walking",
+      "segments": [
+        {
+          "japanese": "このあたり",
+          "korean": "이 근처",
+          "type": "vocabulary",
+          "baseForm": "このあたり",
+          "concepts": [
+            "このあたり"
+          ]
+        },
+        {
+          "japanese": "に詳しくありません。",
+          "korean": "잘 몰라요",
+          "type": "construction",
+          "baseForm": "詳しい",
+          "concepts": [
+            "詳しい"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dr-46",
+      "japanese": "歩いて行けますか。",
+      "translation": "걸어서 갈 수 있어요?",
+      "concepts": [
+        "歩く",
+        "行く"
+      ],
+      "topic": "walking",
+      "segments": [
+        {
+          "japanese": "歩いて行けますか。",
+          "korean": "걸어서 갈 수 있어요?",
+          "type": "construction",
+          "baseForm": "歩いて行く",
+          "concepts": [
+            "歩く",
+            "行く"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dr-47",
+      "japanese": "自転車で来ました。",
+      "translation": "자전거로 왔어요.",
+      "concepts": [
+        "自転車",
+        "で",
+        "来る"
+      ],
+      "topic": "walking",
+      "segments": [
+        {
+          "japanese": "自転車",
+          "korean": "자전거",
+          "type": "vocabulary",
+          "baseForm": "自転車",
+          "concepts": [
+            "自転車"
+          ]
+        },
+        {
+          "japanese": "で",
+          "korean": "로",
+          "type": "particle",
+          "baseForm": "で",
+          "concepts": [
+            "で"
+          ]
+        },
+        {
+          "japanese": "来ました。",
+          "korean": "왔어요",
+          "type": "construction",
+          "baseForm": "来る",
+          "concepts": [
+            "来る"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dr-48",
+      "japanese": "この道は一方通行です。",
+      "translation": "이 길은 일방통행이에요.",
+      "concepts": [
+        "この道",
+        "は",
+        "一方通行"
+      ],
+      "topic": "walking",
+      "segments": [
+        {
+          "japanese": "この道",
+          "korean": "이 길",
+          "type": "vocabulary",
+          "baseForm": "この道",
+          "concepts": [
+            "この道"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "은",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "一方通行です。",
+          "korean": "일방통행이에요",
+          "type": "construction",
+          "baseForm": "一方通行",
+          "concepts": [
+            "一方通行",
+            "です"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dr-49",
+      "japanese": "この先は行き止まりです。",
+      "translation": "이 앞은 막다른 길이에요.",
+      "concepts": [
+        "この先",
+        "は",
+        "行き止まり"
+      ],
+      "topic": "walking",
+      "segments": [
+        {
+          "japanese": "この先",
+          "korean": "이 앞",
+          "type": "vocabulary",
+          "baseForm": "この先",
+          "concepts": [
+            "この先"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "은",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "行き止まりです。",
+          "korean": "막다른 길이에요",
+          "type": "construction",
+          "baseForm": "行き止まり",
+          "concepts": [
+            "行き止まり",
+            "です"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dr-50",
+      "japanese": "案内してくれてありがとうございます。",
+      "translation": "안내해 주셔서 감사합니다.",
+      "concepts": [
+        "案内する",
+        "〜てくれる",
+        "ありがとうございます"
+      ],
+      "topic": "walking",
+      "segments": [
+        {
+          "japanese": "案内してくれて",
+          "korean": "안내해 주셔서",
+          "type": "construction",
+          "baseForm": "案内する",
+          "concepts": [
+            "案内する",
+            "〜てくれる"
+          ]
+        },
+        {
+          "japanese": "ありがとうございます。",
+          "korean": "감사합니다",
+          "type": "vocabulary",
+          "baseForm": "ありがとうございます",
+          "concepts": [
+            "ありがとうございます"
+          ]
+        }
       ]
     }
   ]

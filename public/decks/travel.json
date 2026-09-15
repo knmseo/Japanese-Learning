@@ -6,79 +6,2020 @@
       "id": "tv-1",
       "japanese": "切符はどこで買えますか。",
       "translation": "표는 어디에서 살 수 있어요?",
-      "concepts": ["切符", "は", "どこ", "買う", "〜えますか"],
+      "concepts": [
+        "切符",
+        "は",
+        "どこ",
+        "買う",
+        "〜えますか"
+      ],
       "topic": "trains",
       "segments": [
-        { "japanese": "切符", "korean": "표", "type": "vocabulary", "baseForm": "切符", "concepts": ["切符"] },
-        { "japanese": "は", "korean": "는", "type": "particle", "baseForm": "は", "concepts": ["は"] },
-        { "japanese": "どこで", "korean": "어디에서", "type": "construction", "baseForm": "どこ", "concepts": ["どこ", "で"] },
-        { "japanese": "買えますか。", "korean": "살 수 있어요?", "type": "construction", "baseForm": "買う", "concepts": ["買う", "〜えます"] }
+        {
+          "japanese": "切符",
+          "korean": "표",
+          "type": "vocabulary",
+          "baseForm": "切符",
+          "concepts": [
+            "切符"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "는",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "どこで",
+          "korean": "어디에서",
+          "type": "construction",
+          "baseForm": "どこ",
+          "concepts": [
+            "どこ",
+            "で"
+          ]
+        },
+        {
+          "japanese": "買えますか。",
+          "korean": "살 수 있어요?",
+          "type": "construction",
+          "baseForm": "買う",
+          "concepts": [
+            "買う",
+            "〜えます"
+          ]
+        }
       ]
     },
     {
       "id": "tv-2",
       "japanese": "空港までお願いします。",
       "translation": "공항까지 부탁합니다.",
-      "concepts": ["空港", "まで", "お願いする"],
+      "concepts": [
+        "空港",
+        "まで",
+        "お願いする"
+      ],
       "topic": "directions",
       "segments": [
-        { "japanese": "空港", "korean": "공항", "type": "vocabulary", "baseForm": "空港", "concepts": ["空港"] },
-        { "japanese": "まで", "korean": "까지", "type": "particle", "baseForm": "まで", "concepts": ["まで"] },
-        { "japanese": "お願いします。", "korean": "부탁합니다", "type": "construction", "baseForm": "お願いする", "concepts": ["お願いする"] }
+        {
+          "japanese": "空港",
+          "korean": "공항",
+          "type": "vocabulary",
+          "baseForm": "空港",
+          "concepts": [
+            "空港"
+          ]
+        },
+        {
+          "japanese": "まで",
+          "korean": "까지",
+          "type": "particle",
+          "baseForm": "まで",
+          "concepts": [
+            "まで"
+          ]
+        },
+        {
+          "japanese": "お願いします。",
+          "korean": "부탁합니다",
+          "type": "construction",
+          "baseForm": "お願いする",
+          "concepts": [
+            "お願いする"
+          ]
+        }
       ]
     },
     {
       "id": "tv-3",
       "japanese": "英語のメニューはありますか。",
       "translation": "영어 메뉴는 있어요?",
-      "concepts": ["英語", "メニュー", "ある", "〜ますか"],
+      "concepts": [
+        "英語",
+        "メニュー",
+        "ある",
+        "〜ますか"
+      ],
       "topic": "restaurants",
       "segments": [
-        { "japanese": "英語", "korean": "영어", "type": "vocabulary", "baseForm": "英語", "concepts": ["英語"] },
-        { "japanese": "の", "korean": "의", "type": "particle", "baseForm": "の", "concepts": ["の"] },
-        { "japanese": "メニュー", "korean": "메뉴", "type": "vocabulary", "baseForm": "メニュー", "concepts": ["メニュー"] },
-        { "japanese": "は", "korean": "는", "type": "particle", "baseForm": "は", "concepts": ["は"] },
-        { "japanese": "ありますか。", "korean": "있어요?", "type": "construction", "baseForm": "ある", "concepts": ["ある", "〜ますか"] }
+        {
+          "japanese": "英語",
+          "korean": "영어",
+          "type": "vocabulary",
+          "baseForm": "英語",
+          "concepts": [
+            "英語"
+          ]
+        },
+        {
+          "japanese": "の",
+          "korean": "의",
+          "type": "particle",
+          "baseForm": "の",
+          "concepts": [
+            "の"
+          ]
+        },
+        {
+          "japanese": "メニュー",
+          "korean": "메뉴",
+          "type": "vocabulary",
+          "baseForm": "メニュー",
+          "concepts": [
+            "メニュー"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "는",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "ありますか。",
+          "korean": "있어요?",
+          "type": "construction",
+          "baseForm": "ある",
+          "concepts": [
+            "ある",
+            "〜ますか"
+          ]
+        }
       ]
     },
     {
       "id": "tv-4",
       "japanese": "写真を撮ってもいいですか。",
       "translation": "사진을 찍어도 될까요?",
-      "concepts": ["写真", "撮る", "〜てもいい"],
+      "concepts": [
+        "写真",
+        "撮る",
+        "〜てもいい"
+      ],
       "topic": "asking permission",
       "segments": [
-        { "japanese": "写真", "korean": "사진", "type": "vocabulary", "baseForm": "写真", "concepts": ["写真"] },
-        { "japanese": "を", "korean": "을", "type": "particle", "baseForm": "を", "concepts": ["を"] },
-        { "japanese": "撮ってもいいですか。", "korean": "찍어도 될까요?", "type": "construction", "baseForm": "撮る", "concepts": ["撮る", "〜てもいい"] }
+        {
+          "japanese": "写真",
+          "korean": "사진",
+          "type": "vocabulary",
+          "baseForm": "写真",
+          "concepts": [
+            "写真"
+          ]
+        },
+        {
+          "japanese": "を",
+          "korean": "을",
+          "type": "particle",
+          "baseForm": "を",
+          "concepts": [
+            "を"
+          ]
+        },
+        {
+          "japanese": "撮ってもいいですか。",
+          "korean": "찍어도 될까요?",
+          "type": "construction",
+          "baseForm": "撮る",
+          "concepts": [
+            "撮る",
+            "〜てもいい"
+          ]
+        }
       ]
     },
     {
       "id": "tv-5",
       "japanese": "もう少し安いのはありませんか。",
       "translation": "조금 더 싼 건 없어요?",
-      "concepts": ["もう少し", "安い", "ある", "〜ませんか"],
+      "concepts": [
+        "もう少し",
+        "安い",
+        "ある",
+        "〜ませんか"
+      ],
       "topic": "shopping",
       "segments": [
-        { "japanese": "もう少し", "korean": "조금 더", "type": "vocabulary", "baseForm": "もう少し", "concepts": ["もう少し"] },
-        { "japanese": "安いの", "korean": "싼 건", "type": "construction", "baseForm": "安い", "concepts": ["安い", "の"] },
-        { "japanese": "は", "korean": "는", "type": "particle", "baseForm": "は", "concepts": ["は"] },
-        { "japanese": "ありませんか。", "korean": "없어요?", "type": "construction", "baseForm": "ある", "concepts": ["ある", "〜ませんか"] }
+        {
+          "japanese": "もう少し",
+          "korean": "조금 더",
+          "type": "vocabulary",
+          "baseForm": "もう少し",
+          "concepts": [
+            "もう少し"
+          ]
+        },
+        {
+          "japanese": "安いの",
+          "korean": "싼 건",
+          "type": "construction",
+          "baseForm": "安い",
+          "concepts": [
+            "安い",
+            "の"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "는",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "ありませんか。",
+          "korean": "없어요?",
+          "type": "construction",
+          "baseForm": "ある",
+          "concepts": [
+            "ある",
+            "〜ませんか"
+          ]
+        }
       ]
     },
     {
       "id": "tv-6",
       "japanese": "この電車は新宿に止まりますか。",
       "translation": "이 전철은 신주쿠에 서요?",
-      "concepts": ["この", "電車", "新宿", "に", "止まる"],
+      "concepts": [
+        "この",
+        "電車",
+        "新宿",
+        "に",
+        "止まる"
+      ],
       "topic": "trains",
       "segments": [
-        { "japanese": "この", "korean": "이", "type": "vocabulary", "baseForm": "この", "concepts": ["この"] },
-        { "japanese": "電車", "korean": "전철", "type": "vocabulary", "baseForm": "電車", "concepts": ["電車"] },
-        { "japanese": "は", "korean": "은", "type": "particle", "baseForm": "は", "concepts": ["は"] },
-        { "japanese": "新宿", "korean": "신주쿠", "type": "vocabulary", "baseForm": "新宿", "concepts": ["新宿"] },
-        { "japanese": "に", "korean": "에", "type": "particle", "baseForm": "に", "concepts": ["に"] },
-        { "japanese": "止まりますか。", "korean": "서요?", "type": "construction", "baseForm": "止まる", "concepts": ["止まる"] }
+        {
+          "japanese": "この",
+          "korean": "이",
+          "type": "vocabulary",
+          "baseForm": "この",
+          "concepts": [
+            "この"
+          ]
+        },
+        {
+          "japanese": "電車",
+          "korean": "전철",
+          "type": "vocabulary",
+          "baseForm": "電車",
+          "concepts": [
+            "電車"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "은",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "新宿",
+          "korean": "신주쿠",
+          "type": "vocabulary",
+          "baseForm": "新宿",
+          "concepts": [
+            "新宿"
+          ]
+        },
+        {
+          "japanese": "に",
+          "korean": "에",
+          "type": "particle",
+          "baseForm": "に",
+          "concepts": [
+            "に"
+          ]
+        },
+        {
+          "japanese": "止まりますか。",
+          "korean": "서요?",
+          "type": "construction",
+          "baseForm": "止まる",
+          "concepts": [
+            "止まる"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tv-7",
+      "japanese": "チェックインをお願いします。",
+      "translation": "체크인 부탁합니다.",
+      "concepts": [
+        "チェックイン",
+        "を",
+        "お願いする"
+      ],
+      "topic": "hotel",
+      "segments": [
+        {
+          "japanese": "チェックイン",
+          "korean": "체크인",
+          "type": "vocabulary",
+          "baseForm": "チェックイン",
+          "concepts": [
+            "チェックイン"
+          ]
+        },
+        {
+          "japanese": "を",
+          "korean": "를",
+          "type": "particle",
+          "baseForm": "を",
+          "concepts": [
+            "を"
+          ]
+        },
+        {
+          "japanese": "お願いします。",
+          "korean": "부탁합니다",
+          "type": "construction",
+          "baseForm": "お願いする",
+          "concepts": [
+            "お願いする"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tv-8",
+      "japanese": "チェックアウトは何時ですか。",
+      "translation": "체크아웃은 몇 시예요?",
+      "concepts": [
+        "チェックアウト",
+        "は",
+        "何時"
+      ],
+      "topic": "hotel",
+      "segments": [
+        {
+          "japanese": "チェックアウト",
+          "korean": "체크아웃",
+          "type": "vocabulary",
+          "baseForm": "チェックアウト",
+          "concepts": [
+            "チェックアウト"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "은",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "何時ですか。",
+          "korean": "몇 시예요?",
+          "type": "construction",
+          "baseForm": "何時",
+          "concepts": [
+            "何時",
+            "です"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tv-9",
+      "japanese": "予約した田中です。",
+      "translation": "예약한 다나카입니다.",
+      "concepts": [
+        "予約する",
+        "田中"
+      ],
+      "topic": "hotel",
+      "segments": [
+        {
+          "japanese": "予約した",
+          "korean": "예약한",
+          "type": "construction",
+          "baseForm": "予約する",
+          "concepts": [
+            "予約する"
+          ]
+        },
+        {
+          "japanese": "田中です。",
+          "korean": "다나카입니다",
+          "type": "construction",
+          "baseForm": "田中",
+          "concepts": [
+            "田中",
+            "です"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tv-10",
+      "japanese": "荷物を預けられますか。",
+      "translation": "짐을 맡길 수 있어요?",
+      "concepts": [
+        "荷物",
+        "を",
+        "預ける"
+      ],
+      "topic": "hotel",
+      "segments": [
+        {
+          "japanese": "荷物",
+          "korean": "짐",
+          "type": "vocabulary",
+          "baseForm": "荷物",
+          "concepts": [
+            "荷物"
+          ]
+        },
+        {
+          "japanese": "を",
+          "korean": "을",
+          "type": "particle",
+          "baseForm": "を",
+          "concepts": [
+            "を"
+          ]
+        },
+        {
+          "japanese": "預けられますか。",
+          "korean": "맡길 수 있어요?",
+          "type": "construction",
+          "baseForm": "預ける",
+          "concepts": [
+            "預ける"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tv-11",
+      "japanese": "部屋にWi-Fiはありますか。",
+      "translation": "방에 와이파이 있어요?",
+      "concepts": [
+        "部屋",
+        "Wi-Fi",
+        "は",
+        "ある"
+      ],
+      "topic": "hotel",
+      "segments": [
+        {
+          "japanese": "部屋に",
+          "korean": "방에",
+          "type": "vocabulary",
+          "baseForm": "部屋",
+          "concepts": [
+            "部屋"
+          ]
+        },
+        {
+          "japanese": "Wi-Fi",
+          "korean": "와이파이",
+          "type": "vocabulary",
+          "baseForm": "Wi-Fi",
+          "concepts": [
+            "Wi-Fi"
+          ]
+        },
+        {
+          "japanese": "はありますか。",
+          "korean": "있어요?",
+          "type": "construction",
+          "baseForm": "ある",
+          "concepts": [
+            "は",
+            "ある"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tv-12",
+      "japanese": "Wi-Fiのパスワードを教えてください。",
+      "translation": "와이파이 비밀번호 알려 주세요.",
+      "concepts": [
+        "Wi-Fi",
+        "パスワード",
+        "を",
+        "教える",
+        "〜てください"
+      ],
+      "topic": "hotel",
+      "segments": [
+        {
+          "japanese": "Wi-Fiのパスワード",
+          "korean": "와이파이 비밀번호",
+          "type": "vocabulary",
+          "baseForm": "Wi-Fiのパスワード",
+          "concepts": [
+            "Wi-Fi",
+            "パスワード"
+          ]
+        },
+        {
+          "japanese": "を",
+          "korean": "를",
+          "type": "particle",
+          "baseForm": "を",
+          "concepts": [
+            "を"
+          ]
+        },
+        {
+          "japanese": "教えてください。",
+          "korean": "알려 주세요",
+          "type": "construction",
+          "baseForm": "教える",
+          "concepts": [
+            "教える",
+            "〜てください"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tv-13",
+      "japanese": "タオルをもう一枚もらえますか。",
+      "translation": "수건 한 장 더 주실 수 있어요?",
+      "concepts": [
+        "タオル",
+        "もう一枚",
+        "もらう"
+      ],
+      "topic": "hotel",
+      "segments": [
+        {
+          "japanese": "タオル",
+          "korean": "수건",
+          "type": "vocabulary",
+          "baseForm": "タオル",
+          "concepts": [
+            "タオル"
+          ]
+        },
+        {
+          "japanese": "をもう一枚",
+          "korean": "한 장 더",
+          "type": "vocabulary",
+          "baseForm": "もう一枚",
+          "concepts": [
+            "もう一枚"
+          ]
+        },
+        {
+          "japanese": "もらえますか。",
+          "korean": "주실 수 있어요?",
+          "type": "construction",
+          "baseForm": "もらう",
+          "concepts": [
+            "もらう"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tv-14",
+      "japanese": "部屋を変えてもらえますか。",
+      "translation": "방 바꿔 주실 수 있어요?",
+      "concepts": [
+        "部屋",
+        "を",
+        "変える",
+        "〜てもらう"
+      ],
+      "topic": "hotel",
+      "segments": [
+        {
+          "japanese": "部屋",
+          "korean": "방",
+          "type": "vocabulary",
+          "baseForm": "部屋",
+          "concepts": [
+            "部屋"
+          ]
+        },
+        {
+          "japanese": "を",
+          "korean": "를",
+          "type": "particle",
+          "baseForm": "を",
+          "concepts": [
+            "を"
+          ]
+        },
+        {
+          "japanese": "変えてもらえますか。",
+          "korean": "바꿔 주실 수 있어요?",
+          "type": "construction",
+          "baseForm": "変える",
+          "concepts": [
+            "変える",
+            "〜てもらう"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tv-15",
+      "japanese": "エアコンの使い方がわかりません。",
+      "translation": "에어컨 사용법을 모르겠어요.",
+      "concepts": [
+        "エアコン",
+        "使い方",
+        "わかる"
+      ],
+      "topic": "hotel",
+      "segments": [
+        {
+          "japanese": "エアコンの使い方",
+          "korean": "에어컨 사용법",
+          "type": "vocabulary",
+          "baseForm": "エアコンの使い方",
+          "concepts": [
+            "エアコン",
+            "使い方"
+          ]
+        },
+        {
+          "japanese": "がわかりません。",
+          "korean": "모르겠어요",
+          "type": "construction",
+          "baseForm": "わかる",
+          "concepts": [
+            "わかる"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tv-16",
+      "japanese": "お湯が出ません。",
+      "translation": "뜨거운 물이 안 나와요.",
+      "concepts": [
+        "お湯",
+        "が",
+        "出る"
+      ],
+      "topic": "hotel",
+      "segments": [
+        {
+          "japanese": "お湯",
+          "korean": "뜨거운 물",
+          "type": "vocabulary",
+          "baseForm": "お湯",
+          "concepts": [
+            "お湯"
+          ]
+        },
+        {
+          "japanese": "が",
+          "korean": "이",
+          "type": "particle",
+          "baseForm": "が",
+          "concepts": [
+            "が"
+          ]
+        },
+        {
+          "japanese": "出ません。",
+          "korean": "안 나와요",
+          "type": "construction",
+          "baseForm": "出る",
+          "concepts": [
+            "出る"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tv-17",
+      "japanese": "荷物を一日預かってもらえますか。",
+      "translation": "짐을 하루 맡아 주실 수 있어요?",
+      "concepts": [
+        "荷物",
+        "を",
+        "一日",
+        "預かる",
+        "〜てもらう"
+      ],
+      "topic": "hotel",
+      "segments": [
+        {
+          "japanese": "荷物",
+          "korean": "짐",
+          "type": "vocabulary",
+          "baseForm": "荷物",
+          "concepts": [
+            "荷物"
+          ]
+        },
+        {
+          "japanese": "を",
+          "korean": "을",
+          "type": "particle",
+          "baseForm": "を",
+          "concepts": [
+            "を"
+          ]
+        },
+        {
+          "japanese": "一日",
+          "korean": "하루",
+          "type": "vocabulary",
+          "baseForm": "一日",
+          "concepts": [
+            "一日"
+          ]
+        },
+        {
+          "japanese": "預かってもらえますか。",
+          "korean": "맡아 주실 수 있어요?",
+          "type": "construction",
+          "baseForm": "預かる",
+          "concepts": [
+            "預かる",
+            "〜てもらう"
+          ]
+        }
+      ],
+      "reading": "にもつをいちにちあずかってもらえますか。"
+    },
+    {
+      "id": "tv-18",
+      "japanese": "パスポートを見せてください。",
+      "translation": "여권을 보여 주세요.",
+      "concepts": [
+        "パスポート",
+        "を",
+        "見せる",
+        "〜てください"
+      ],
+      "topic": "airport",
+      "segments": [
+        {
+          "japanese": "パスポート",
+          "korean": "여권",
+          "type": "vocabulary",
+          "baseForm": "パスポート",
+          "concepts": [
+            "パスポート"
+          ]
+        },
+        {
+          "japanese": "を",
+          "korean": "을",
+          "type": "particle",
+          "baseForm": "を",
+          "concepts": [
+            "を"
+          ]
+        },
+        {
+          "japanese": "見せてください。",
+          "korean": "보여 주세요",
+          "type": "construction",
+          "baseForm": "見せる",
+          "concepts": [
+            "見せる",
+            "〜てください"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tv-19",
+      "japanese": "搭乗券はこちらです。",
+      "translation": "탑승권은 여기 있어요.",
+      "concepts": [
+        "搭乗券",
+        "は",
+        "こちら"
+      ],
+      "topic": "airport",
+      "segments": [
+        {
+          "japanese": "搭乗券",
+          "korean": "탑승권",
+          "type": "vocabulary",
+          "baseForm": "搭乗券",
+          "concepts": [
+            "搭乗券"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "은",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "こちらです。",
+          "korean": "여기 있어요",
+          "type": "construction",
+          "baseForm": "こちら",
+          "concepts": [
+            "こちら",
+            "です"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tv-20",
+      "japanese": "何番ゲートですか。",
+      "translation": "몇 번 게이트예요?",
+      "concepts": [
+        "何番ゲート"
+      ],
+      "topic": "airport",
+      "segments": [
+        {
+          "japanese": "何番ゲートですか。",
+          "korean": "몇 번 게이트예요?",
+          "type": "construction",
+          "baseForm": "何番ゲート",
+          "concepts": [
+            "何番ゲート",
+            "です"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tv-21",
+      "japanese": "乗り継ぎ便に間に合いますか。",
+      "translation": "환승편 시간에 맞출 수 있어요?",
+      "concepts": [
+        "乗り継ぎ便",
+        "間に合う"
+      ],
+      "topic": "airport",
+      "segments": [
+        {
+          "japanese": "乗り継ぎ便に",
+          "korean": "환승편",
+          "type": "vocabulary",
+          "baseForm": "乗り継ぎ便",
+          "concepts": [
+            "乗り継ぎ便"
+          ]
+        },
+        {
+          "japanese": "間に合いますか。",
+          "korean": "시간에 맞출 수 있어요?",
+          "type": "construction",
+          "baseForm": "間に合う",
+          "concepts": [
+            "間に合う"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tv-22",
+      "japanese": "荷物が出てきません。",
+      "translation": "짐이 안 나와요.",
+      "concepts": [
+        "荷物",
+        "が",
+        "出てくる"
+      ],
+      "topic": "airport",
+      "segments": [
+        {
+          "japanese": "荷物",
+          "korean": "짐",
+          "type": "vocabulary",
+          "baseForm": "荷物",
+          "concepts": [
+            "荷物"
+          ]
+        },
+        {
+          "japanese": "が",
+          "korean": "이",
+          "type": "particle",
+          "baseForm": "が",
+          "concepts": [
+            "が"
+          ]
+        },
+        {
+          "japanese": "出てきません。",
+          "korean": "안 나와요",
+          "type": "construction",
+          "baseForm": "出てくる",
+          "concepts": [
+            "出てくる"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tv-23",
+      "japanese": "スーツケースが壊れています。",
+      "translation": "캐리어가 부서졌어요.",
+      "concepts": [
+        "スーツケース",
+        "が",
+        "壊れる",
+        "〜ている"
+      ],
+      "topic": "airport",
+      "segments": [
+        {
+          "japanese": "スーツケース",
+          "korean": "캐리어",
+          "type": "vocabulary",
+          "baseForm": "スーツケース",
+          "concepts": [
+            "スーツケース"
+          ]
+        },
+        {
+          "japanese": "が",
+          "korean": "가",
+          "type": "particle",
+          "baseForm": "が",
+          "concepts": [
+            "が"
+          ]
+        },
+        {
+          "japanese": "壊れています。",
+          "korean": "부서졌어요",
+          "type": "construction",
+          "baseForm": "壊れる",
+          "concepts": [
+            "壊れる",
+            "〜ている"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tv-24",
+      "japanese": "両替はどこでできますか。",
+      "translation": "환전은 어디서 할 수 있어요?",
+      "concepts": [
+        "両替",
+        "は",
+        "どこ",
+        "できる"
+      ],
+      "topic": "money",
+      "segments": [
+        {
+          "japanese": "両替",
+          "korean": "환전",
+          "type": "vocabulary",
+          "baseForm": "両替",
+          "concepts": [
+            "両替"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "은",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "どこでできますか。",
+          "korean": "어디서 할 수 있어요?",
+          "type": "construction",
+          "baseForm": "できる",
+          "concepts": [
+            "どこ",
+            "できる"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tv-25",
+      "japanese": "円に両替してください。",
+      "translation": "엔으로 환전해 주세요.",
+      "concepts": [
+        "円",
+        "両替する",
+        "〜てください"
+      ],
+      "topic": "money",
+      "segments": [
+        {
+          "japanese": "円に",
+          "korean": "엔으로",
+          "type": "vocabulary",
+          "baseForm": "円",
+          "concepts": [
+            "円"
+          ]
+        },
+        {
+          "japanese": "両替してください。",
+          "korean": "환전해 주세요",
+          "type": "construction",
+          "baseForm": "両替する",
+          "concepts": [
+            "両替する",
+            "〜てください"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tv-26",
+      "japanese": "ATMはどこにありますか。",
+      "translation": "ATM은 어디에 있어요?",
+      "concepts": [
+        "ATM",
+        "は",
+        "どこ",
+        "ある"
+      ],
+      "topic": "money",
+      "segments": [
+        {
+          "japanese": "ATM",
+          "korean": "ATM",
+          "type": "vocabulary",
+          "baseForm": "ATM",
+          "concepts": [
+            "ATM"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "은",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "どこにありますか。",
+          "korean": "어디에 있어요?",
+          "type": "construction",
+          "baseForm": "ある",
+          "concepts": [
+            "どこ",
+            "ある"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tv-27",
+      "japanese": "SIMカードはどこで買えますか。",
+      "translation": "심 카드는 어디서 살 수 있어요?",
+      "concepts": [
+        "SIMカード",
+        "は",
+        "どこ",
+        "買う"
+      ],
+      "topic": "communication",
+      "segments": [
+        {
+          "japanese": "SIMカード",
+          "korean": "심 카드",
+          "type": "vocabulary",
+          "baseForm": "SIMカード",
+          "concepts": [
+            "SIMカード"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "는",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "どこで買えますか。",
+          "korean": "어디서 살 수 있어요?",
+          "type": "construction",
+          "baseForm": "買う",
+          "concepts": [
+            "どこ",
+            "買う"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tv-28",
+      "japanese": "ポケットWi-Fiをレンタルしたいです。",
+      "translation": "포켓 와이파이를 대여하고 싶어요.",
+      "concepts": [
+        "ポケットWi-Fi",
+        "を",
+        "レンタルする",
+        "〜たい"
+      ],
+      "topic": "communication",
+      "segments": [
+        {
+          "japanese": "ポケットWi-Fi",
+          "korean": "포켓 와이파이",
+          "type": "vocabulary",
+          "baseForm": "ポケットWi-Fi",
+          "concepts": [
+            "ポケットWi-Fi"
+          ]
+        },
+        {
+          "japanese": "を",
+          "korean": "를",
+          "type": "particle",
+          "baseForm": "を",
+          "concepts": [
+            "を"
+          ]
+        },
+        {
+          "japanese": "レンタルしたいです。",
+          "korean": "대여하고 싶어요",
+          "type": "construction",
+          "baseForm": "レンタルする",
+          "concepts": [
+            "レンタルする",
+            "〜たい"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tv-29",
+      "japanese": "充電器を貸してもらえますか。",
+      "translation": "충전기 빌려 주실 수 있어요?",
+      "concepts": [
+        "充電器",
+        "を",
+        "貸す",
+        "〜てもらう"
+      ],
+      "topic": "communication",
+      "segments": [
+        {
+          "japanese": "充電器",
+          "korean": "충전기",
+          "type": "vocabulary",
+          "baseForm": "充電器",
+          "concepts": [
+            "充電器"
+          ]
+        },
+        {
+          "japanese": "を",
+          "korean": "를",
+          "type": "particle",
+          "baseForm": "を",
+          "concepts": [
+            "を"
+          ]
+        },
+        {
+          "japanese": "貸してもらえますか。",
+          "korean": "빌려 주실 수 있어요?",
+          "type": "construction",
+          "baseForm": "貸す",
+          "concepts": [
+            "貸す",
+            "〜てもらう"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tv-30",
+      "japanese": "観光案内所はどこですか。",
+      "translation": "관광 안내소는 어디예요?",
+      "concepts": [
+        "観光案内所",
+        "は",
+        "どこ"
+      ],
+      "topic": "sightseeing",
+      "segments": [
+        {
+          "japanese": "観光案内所",
+          "korean": "관광 안내소",
+          "type": "vocabulary",
+          "baseForm": "観光案内所",
+          "concepts": [
+            "観光案内所"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "는",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "どこですか。",
+          "korean": "어디예요?",
+          "type": "construction",
+          "baseForm": "どこ",
+          "concepts": [
+            "どこ",
+            "ですか"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tv-31",
+      "japanese": "おすすめの観光地はどこですか。",
+      "translation": "추천 관광지가 어디예요?",
+      "concepts": [
+        "おすすめ",
+        "観光地",
+        "は",
+        "どこ"
+      ],
+      "topic": "sightseeing",
+      "segments": [
+        {
+          "japanese": "おすすめの観光地",
+          "korean": "추천 관광지",
+          "type": "vocabulary",
+          "baseForm": "おすすめの観光地",
+          "concepts": [
+            "おすすめ",
+            "観光地"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "가",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "どこですか。",
+          "korean": "어디예요?",
+          "type": "construction",
+          "baseForm": "どこ",
+          "concepts": [
+            "どこ",
+            "ですか"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tv-32",
+      "japanese": "入場料はいくらですか。",
+      "translation": "입장료는 얼마예요?",
+      "concepts": [
+        "入場料",
+        "は",
+        "いくら"
+      ],
+      "topic": "sightseeing",
+      "segments": [
+        {
+          "japanese": "入場料",
+          "korean": "입장료",
+          "type": "vocabulary",
+          "baseForm": "入場料",
+          "concepts": [
+            "入場料"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "는",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "いくらですか。",
+          "korean": "얼마예요?",
+          "type": "construction",
+          "baseForm": "いくら",
+          "concepts": [
+            "いくら",
+            "です"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tv-33",
+      "japanese": "チケットは事前に必要ですか。",
+      "translation": "티켓은 미리 필요해요?",
+      "concepts": [
+        "チケット",
+        "は",
+        "事前に",
+        "必要"
+      ],
+      "topic": "sightseeing",
+      "segments": [
+        {
+          "japanese": "チケット",
+          "korean": "티켓",
+          "type": "vocabulary",
+          "baseForm": "チケット",
+          "concepts": [
+            "チケット"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "은",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "事前に必要ですか。",
+          "korean": "미리 필요해요?",
+          "type": "construction",
+          "baseForm": "必要",
+          "concepts": [
+            "事前に",
+            "必要",
+            "です"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tv-34",
+      "japanese": "ここで写真を撮ってもらえますか。",
+      "translation": "여기서 사진 찍어 주실 수 있어요?",
+      "concepts": [
+        "ここ",
+        "写真",
+        "を",
+        "撮る",
+        "〜てもらう"
+      ],
+      "topic": "sightseeing",
+      "segments": [
+        {
+          "japanese": "ここで",
+          "korean": "여기서",
+          "type": "vocabulary",
+          "baseForm": "ここ",
+          "concepts": [
+            "ここ"
+          ]
+        },
+        {
+          "japanese": "写真",
+          "korean": "사진",
+          "type": "vocabulary",
+          "baseForm": "写真",
+          "concepts": [
+            "写真"
+          ]
+        },
+        {
+          "japanese": "を",
+          "korean": "를",
+          "type": "particle",
+          "baseForm": "を",
+          "concepts": [
+            "を"
+          ]
+        },
+        {
+          "japanese": "撮ってもらえますか。",
+          "korean": "찍어 주실 수 있어요?",
+          "type": "construction",
+          "baseForm": "撮る",
+          "concepts": [
+            "撮る",
+            "〜てもらう"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tv-35",
+      "japanese": "何時に閉まりますか。",
+      "translation": "몇 시에 닫아요?",
+      "concepts": [
+        "何時",
+        "閉まる"
+      ],
+      "topic": "sightseeing",
+      "segments": [
+        {
+          "japanese": "何時に",
+          "korean": "몇 시에",
+          "type": "vocabulary",
+          "baseForm": "何時",
+          "concepts": [
+            "何時"
+          ]
+        },
+        {
+          "japanese": "閉まりますか。",
+          "korean": "닫아요?",
+          "type": "construction",
+          "baseForm": "閉まる",
+          "concepts": [
+            "閉まる"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tv-36",
+      "japanese": "ツアーに参加したいです。",
+      "translation": "투어에 참가하고 싶어요.",
+      "concepts": [
+        "ツアー",
+        "に",
+        "参加する",
+        "〜たい"
+      ],
+      "topic": "sightseeing",
+      "segments": [
+        {
+          "japanese": "ツアー",
+          "korean": "투어",
+          "type": "vocabulary",
+          "baseForm": "ツアー",
+          "concepts": [
+            "ツアー"
+          ]
+        },
+        {
+          "japanese": "に",
+          "korean": "에",
+          "type": "particle",
+          "baseForm": "に",
+          "concepts": [
+            "に"
+          ]
+        },
+        {
+          "japanese": "参加したいです。",
+          "korean": "참가하고 싶어요",
+          "type": "construction",
+          "baseForm": "参加する",
+          "concepts": [
+            "参加する",
+            "〜たい"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tv-37",
+      "japanese": "日帰りで行けますか。",
+      "translation": "당일치기로 갈 수 있어요?",
+      "concepts": [
+        "日帰り",
+        "行く"
+      ],
+      "topic": "sightseeing",
+      "segments": [
+        {
+          "japanese": "日帰りで",
+          "korean": "당일치기로",
+          "type": "vocabulary",
+          "baseForm": "日帰り",
+          "concepts": [
+            "日帰り"
+          ]
+        },
+        {
+          "japanese": "行けますか。",
+          "korean": "갈 수 있어요?",
+          "type": "construction",
+          "baseForm": "行く",
+          "concepts": [
+            "行く"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tv-38",
+      "japanese": "この近くにいい温泉はありますか。",
+      "translation": "이 근처에 좋은 온천 있어요?",
+      "concepts": [
+        "この近く",
+        "いい",
+        "温泉",
+        "は",
+        "ある"
+      ],
+      "topic": "sightseeing",
+      "segments": [
+        {
+          "japanese": "この近くに",
+          "korean": "이 근처에",
+          "type": "vocabulary",
+          "baseForm": "この近く",
+          "concepts": [
+            "この近く"
+          ]
+        },
+        {
+          "japanese": "いい温泉",
+          "korean": "좋은 온천",
+          "type": "vocabulary",
+          "baseForm": "いい温泉",
+          "concepts": [
+            "いい",
+            "温泉"
+          ]
+        },
+        {
+          "japanese": "はありますか。",
+          "korean": "있어요?",
+          "type": "construction",
+          "baseForm": "ある",
+          "concepts": [
+            "は",
+            "ある"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tv-39",
+      "japanese": "パンフレットをもらえますか。",
+      "translation": "팜플렛 받을 수 있어요?",
+      "concepts": [
+        "パンフレット",
+        "を",
+        "もらう"
+      ],
+      "topic": "sightseeing",
+      "segments": [
+        {
+          "japanese": "パンフレット",
+          "korean": "팜플렛",
+          "type": "vocabulary",
+          "baseForm": "パンフレット",
+          "concepts": [
+            "パンフレット"
+          ]
+        },
+        {
+          "japanese": "を",
+          "korean": "를",
+          "type": "particle",
+          "baseForm": "を",
+          "concepts": [
+            "を"
+          ]
+        },
+        {
+          "japanese": "もらえますか。",
+          "korean": "받을 수 있어요?",
+          "type": "construction",
+          "baseForm": "もらう",
+          "concepts": [
+            "もらう"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tv-40",
+      "japanese": "パスポートをなくしました。",
+      "translation": "여권을 잃어버렸어요.",
+      "concepts": [
+        "パスポート",
+        "を",
+        "なくす"
+      ],
+      "topic": "emergencies",
+      "segments": [
+        {
+          "japanese": "パスポート",
+          "korean": "여권",
+          "type": "vocabulary",
+          "baseForm": "パスポート",
+          "concepts": [
+            "パスポート"
+          ]
+        },
+        {
+          "japanese": "を",
+          "korean": "을",
+          "type": "particle",
+          "baseForm": "を",
+          "concepts": [
+            "を"
+          ]
+        },
+        {
+          "japanese": "なくしました。",
+          "korean": "잃어버렸어요",
+          "type": "construction",
+          "baseForm": "なくす",
+          "concepts": [
+            "なくす"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tv-41",
+      "japanese": "財布を落としました。",
+      "translation": "지갑을 떨어뜨렸어요.",
+      "concepts": [
+        "財布",
+        "を",
+        "落とす"
+      ],
+      "topic": "emergencies",
+      "segments": [
+        {
+          "japanese": "財布",
+          "korean": "지갑",
+          "type": "vocabulary",
+          "baseForm": "財布",
+          "concepts": [
+            "財布"
+          ]
+        },
+        {
+          "japanese": "を",
+          "korean": "을",
+          "type": "particle",
+          "baseForm": "を",
+          "concepts": [
+            "を"
+          ]
+        },
+        {
+          "japanese": "落としました。",
+          "korean": "떨어뜨렸어요",
+          "type": "construction",
+          "baseForm": "落とす",
+          "concepts": [
+            "落とす"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tv-42",
+      "japanese": "気分が悪いです。",
+      "translation": "속이 안 좋아요.",
+      "concepts": [
+        "気分",
+        "が",
+        "悪い"
+      ],
+      "topic": "emergencies",
+      "segments": [
+        {
+          "japanese": "気分",
+          "korean": "속",
+          "type": "vocabulary",
+          "baseForm": "気分",
+          "concepts": [
+            "気分"
+          ]
+        },
+        {
+          "japanese": "が",
+          "korean": "이",
+          "type": "particle",
+          "baseForm": "が",
+          "concepts": [
+            "が"
+          ]
+        },
+        {
+          "japanese": "悪いです。",
+          "korean": "안 좋아요",
+          "type": "construction",
+          "baseForm": "悪い",
+          "concepts": [
+            "悪い",
+            "です"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tv-43",
+      "japanese": "病院に連れて行ってください。",
+      "translation": "병원에 데려가 주세요.",
+      "concepts": [
+        "病院",
+        "連れて行く",
+        "〜てください"
+      ],
+      "topic": "emergencies",
+      "segments": [
+        {
+          "japanese": "病院に",
+          "korean": "병원에",
+          "type": "vocabulary",
+          "baseForm": "病院",
+          "concepts": [
+            "病院"
+          ]
+        },
+        {
+          "japanese": "連れて行ってください。",
+          "korean": "데려가 주세요",
+          "type": "construction",
+          "baseForm": "連れて行く",
+          "concepts": [
+            "連れて行く",
+            "〜てください"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tv-44",
+      "japanese": "警察を呼んでください。",
+      "translation": "경찰 불러 주세요.",
+      "concepts": [
+        "警察",
+        "を",
+        "呼ぶ",
+        "〜てください"
+      ],
+      "topic": "emergencies",
+      "segments": [
+        {
+          "japanese": "警察",
+          "korean": "경찰",
+          "type": "vocabulary",
+          "baseForm": "警察",
+          "concepts": [
+            "警察"
+          ]
+        },
+        {
+          "japanese": "を",
+          "korean": "를",
+          "type": "particle",
+          "baseForm": "を",
+          "concepts": [
+            "を"
+          ]
+        },
+        {
+          "japanese": "呼んでください。",
+          "korean": "불러 주세요",
+          "type": "construction",
+          "baseForm": "呼ぶ",
+          "concepts": [
+            "呼ぶ",
+            "〜てください"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tv-45",
+      "japanese": "助けてください。",
+      "translation": "도와주세요.",
+      "concepts": [
+        "助ける",
+        "〜てください"
+      ],
+      "topic": "emergencies",
+      "segments": [
+        {
+          "japanese": "助けてください。",
+          "korean": "도와주세요",
+          "type": "construction",
+          "baseForm": "助ける",
+          "concepts": [
+            "助ける",
+            "〜てください"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tv-46",
+      "japanese": "大使館はどこですか。",
+      "translation": "대사관은 어디예요?",
+      "concepts": [
+        "大使館",
+        "は",
+        "どこ"
+      ],
+      "topic": "emergencies",
+      "segments": [
+        {
+          "japanese": "大使館",
+          "korean": "대사관",
+          "type": "vocabulary",
+          "baseForm": "大使館",
+          "concepts": [
+            "大使館"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "은",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "どこですか。",
+          "korean": "어디예요?",
+          "type": "construction",
+          "baseForm": "どこ",
+          "concepts": [
+            "どこ",
+            "ですか"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tv-47",
+      "japanese": "海外旅行保険に入っています。",
+      "translation": "해외여행 보험에 가입했어요.",
+      "concepts": [
+        "海外旅行保険",
+        "入る",
+        "〜ている"
+      ],
+      "topic": "emergencies",
+      "segments": [
+        {
+          "japanese": "海外旅行保険に",
+          "korean": "해외여행 보험에",
+          "type": "vocabulary",
+          "baseForm": "海外旅行保険",
+          "concepts": [
+            "海外旅行保険"
+          ]
+        },
+        {
+          "japanese": "入っています。",
+          "korean": "가입했어요",
+          "type": "construction",
+          "baseForm": "入る",
+          "concepts": [
+            "入る",
+            "〜ている"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tv-48",
+      "japanese": "日本語はあまり話せません。",
+      "translation": "일본어는 잘 못해요.",
+      "concepts": [
+        "日本語",
+        "は",
+        "あまり",
+        "話す"
+      ],
+      "topic": "communication",
+      "segments": [
+        {
+          "japanese": "日本語",
+          "korean": "일본어",
+          "type": "vocabulary",
+          "baseForm": "日本語",
+          "concepts": [
+            "日本語"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "는",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "あまり話せません。",
+          "korean": "잘 못해요",
+          "type": "construction",
+          "baseForm": "話す",
+          "concepts": [
+            "あまり",
+            "話す"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tv-49",
+      "japanese": "もう一度言ってもらえますか。",
+      "translation": "다시 한 번 말해 주실 수 있어요?",
+      "concepts": [
+        "もう一度",
+        "言う",
+        "〜てもらう"
+      ],
+      "topic": "communication",
+      "segments": [
+        {
+          "japanese": "もう一度",
+          "korean": "다시 한 번",
+          "type": "vocabulary",
+          "baseForm": "もう一度",
+          "concepts": [
+            "もう一度"
+          ]
+        },
+        {
+          "japanese": "言ってもらえますか。",
+          "korean": "말해 주실 수 있어요?",
+          "type": "construction",
+          "baseForm": "言う",
+          "concepts": [
+            "言う",
+            "〜てもらう"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tv-50",
+      "japanese": "ゆっくり話してもらえますか。",
+      "translation": "천천히 말해 주실 수 있어요?",
+      "concepts": [
+        "ゆっくり",
+        "話す",
+        "〜てもらう"
+      ],
+      "topic": "communication",
+      "segments": [
+        {
+          "japanese": "ゆっくり",
+          "korean": "천천히",
+          "type": "vocabulary",
+          "baseForm": "ゆっくり",
+          "concepts": [
+            "ゆっくり"
+          ]
+        },
+        {
+          "japanese": "話してもらえますか。",
+          "korean": "말해 주실 수 있어요?",
+          "type": "construction",
+          "baseForm": "話す",
+          "concepts": [
+            "話す",
+            "〜てもらう"
+          ]
+        }
       ]
     }
   ]

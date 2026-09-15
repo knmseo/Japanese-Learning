@@ -6,49 +6,1829 @@
       "id": "sh-1",
       "japanese": "これはいくらですか。",
       "translation": "이것은 얼마예요?",
-      "concepts": ["これ", "は", "いくら"],
+      "concepts": [
+        "これ",
+        "は",
+        "いくら"
+      ],
       "topic": "shopping",
       "segments": [
-        { "japanese": "これ", "korean": "이것", "type": "vocabulary", "baseForm": "これ", "concepts": ["これ"] },
-        { "japanese": "は", "korean": "은", "type": "particle", "baseForm": "は", "concepts": ["は"] },
-        { "japanese": "いくらですか。", "korean": "얼마예요?", "type": "construction", "baseForm": "いくら", "concepts": ["いくら", "ですか"] }
+        {
+          "japanese": "これ",
+          "korean": "이것",
+          "type": "vocabulary",
+          "baseForm": "これ",
+          "concepts": [
+            "これ"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "은",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "いくらですか。",
+          "korean": "얼마예요?",
+          "type": "construction",
+          "baseForm": "いくら",
+          "concepts": [
+            "いくら",
+            "ですか"
+          ]
+        }
       ]
     },
     {
       "id": "sh-2",
       "japanese": "もっと安いのはありますか。",
       "translation": "더 싼 것은 있어요?",
-      "concepts": ["もっと", "安い", "ある"],
+      "concepts": [
+        "もっと",
+        "安い",
+        "ある"
+      ],
       "topic": "shopping",
       "segments": [
-        { "japanese": "もっと", "korean": "더", "type": "vocabulary", "baseForm": "もっと", "concepts": ["もっと"] },
-        { "japanese": "安いの", "korean": "싼 것", "type": "construction", "baseForm": "安い", "concepts": ["安い", "の"] },
-        { "japanese": "は", "korean": "은", "type": "particle", "baseForm": "は", "concepts": ["は"] },
-        { "japanese": "ありますか。", "korean": "있어요?", "type": "construction", "baseForm": "ある", "concepts": ["ある", "ですか"] }
+        {
+          "japanese": "もっと",
+          "korean": "더",
+          "type": "vocabulary",
+          "baseForm": "もっと",
+          "concepts": [
+            "もっと"
+          ]
+        },
+        {
+          "japanese": "安いの",
+          "korean": "싼 것",
+          "type": "construction",
+          "baseForm": "安い",
+          "concepts": [
+            "安い",
+            "の"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "은",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "ありますか。",
+          "korean": "있어요?",
+          "type": "construction",
+          "baseForm": "ある",
+          "concepts": [
+            "ある",
+            "ですか"
+          ]
+        }
       ]
     },
     {
       "id": "sh-3",
       "japanese": "これをください。",
       "translation": "이것을 주세요.",
-      "concepts": ["これ", "を", "ください"],
+      "concepts": [
+        "これ",
+        "を",
+        "ください"
+      ],
       "topic": "shopping",
       "segments": [
-        { "japanese": "これ", "korean": "이것", "type": "vocabulary", "baseForm": "これ", "concepts": ["これ"] },
-        { "japanese": "を", "korean": "을", "type": "particle", "baseForm": "を", "concepts": ["を"] },
-        { "japanese": "ください。", "korean": "주세요", "type": "construction", "baseForm": "ください", "concepts": ["ください"] }
+        {
+          "japanese": "これ",
+          "korean": "이것",
+          "type": "vocabulary",
+          "baseForm": "これ",
+          "concepts": [
+            "これ"
+          ]
+        },
+        {
+          "japanese": "を",
+          "korean": "을",
+          "type": "particle",
+          "baseForm": "を",
+          "concepts": [
+            "を"
+          ]
+        },
+        {
+          "japanese": "ください。",
+          "korean": "주세요",
+          "type": "construction",
+          "baseForm": "ください",
+          "concepts": [
+            "ください"
+          ]
+        }
       ]
     },
     {
       "id": "sh-4",
       "japanese": "カードで払えますか。",
       "translation": "카드로 낼 수 있어요?",
-      "concepts": ["カード", "で", "払う"],
+      "concepts": [
+        "カード",
+        "で",
+        "払う"
+      ],
       "topic": "shopping",
       "segments": [
-        { "japanese": "カード", "korean": "카드", "type": "vocabulary", "baseForm": "カード", "concepts": ["カード"] },
-        { "japanese": "で", "korean": "로", "type": "particle", "baseForm": "で", "concepts": ["で"] },
-        { "japanese": "払えますか。", "korean": "낼 수 있어요?", "type": "construction", "baseForm": "払う", "concepts": ["払う", "可能形"] }
+        {
+          "japanese": "カード",
+          "korean": "카드",
+          "type": "vocabulary",
+          "baseForm": "カード",
+          "concepts": [
+            "カード"
+          ]
+        },
+        {
+          "japanese": "で",
+          "korean": "로",
+          "type": "particle",
+          "baseForm": "で",
+          "concepts": [
+            "で"
+          ]
+        },
+        {
+          "japanese": "払えますか。",
+          "korean": "낼 수 있어요?",
+          "type": "construction",
+          "baseForm": "払う",
+          "concepts": [
+            "払う",
+            "可能形"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sh-5",
+      "japanese": "試着してもいいですか。",
+      "translation": "입어 봐도 돼요?",
+      "concepts": [
+        "試着する",
+        "〜てもいい"
+      ],
+      "topic": "shopping",
+      "segments": [
+        {
+          "japanese": "試着してもいいですか。",
+          "korean": "입어 봐도 돼요?",
+          "type": "construction",
+          "baseForm": "試着する",
+          "concepts": [
+            "試着する",
+            "〜てもいい"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sh-6",
+      "japanese": "試着室はどこですか。",
+      "translation": "탈의실은 어디예요?",
+      "concepts": [
+        "試着室",
+        "は",
+        "どこ"
+      ],
+      "topic": "shopping",
+      "segments": [
+        {
+          "japanese": "試着室",
+          "korean": "탈의실",
+          "type": "vocabulary",
+          "baseForm": "試着室",
+          "concepts": [
+            "試着室"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "은",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "どこですか。",
+          "korean": "어디예요?",
+          "type": "construction",
+          "baseForm": "どこ",
+          "concepts": [
+            "どこ",
+            "ですか"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sh-7",
+      "japanese": "もう少し大きいサイズはありますか。",
+      "translation": "좀 더 큰 사이즈 있어요?",
+      "concepts": [
+        "もう少し",
+        "大きい",
+        "サイズ",
+        "は",
+        "ある"
+      ],
+      "topic": "shopping",
+      "segments": [
+        {
+          "japanese": "もう少し",
+          "korean": "좀 더",
+          "type": "vocabulary",
+          "baseForm": "もう少し",
+          "concepts": [
+            "もう少し"
+          ]
+        },
+        {
+          "japanese": "大きいサイズ",
+          "korean": "큰 사이즈",
+          "type": "vocabulary",
+          "baseForm": "大きいサイズ",
+          "concepts": [
+            "大きい",
+            "サイズ"
+          ]
+        },
+        {
+          "japanese": "はありますか。",
+          "korean": "있어요?",
+          "type": "construction",
+          "baseForm": "ある",
+          "concepts": [
+            "は",
+            "ある"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sh-8",
+      "japanese": "もう少し小さいサイズはありますか。",
+      "translation": "좀 더 작은 사이즈 있어요?",
+      "concepts": [
+        "もう少し",
+        "小さい",
+        "サイズ",
+        "は",
+        "ある"
+      ],
+      "topic": "shopping",
+      "segments": [
+        {
+          "japanese": "もう少し",
+          "korean": "좀 더",
+          "type": "vocabulary",
+          "baseForm": "もう少し",
+          "concepts": [
+            "もう少し"
+          ]
+        },
+        {
+          "japanese": "小さいサイズ",
+          "korean": "작은 사이즈",
+          "type": "vocabulary",
+          "baseForm": "小さいサイズ",
+          "concepts": [
+            "小さい",
+            "サイズ"
+          ]
+        },
+        {
+          "japanese": "はありますか。",
+          "korean": "있어요?",
+          "type": "construction",
+          "baseForm": "ある",
+          "concepts": [
+            "は",
+            "ある"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sh-9",
+      "japanese": "他の色はありますか。",
+      "translation": "다른 색깔 있어요?",
+      "concepts": [
+        "他の色",
+        "は",
+        "ある"
+      ],
+      "topic": "shopping",
+      "segments": [
+        {
+          "japanese": "他の色",
+          "korean": "다른 색깔",
+          "type": "vocabulary",
+          "baseForm": "他の色",
+          "concepts": [
+            "他の色"
+          ]
+        },
+        {
+          "japanese": "はありますか。",
+          "korean": "있어요?",
+          "type": "construction",
+          "baseForm": "ある",
+          "concepts": [
+            "は",
+            "ある"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sh-10",
+      "japanese": "これは白しかありませんか。",
+      "translation": "이건 흰색밖에 없어요?",
+      "concepts": [
+        "これ",
+        "は",
+        "白",
+        "しか"
+      ],
+      "topic": "shopping",
+      "segments": [
+        {
+          "japanese": "これ",
+          "korean": "이건",
+          "type": "vocabulary",
+          "baseForm": "これ",
+          "concepts": [
+            "これ"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "은",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "白しかありませんか。",
+          "korean": "흰색밖에 없어요?",
+          "type": "construction",
+          "baseForm": "白",
+          "concepts": [
+            "白",
+            "しか"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sh-11",
+      "japanese": "サイズが合いません。",
+      "translation": "사이즈가 안 맞아요.",
+      "concepts": [
+        "サイズ",
+        "が",
+        "合う"
+      ],
+      "topic": "shopping",
+      "segments": [
+        {
+          "japanese": "サイズ",
+          "korean": "사이즈",
+          "type": "vocabulary",
+          "baseForm": "サイズ",
+          "concepts": [
+            "サイズ"
+          ]
+        },
+        {
+          "japanese": "が",
+          "korean": "가",
+          "type": "particle",
+          "baseForm": "が",
+          "concepts": [
+            "が"
+          ]
+        },
+        {
+          "japanese": "合いません。",
+          "korean": "안 맞아요",
+          "type": "construction",
+          "baseForm": "合う",
+          "concepts": [
+            "合う"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sh-12",
+      "japanese": "少し大きいです。",
+      "translation": "조금 커요.",
+      "concepts": [
+        "少し",
+        "大きい"
+      ],
+      "topic": "shopping",
+      "segments": [
+        {
+          "japanese": "少し",
+          "korean": "조금",
+          "type": "vocabulary",
+          "baseForm": "少し",
+          "concepts": [
+            "少し"
+          ]
+        },
+        {
+          "japanese": "大きいです。",
+          "korean": "커요",
+          "type": "construction",
+          "baseForm": "大きい",
+          "concepts": [
+            "大きい",
+            "です"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sh-13",
+      "japanese": "少し小さいです。",
+      "translation": "조금 작아요.",
+      "concepts": [
+        "少し",
+        "小さい"
+      ],
+      "topic": "shopping",
+      "segments": [
+        {
+          "japanese": "少し",
+          "korean": "조금",
+          "type": "vocabulary",
+          "baseForm": "少し",
+          "concepts": [
+            "少し"
+          ]
+        },
+        {
+          "japanese": "小さいです。",
+          "korean": "작아요",
+          "type": "construction",
+          "baseForm": "小さい",
+          "concepts": [
+            "小さい",
+            "です"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sh-14",
+      "japanese": "ちょうどいいです。",
+      "translation": "딱 맞아요.",
+      "concepts": [
+        "ちょうどいい"
+      ],
+      "topic": "shopping",
+      "segments": [
+        {
+          "japanese": "ちょうどいいです。",
+          "korean": "딱 맞아요",
+          "type": "construction",
+          "baseForm": "ちょうどいい",
+          "concepts": [
+            "ちょうどいい",
+            "です"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sh-15",
+      "japanese": "これと同じものが欲しいです。",
+      "translation": "이거랑 같은 걸 원해요.",
+      "concepts": [
+        "これ",
+        "同じ",
+        "が",
+        "欲しい"
+      ],
+      "topic": "shopping",
+      "segments": [
+        {
+          "japanese": "これと同じもの",
+          "korean": "이거랑 같은 것",
+          "type": "vocabulary",
+          "baseForm": "これと同じもの",
+          "concepts": [
+            "これ",
+            "同じ"
+          ]
+        },
+        {
+          "japanese": "が",
+          "korean": "을",
+          "type": "particle",
+          "baseForm": "が",
+          "concepts": [
+            "が"
+          ]
+        },
+        {
+          "japanese": "欲しいです。",
+          "korean": "원해요",
+          "type": "construction",
+          "baseForm": "欲しい",
+          "concepts": [
+            "欲しい",
+            "です"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sh-16",
+      "japanese": "これはセール中ですか。",
+      "translation": "이거 세일 중이에요?",
+      "concepts": [
+        "これ",
+        "は",
+        "セール中"
+      ],
+      "topic": "shopping",
+      "segments": [
+        {
+          "japanese": "これ",
+          "korean": "이거",
+          "type": "vocabulary",
+          "baseForm": "これ",
+          "concepts": [
+            "これ"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "은",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "セール中ですか。",
+          "korean": "세일 중이에요?",
+          "type": "construction",
+          "baseForm": "セール中",
+          "concepts": [
+            "セール中",
+            "です"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sh-17",
+      "japanese": "割引はありますか。",
+      "translation": "할인 있어요?",
+      "concepts": [
+        "割引",
+        "は",
+        "ある"
+      ],
+      "topic": "shopping",
+      "segments": [
+        {
+          "japanese": "割引",
+          "korean": "할인",
+          "type": "vocabulary",
+          "baseForm": "割引",
+          "concepts": [
+            "割引"
+          ]
+        },
+        {
+          "japanese": "はありますか。",
+          "korean": "있어요?",
+          "type": "construction",
+          "baseForm": "ある",
+          "concepts": [
+            "は",
+            "ある"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sh-18",
+      "japanese": "もう少し安くなりませんか。",
+      "translation": "좀 더 싸게 안 될까요?",
+      "concepts": [
+        "もう少し",
+        "安い",
+        "〜くなる"
+      ],
+      "topic": "shopping",
+      "segments": [
+        {
+          "japanese": "もう少し",
+          "korean": "좀 더",
+          "type": "vocabulary",
+          "baseForm": "もう少し",
+          "concepts": [
+            "もう少し"
+          ]
+        },
+        {
+          "japanese": "安くなりませんか。",
+          "korean": "싸게 안 될까요?",
+          "type": "construction",
+          "baseForm": "安い",
+          "concepts": [
+            "安い",
+            "〜くなる"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sh-19",
+      "japanese": "これは高すぎます。",
+      "translation": "이건 너무 비싸요.",
+      "concepts": [
+        "これ",
+        "は",
+        "高い",
+        "〜すぎる"
+      ],
+      "topic": "shopping",
+      "segments": [
+        {
+          "japanese": "これ",
+          "korean": "이건",
+          "type": "vocabulary",
+          "baseForm": "これ",
+          "concepts": [
+            "これ"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "은",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "高すぎます。",
+          "korean": "너무 비싸요",
+          "type": "construction",
+          "baseForm": "高い",
+          "concepts": [
+            "高い",
+            "〜すぎる"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sh-20",
+      "japanese": "予算は五千円くらいです。",
+      "translation": "예산은 오천 엔 정도예요.",
+      "concepts": [
+        "予算",
+        "は",
+        "五千円",
+        "くらい"
+      ],
+      "topic": "shopping",
+      "segments": [
+        {
+          "japanese": "予算",
+          "korean": "예산",
+          "type": "vocabulary",
+          "baseForm": "予算",
+          "concepts": [
+            "予算"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "은",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "五千円くらいです。",
+          "korean": "오천 엔 정도예요",
+          "type": "construction",
+          "baseForm": "五千円",
+          "concepts": [
+            "五千円",
+            "くらい",
+            "です"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sh-21",
+      "japanese": "プレゼント用に包んでもらえますか。",
+      "translation": "선물용으로 포장해 주실 수 있어요?",
+      "concepts": [
+        "プレゼント用",
+        "包む",
+        "〜てもらう"
+      ],
+      "topic": "shopping",
+      "segments": [
+        {
+          "japanese": "プレゼント用に",
+          "korean": "선물용으로",
+          "type": "vocabulary",
+          "baseForm": "プレゼント用",
+          "concepts": [
+            "プレゼント用"
+          ]
+        },
+        {
+          "japanese": "包んでもらえますか。",
+          "korean": "포장해 주실 수 있어요?",
+          "type": "construction",
+          "baseForm": "包む",
+          "concepts": [
+            "包む",
+            "〜てもらう"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sh-22",
+      "japanese": "袋をもうひとつもらえますか。",
+      "translation": "봉투 하나 더 받을 수 있어요?",
+      "concepts": [
+        "袋",
+        "を",
+        "もうひとつ",
+        "もらう"
+      ],
+      "topic": "shopping",
+      "segments": [
+        {
+          "japanese": "袋",
+          "korean": "봉투",
+          "type": "vocabulary",
+          "baseForm": "袋",
+          "concepts": [
+            "袋"
+          ]
+        },
+        {
+          "japanese": "を",
+          "korean": "를",
+          "type": "particle",
+          "baseForm": "を",
+          "concepts": [
+            "を"
+          ]
+        },
+        {
+          "japanese": "もうひとつ",
+          "korean": "하나 더",
+          "type": "vocabulary",
+          "baseForm": "もうひとつ",
+          "concepts": [
+            "もうひとつ"
+          ]
+        },
+        {
+          "japanese": "もらえますか。",
+          "korean": "받을 수 있어요?",
+          "type": "construction",
+          "baseForm": "もらう",
+          "concepts": [
+            "もらう"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sh-23",
+      "japanese": "袋は要りません。",
+      "translation": "봉투는 필요 없어요.",
+      "concepts": [
+        "袋",
+        "は",
+        "要る"
+      ],
+      "topic": "shopping",
+      "segments": [
+        {
+          "japanese": "袋",
+          "korean": "봉투",
+          "type": "vocabulary",
+          "baseForm": "袋",
+          "concepts": [
+            "袋"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "는",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "要りません。",
+          "korean": "필요 없어요",
+          "type": "construction",
+          "baseForm": "要る",
+          "concepts": [
+            "要る"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sh-24",
+      "japanese": "これは返品できますか。",
+      "translation": "이거 환불 되나요?",
+      "concepts": [
+        "これ",
+        "は",
+        "返品する",
+        "できる"
+      ],
+      "topic": "shopping",
+      "segments": [
+        {
+          "japanese": "これ",
+          "korean": "이거",
+          "type": "vocabulary",
+          "baseForm": "これ",
+          "concepts": [
+            "これ"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "는",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "返品できますか。",
+          "korean": "환불 되나요?",
+          "type": "construction",
+          "baseForm": "返品する",
+          "concepts": [
+            "返品する",
+            "できる"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sh-25",
+      "japanese": "領収書をください。",
+      "translation": "영수증 주세요.",
+      "concepts": [
+        "領収書",
+        "を",
+        "ください"
+      ],
+      "topic": "shopping",
+      "segments": [
+        {
+          "japanese": "領収書",
+          "korean": "영수증",
+          "type": "vocabulary",
+          "baseForm": "領収書",
+          "concepts": [
+            "領収書"
+          ]
+        },
+        {
+          "japanese": "を",
+          "korean": "를",
+          "type": "particle",
+          "baseForm": "を",
+          "concepts": [
+            "を"
+          ]
+        },
+        {
+          "japanese": "ください。",
+          "korean": "주세요",
+          "type": "construction",
+          "baseForm": "ください",
+          "concepts": [
+            "ください"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sh-26",
+      "japanese": "免税できますか。",
+      "translation": "면세 되나요?",
+      "concepts": [
+        "免税する",
+        "できる"
+      ],
+      "topic": "shopping",
+      "segments": [
+        {
+          "japanese": "免税できますか。",
+          "korean": "면세 되나요?",
+          "type": "construction",
+          "baseForm": "免税する",
+          "concepts": [
+            "免税する",
+            "できる"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sh-27",
+      "japanese": "パスポートを見せてください。",
+      "translation": "여권을 보여 주세요.",
+      "concepts": [
+        "パスポート",
+        "を",
+        "見せる",
+        "〜てください"
+      ],
+      "topic": "shopping",
+      "segments": [
+        {
+          "japanese": "パスポート",
+          "korean": "여권",
+          "type": "vocabulary",
+          "baseForm": "パスポート",
+          "concepts": [
+            "パスポート"
+          ]
+        },
+        {
+          "japanese": "を",
+          "korean": "을",
+          "type": "particle",
+          "baseForm": "を",
+          "concepts": [
+            "を"
+          ]
+        },
+        {
+          "japanese": "見せてください。",
+          "korean": "보여 주세요",
+          "type": "construction",
+          "baseForm": "見せる",
+          "concepts": [
+            "見せる",
+            "〜てください"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sh-28",
+      "japanese": "現金で払います。",
+      "translation": "현금으로 낼게요.",
+      "concepts": [
+        "現金",
+        "で",
+        "払う"
+      ],
+      "topic": "shopping",
+      "segments": [
+        {
+          "japanese": "現金",
+          "korean": "현금",
+          "type": "vocabulary",
+          "baseForm": "現金",
+          "concepts": [
+            "現金"
+          ]
+        },
+        {
+          "japanese": "で",
+          "korean": "으로",
+          "type": "particle",
+          "baseForm": "で",
+          "concepts": [
+            "で"
+          ]
+        },
+        {
+          "japanese": "払います。",
+          "korean": "낼게요",
+          "type": "construction",
+          "baseForm": "払う",
+          "concepts": [
+            "払う"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sh-29",
+      "japanese": "電子マネーは使えますか。",
+      "translation": "전자화폐 쓸 수 있어요?",
+      "concepts": [
+        "電子マネー",
+        "は",
+        "使う"
+      ],
+      "topic": "shopping",
+      "segments": [
+        {
+          "japanese": "電子マネー",
+          "korean": "전자화폐",
+          "type": "vocabulary",
+          "baseForm": "電子マネー",
+          "concepts": [
+            "電子マネー"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "는",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "使えますか。",
+          "korean": "쓸 수 있어요?",
+          "type": "construction",
+          "baseForm": "使う",
+          "concepts": [
+            "使う"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sh-30",
+      "japanese": "これ、いいですね。",
+      "translation": "이거 좋네요.",
+      "concepts": [
+        "これ",
+        "いい",
+        "ですね"
+      ],
+      "topic": "shopping",
+      "segments": [
+        {
+          "japanese": "これ、",
+          "korean": "이거",
+          "type": "vocabulary",
+          "baseForm": "これ",
+          "concepts": [
+            "これ"
+          ]
+        },
+        {
+          "japanese": "いいですね。",
+          "korean": "좋네요",
+          "type": "construction",
+          "baseForm": "いい",
+          "concepts": [
+            "いい",
+            "ですね"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sh-31",
+      "japanese": "他の店も見てみます。",
+      "translation": "다른 가게도 봐 볼게요.",
+      "concepts": [
+        "他の店",
+        "も",
+        "見る",
+        "〜てみる"
+      ],
+      "topic": "shopping",
+      "segments": [
+        {
+          "japanese": "他の店",
+          "korean": "다른 가게",
+          "type": "vocabulary",
+          "baseForm": "他の店",
+          "concepts": [
+            "他の店"
+          ]
+        },
+        {
+          "japanese": "も",
+          "korean": "도",
+          "type": "particle",
+          "baseForm": "も",
+          "concepts": [
+            "も"
+          ]
+        },
+        {
+          "japanese": "見てみます。",
+          "korean": "봐 볼게요",
+          "type": "construction",
+          "baseForm": "見る",
+          "concepts": [
+            "見る",
+            "〜てみる"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sh-32",
+      "japanese": "考えてから決めます。",
+      "translation": "생각해 보고 정할게요.",
+      "concepts": [
+        "考える",
+        "〜てから",
+        "決める"
+      ],
+      "topic": "shopping",
+      "segments": [
+        {
+          "japanese": "考えてから",
+          "korean": "생각해 보고",
+          "type": "construction",
+          "baseForm": "考える",
+          "concepts": [
+            "考える",
+            "〜てから"
+          ]
+        },
+        {
+          "japanese": "決めます。",
+          "korean": "정할게요",
+          "type": "construction",
+          "baseForm": "決める",
+          "concepts": [
+            "決める"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sh-33",
+      "japanese": "これは人気の商品ですか。",
+      "translation": "이거 인기 상품이에요?",
+      "concepts": [
+        "これ",
+        "は",
+        "人気",
+        "商品"
+      ],
+      "topic": "shopping",
+      "segments": [
+        {
+          "japanese": "これ",
+          "korean": "이거",
+          "type": "vocabulary",
+          "baseForm": "これ",
+          "concepts": [
+            "これ"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "는",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "人気の商品ですか。",
+          "korean": "인기 상품이에요?",
+          "type": "construction",
+          "baseForm": "人気",
+          "concepts": [
+            "人気",
+            "商品",
+            "です"
+          ]
+        }
+      ],
+      "reading": "これはにんきのしょうひんですか。"
+    },
+    {
+      "id": "sh-34",
+      "japanese": "新商品はありますか。",
+      "translation": "신상품 있어요?",
+      "concepts": [
+        "新商品",
+        "は",
+        "ある"
+      ],
+      "topic": "shopping",
+      "segments": [
+        {
+          "japanese": "新商品",
+          "korean": "신상품",
+          "type": "vocabulary",
+          "baseForm": "新商品",
+          "concepts": [
+            "新商品"
+          ]
+        },
+        {
+          "japanese": "はありますか。",
+          "korean": "있어요?",
+          "type": "construction",
+          "baseForm": "ある",
+          "concepts": [
+            "は",
+            "ある"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sh-35",
+      "japanese": "おすすめの商品はどれですか。",
+      "translation": "추천 상품이 어느 거예요?",
+      "concepts": [
+        "おすすめ",
+        "商品",
+        "は",
+        "どれ"
+      ],
+      "topic": "shopping",
+      "segments": [
+        {
+          "japanese": "おすすめの商品",
+          "korean": "추천 상품",
+          "type": "vocabulary",
+          "baseForm": "おすすめの商品",
+          "concepts": [
+            "おすすめ",
+            "商品"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "가",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "どれですか。",
+          "korean": "어느 거예요?",
+          "type": "construction",
+          "baseForm": "どれ",
+          "concepts": [
+            "どれ",
+            "です"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sh-36",
+      "japanese": "これは何でできていますか。",
+      "translation": "이거 뭘로 만들어졌어요?",
+      "concepts": [
+        "これ",
+        "は",
+        "何",
+        "できる"
+      ],
+      "topic": "shopping",
+      "segments": [
+        {
+          "japanese": "これ",
+          "korean": "이거",
+          "type": "vocabulary",
+          "baseForm": "これ",
+          "concepts": [
+            "これ"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "는",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "何でできていますか。",
+          "korean": "뭘로 만들어졌어요?",
+          "type": "construction",
+          "baseForm": "できる",
+          "concepts": [
+            "何",
+            "できる"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sh-37",
+      "japanese": "手洗いが必要ですか。",
+      "translation": "손빨래가 필요해요?",
+      "concepts": [
+        "手洗い",
+        "が",
+        "必要"
+      ],
+      "topic": "shopping",
+      "segments": [
+        {
+          "japanese": "手洗い",
+          "korean": "손빨래",
+          "type": "vocabulary",
+          "baseForm": "手洗い",
+          "concepts": [
+            "手洗い"
+          ]
+        },
+        {
+          "japanese": "が",
+          "korean": "가",
+          "type": "particle",
+          "baseForm": "が",
+          "concepts": [
+            "が"
+          ]
+        },
+        {
+          "japanese": "必要ですか。",
+          "korean": "필요해요?",
+          "type": "construction",
+          "baseForm": "必要",
+          "concepts": [
+            "必要",
+            "です"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sh-38",
+      "japanese": "これは日本製ですか。",
+      "translation": "이거 일본산이에요?",
+      "concepts": [
+        "これ",
+        "は",
+        "日本製"
+      ],
+      "topic": "shopping",
+      "segments": [
+        {
+          "japanese": "これ",
+          "korean": "이거",
+          "type": "vocabulary",
+          "baseForm": "これ",
+          "concepts": [
+            "これ"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "는",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "日本製ですか。",
+          "korean": "일본산이에요?",
+          "type": "construction",
+          "baseForm": "日本製",
+          "concepts": [
+            "日本製",
+            "です"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sh-39",
+      "japanese": "在庫はありますか。",
+      "translation": "재고 있어요?",
+      "concepts": [
+        "在庫",
+        "は",
+        "ある"
+      ],
+      "topic": "shopping",
+      "segments": [
+        {
+          "japanese": "在庫",
+          "korean": "재고",
+          "type": "vocabulary",
+          "baseForm": "在庫",
+          "concepts": [
+            "在庫"
+          ]
+        },
+        {
+          "japanese": "はありますか。",
+          "korean": "있어요?",
+          "type": "construction",
+          "baseForm": "ある",
+          "concepts": [
+            "は",
+            "ある"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sh-40",
+      "japanese": "取り寄せできますか。",
+      "translation": "주문 제작 되나요?",
+      "concepts": [
+        "取り寄せる",
+        "できる"
+      ],
+      "topic": "shopping",
+      "segments": [
+        {
+          "japanese": "取り寄せできますか。",
+          "korean": "주문 제작 되나요?",
+          "type": "construction",
+          "baseForm": "取り寄せる",
+          "concepts": [
+            "取り寄せる",
+            "できる"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sh-41",
+      "japanese": "配送してもらえますか。",
+      "translation": "배송해 주실 수 있어요?",
+      "concepts": [
+        "配送する",
+        "〜てもらう"
+      ],
+      "topic": "shopping",
+      "segments": [
+        {
+          "japanese": "配送してもらえますか。",
+          "korean": "배송해 주실 수 있어요?",
+          "type": "construction",
+          "baseForm": "配送する",
+          "concepts": [
+            "配送する",
+            "〜てもらう"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sh-42",
+      "japanese": "海外発送はできますか。",
+      "translation": "해외 배송 되나요?",
+      "concepts": [
+        "海外発送",
+        "は",
+        "できる"
+      ],
+      "topic": "shopping",
+      "segments": [
+        {
+          "japanese": "海外発送",
+          "korean": "해외 배송",
+          "type": "vocabulary",
+          "baseForm": "海外発送",
+          "concepts": [
+            "海外発送"
+          ]
+        },
+        {
+          "japanese": "はできますか。",
+          "korean": "되나요?",
+          "type": "construction",
+          "baseForm": "できる",
+          "concepts": [
+            "は",
+            "できる"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sh-43",
+      "japanese": "これください、ふたつ。",
+      "translation": "이거 주세요, 두 개요.",
+      "concepts": [
+        "これ",
+        "ください",
+        "ふたつ"
+      ],
+      "topic": "shopping",
+      "segments": [
+        {
+          "japanese": "これください、",
+          "korean": "이거 주세요,",
+          "type": "construction",
+          "baseForm": "ください",
+          "concepts": [
+            "これ",
+            "ください"
+          ]
+        },
+        {
+          "japanese": "ふたつ。",
+          "korean": "두 개요.",
+          "type": "vocabulary",
+          "baseForm": "ふたつ",
+          "concepts": [
+            "ふたつ"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sh-44",
+      "japanese": "全部でいくらになりますか。",
+      "translation": "전부 얼마예요?",
+      "concepts": [
+        "全部",
+        "いくら",
+        "なる"
+      ],
+      "topic": "shopping",
+      "segments": [
+        {
+          "japanese": "全部で",
+          "korean": "전부",
+          "type": "vocabulary",
+          "baseForm": "全部で",
+          "concepts": [
+            "全部"
+          ]
+        },
+        {
+          "japanese": "いくらになりますか。",
+          "korean": "얼마예요?",
+          "type": "construction",
+          "baseForm": "いくら",
+          "concepts": [
+            "いくら",
+            "なる"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sh-45",
+      "japanese": "レジはどこですか。",
+      "translation": "계산대는 어디예요?",
+      "concepts": [
+        "レジ",
+        "は",
+        "どこ"
+      ],
+      "topic": "shopping",
+      "segments": [
+        {
+          "japanese": "レジ",
+          "korean": "계산대",
+          "type": "vocabulary",
+          "baseForm": "レジ",
+          "concepts": [
+            "レジ"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "는",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "どこですか。",
+          "korean": "어디예요?",
+          "type": "construction",
+          "baseForm": "どこ",
+          "concepts": [
+            "どこ",
+            "ですか"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sh-46",
+      "japanese": "並んで待ってください。",
+      "translation": "줄 서서 기다려 주세요.",
+      "concepts": [
+        "並ぶ",
+        "待つ",
+        "〜てください"
+      ],
+      "topic": "shopping",
+      "segments": [
+        {
+          "japanese": "並んで",
+          "korean": "줄 서서",
+          "type": "construction",
+          "baseForm": "並ぶ",
+          "concepts": [
+            "並ぶ"
+          ]
+        },
+        {
+          "japanese": "待ってください。",
+          "korean": "기다려 주세요",
+          "type": "construction",
+          "baseForm": "待つ",
+          "concepts": [
+            "待つ",
+            "〜てください"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sh-47",
+      "japanese": "ラッピングは有料ですか。",
+      "translation": "포장은 유료예요?",
+      "concepts": [
+        "ラッピング",
+        "は",
+        "有料"
+      ],
+      "topic": "shopping",
+      "segments": [
+        {
+          "japanese": "ラッピング",
+          "korean": "포장",
+          "type": "vocabulary",
+          "baseForm": "ラッピング",
+          "concepts": [
+            "ラッピング"
+          ]
+        },
+        {
+          "japanese": "は",
+          "korean": "은",
+          "type": "particle",
+          "baseForm": "は",
+          "concepts": [
+            "は"
+          ]
+        },
+        {
+          "japanese": "有料ですか。",
+          "korean": "유료예요?",
+          "type": "construction",
+          "baseForm": "有料",
+          "concepts": [
+            "有料",
+            "です"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sh-48",
+      "japanese": "スタンプカードはありますか。",
+      "translation": "스탬프 카드 있어요?",
+      "concepts": [
+        "スタンプカード",
+        "は",
+        "ある"
+      ],
+      "topic": "shopping",
+      "segments": [
+        {
+          "japanese": "スタンプカード",
+          "korean": "스탬프 카드",
+          "type": "vocabulary",
+          "baseForm": "スタンプカード",
+          "concepts": [
+            "スタンプカード"
+          ]
+        },
+        {
+          "japanese": "はありますか。",
+          "korean": "있어요?",
+          "type": "construction",
+          "baseForm": "ある",
+          "concepts": [
+            "は",
+            "ある"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sh-49",
+      "japanese": "またこのお店に来ます。",
+      "translation": "또 이 가게에 올게요.",
+      "concepts": [
+        "また",
+        "このお店",
+        "来る"
+      ],
+      "topic": "shopping",
+      "segments": [
+        {
+          "japanese": "また",
+          "korean": "또",
+          "type": "vocabulary",
+          "baseForm": "また",
+          "concepts": [
+            "また"
+          ]
+        },
+        {
+          "japanese": "このお店に",
+          "korean": "이 가게에",
+          "type": "vocabulary",
+          "baseForm": "このお店",
+          "concepts": [
+            "このお店"
+          ]
+        },
+        {
+          "japanese": "来ます。",
+          "korean": "올게요",
+          "type": "construction",
+          "baseForm": "来る",
+          "concepts": [
+            "来る"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sh-50",
+      "japanese": "ありがとうございました。",
+      "translation": "감사합니다.",
+      "concepts": [
+        "ありがとうございます"
+      ],
+      "topic": "shopping",
+      "segments": [
+        {
+          "japanese": "ありがとうございました。",
+          "korean": "감사합니다",
+          "type": "construction",
+          "baseForm": "ありがとうございます",
+          "concepts": [
+            "ありがとうございます"
+          ]
+        }
       ]
     }
   ]
