@@ -188,6 +188,11 @@ export function SentenceCard({ sentence, viewOnly, onAnswer, onSwipe }: Props) {
           japanese={sentence.japanese}
           naturalKorean={sentence.translation}
           revealed={revealed}
+          // Sharing the card's own player (rather than a second instance
+          // inside SegmentedTranslation) means tapping a word cuts off the
+          // sentence's own audio if it's still playing, instead of the two
+          // overlapping — play() already stops whatever came before.
+          onWordSaved={(word) => void play(word).catch(() => {})}
         />
       </div>
 

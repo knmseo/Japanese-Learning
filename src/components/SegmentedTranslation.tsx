@@ -9,6 +9,10 @@ type Props = {
   japanese: string
   naturalKorean: string
   revealed: boolean
+  /** Fired the moment a segment becomes highlighted (saved) — not on
+   * deselecting it, and not on every tap. Lets the card speak the word the
+   * instant it's picked out, the same way the Saved Words overlay does. */
+  onWordSaved?: (japanese: string) => void
 }
 
 /** Matches the sentence card's saved state — the palette's salmon. */
@@ -38,7 +42,7 @@ const KR_ROW_HEIGHT = 22
  * Study-time only ever reads cached segmentation — decks ship pre-segmented,
  * so this never calls an LLM.
  */
-export function SegmentedTranslation({ japanese, naturalKorean, revealed }: Props) {
+export function SegmentedTranslation({ japanese, naturalKorean, revealed, onWordSaved }: Props) {
   const [segments, setSegments] = useState<SentenceSegment[] | null>(null)
   const [savedKeys, setSavedKeys] = useState<Set<string>>(new Set())
   const [sourceHash, setSourceHash] = useState<string | null>(null)
@@ -85,6 +89,9 @@ export function SegmentedTranslation({ japanese, naturalKorean, revealed }: Prop
       })
     } else {
       playSound('wordSave')
+      // Fired before the save resolves — the highlight and the pronunciation
+      // should land together, not wait on an IndexedDB write in between.
+      onWordSaved?.(segment.japanese)
       await saveSegment(segment, sourceHash)
       setSavedKeys((prev) => new Set(prev).add(segment.japanese))
     }
